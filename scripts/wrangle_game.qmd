@@ -1,0 +1,54 @@
+---
+title: "Wrangling Steam Dataset"
+subtitle: "From JSON to table"
+author: "John Lim"
+date: "2025-04-16"
+format: pdf
+---
+
+The purpose of this file is to produce RDS files that wrangles data collected in the JSON file of the Steam games dataset. The CSV file incorrectly shifts columns, so we must start from the source. 
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(eval = FALSE, message = FALSE)
+
+# improve digit and NA display 
+options(scipen = 1, knitr.kable.NA = '')
+
+# load packages
+library(tidyverse)
+library(jsonlite)
+library(readr)
+```
+
+```{r}
+#| label: read-files
+
+# after reading csv, we can see at later observations, the data is shifted
+games_csv <- read_csv("../data/raw/games.csv")
+
+# turn json data into dataframe
+# flip the rows and columns
+games_json <- read_json("../data/raw/games.json")
+games_transpose <- purrr::transpose(games_json)
+games_tibble <- games_transpose |>
+  as_tibble()
+
+```
+
+```{r}
+#| label: example-graphs
+
+
+```
+
+```{r}
+#| label: saving-data
+
+saveRDS(games_tibble, file = "../data/processed/clean_games.RDS")
+
+```
+
+
