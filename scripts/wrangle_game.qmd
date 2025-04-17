@@ -27,7 +27,7 @@ library(readr)
 #| label: read-files
 
 # after reading csv, we can see at later observations, the data is shifted
-games_csv <- read_csv("../data/raw/games.csv")
+#games_csv <- read_csv("../data/raw/games.csv")
 
 # turn json data into dataframe
 # flip the rows and columns
@@ -41,6 +41,14 @@ games_tibble <- games_transpose |>
 ```{r}
 #| label: example-graphs
 
+clean <- function(x) {
+  x <- x |> str_replace_all("list\\(","")
+  x <- x |> str_replace_all("\\)","")
+  x <- x |> str_replace_all('\\"',"")
+}
+games_tibble <- lapply(games_tibble, paste0)
+games_tibble <- lapply(games_tibble,clean)
+games_tibble <- games_tibble |> as_tibble()
 
 ```
 
