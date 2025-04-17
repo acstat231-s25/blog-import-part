@@ -1,7 +1,7 @@
 ---
 title: "Wrangling Steam Dataset"
 subtitle: "From JSON to table"
-author: "John Lim"
+author: "John Lim, Surya Rao, Tiffany Sun"
 date: "2025-04-16"
 format: pdf
 ---
@@ -21,34 +21,50 @@ options(scipen = 1, knitr.kable.NA = '')
 library(tidyverse)
 library(jsonlite)
 library(readr)
+library(purrr)
 ```
 
 ```{r}
 #| label: read-files
 
 # after reading csv, we can see at later observations, the data is shifted
-#games_csv <- read_csv("../data/raw/games.csv")
+# games_csv <- read_csv("../data/raw/games.csv")
 
 # turn json data into dataframe
-# flip the rows and columns
 games_json <- read_json("../data/raw/games.json")
-games_transpose <- purrr::transpose(games_json)
+# flip the rows and columns since we want each observation as own row
+games_transpose <- transpose(games_json)
+# turn into data table that we can work with
 games_tibble <- games_transpose |>
   as_tibble()
 
 ```
 
 ```{r}
-#| label: example-graphs
+#| label: clean-table
 
+# make a function that will clean up the string after condensing list
 clean <- function(x) {
-  x <- x |> str_replace_all("list\\(","")
-  x <- x |> str_replace_all("\\)","")
-  x <- x |> str_replace_all('\\"',"")
+  x <- x |> str_replace_all("list\\(","") |> 
+    str_replace_all("\\)","") |> 
+    str_replace_all('\\"',"")
 }
-games_tibble <- lapply(games_tibble, paste0)
-games_tibble <- lapply(games_tibble,clean)
-games_tibble <- games_tibble |> as_tibble()
+
+# use dplyr 
+games_clean <- games_tibble |>
+  mutate(across(everything(),
+                ~ .x |>
+                  map(~ paste0(.x, collapse = ", ")) |>
+                  clean()))
+
+glimpse(games_clean)
+
+# use lapply
+games_tibble1 <- lapply(games_tibble, paste0)
+games_tibble2 <- lapply(games_tibble1, clean)
+games_tibble3 <- games_tibble2 |> as_tibble()
+
+glimpse(games_tibble3)
 
 ```
 
