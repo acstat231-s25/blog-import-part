@@ -8,6 +8,32 @@ format: pdf
 
 The purpose of this file is to produce RDS files that wrangles data collected in the JSON file of the Steam games dataset. The CSV file incorrectly shifts columns, so we must start from the source. 
 
+name - Name of the game.
+release_data - When the game was released.
+required_age - How old to buy/play the game.
+price - How much the game costs.
+dlc_count - How many dlc's the game has.
+detailed_description, about_the_game, short_description - Information about game.
+reviews - Thoughts on the game.
+metacritic_score - Numeric score out of 100 from publications.
+achievements - Number of achievements in the game.
+recommendations - How many recommendations the game received.
+notes - Further disclaimers about the game.
+supported_languages - Languages that the game's text can be in.
+full_audio_languages - Languages that the game's audio can be in. None means no spoken language.
+developers - Who developed the game.
+publishers - Who published the game.
+categories - Groupings the game is placed into.
+genres - Type of game.
+user_score - Numeric score out of 100 from a given equation which uses user's reviews
+positive - Number of positive reviews.
+negative - Number of negative reviews.
+average_playtime_forever - Average playtime in minutes since game's release
+median_playtime_forever - Median playtime in minutes since game's release
+peak_ccu - Maximum number of concurrent users.
+tags - Different terms to describe the game--includes count as well.
+
+
 ```{r}
 #| label: setup
 #| include: false
@@ -58,6 +84,8 @@ clean <- function(x) {
 }
 
 # use dplyr functions to remove nested values
+# tags lose words, but retain quantity of each term
+# if words are needed, use lapply
 games_string <- games_tibble |>
   mutate(across(everything(),
                 ~ .x |>
