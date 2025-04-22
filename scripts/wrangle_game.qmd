@@ -36,7 +36,14 @@ games_json <- read_json("../data/raw/games.json")
 games_transpose <- transpose(games_json)
 # turn into data table with specific variables 
 games_tibble <- games_transpose |>
-  as_tibble()
+  as_tibble() |>
+  select(name, release_date, required_age, price, dlc_count,
+         detailed_description, about_the_game, short_description, reviews,
+         metacritic_score, achievements, recommendations, notes,
+         supported_languages, full_audio_languages,
+         developers, publishers, categories, genres,
+         user_score, positive, negative,
+         average_playtime_forever, median_playtime_forever, peak_ccu, tags)
 
 ```
 
@@ -50,14 +57,14 @@ clean <- function(x) {
     str_replace_all('\\"',"")
 }
 
-# use dplyr 
-games_clean <- games_tibble |>
+# use dplyr functions to remove nested values
+games_string <- games_tibble |>
   mutate(across(everything(),
                 ~ .x |>
                   map(~ paste0(.x, collapse = ", ")) |>
                   clean()))
 
-glimpse(games_clean)
+#glimpse(games_string)
 
 # # use lapply
 # games_tibble1 <- lapply(games_tibble, paste0)
@@ -66,21 +73,22 @@ glimpse(games_clean)
 # 
 # glimpse(games_tibble3)
 
-data_games <- games_clean |>
-  select(name, release_date, required_age, price, dlc_count,
-         detailed_description, about_the_game, short_description,
-         metacritic_score, achievements, recommendations,
-         supported_langauges, full_audio_languages,
-         developers, publishers, categories, genres,
-         user_score, score_rank, positive, negative,
-         average_playtime_forever, median_playtime_forever, peak_ccu, tags)
+# change numeric values back into number form
+games_clean <- games_string |>
+  mutate(across(c(required_age, price, dlc_count,
+                metacritic_score, achievements, recommendations,
+                user_score, positive, negative, 
+                average_playtime_forever, median_playtime_forever,peak_ccu),
+         ~ parse_number(.x)))
 
+#glimpse(games_clean)
 ```
 
 ```{r}
 #| label: saving-data
 
-saveRDS(games_tibble, file = "../data/processed/clean_games.RDS")
+# main file
+saveRDS(games_clean, file = "../data/processed/clean_games.RDS")
 
 ```
 

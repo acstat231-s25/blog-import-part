@@ -1,0 +1,49 @@
+---
+title: "Preparing Word Analysis"
+author: ""
+date: "2025-04-24"
+format: pdf
+---
+
+The purpose of this file is to...
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(eval = FALSE, message = FALSE)
+
+# improve digit and NA display 
+options(scipen = 1, knitr.kable.NA = '')
+
+# load packages
+library(tidyverse)
+library(readr)
+library(purrr)
+```
+
+```{r}
+#| label: read-files
+
+# read clean game data 
+game_data <- readRDS("../data/processed/clean_games")
+
+```
+
+```{r}
+#| label: word-prep
+
+
+
+```
+
+
+```{r}
+#| label: saving-data
+
+# data used for cluster analysis
+saveRDS(*********, file = "../data/processed/word_data.RDS")
+
+```
+
+
