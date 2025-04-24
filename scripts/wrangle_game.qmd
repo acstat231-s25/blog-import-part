@@ -25,7 +25,6 @@ developers - Who developed the game.
 publishers - Who published the game.
 categories - Groupings the game is placed into.
 genres - Type of game.
-user_score - Numeric score out of 100 from a given equation which uses user's reviews
 positive - Number of positive reviews.
 negative - Number of negative reviews.
 average_playtime_forever - Average playtime in minutes since game's release
@@ -60,15 +59,14 @@ library(purrr)
 games_json <- read_json("../data/raw/games.json")
 # flip the rows and columns since we want each observation as own row
 games_transpose <- transpose(games_json)
-# turn into data table with specific variables 
+# turn into data table with specific variables of interest 
 games_tibble <- games_transpose |>
   as_tibble() |>
   select(name, release_date, required_age, price, dlc_count,
          detailed_description, about_the_game, short_description, reviews,
          metacritic_score, achievements, recommendations, notes,
-         supported_languages, full_audio_languages,
-         developers, publishers, categories, genres,
-         user_score, positive, negative,
+         supported_languages, full_audio_languages, developers, publishers,
+         categories, genres, positive, negative,
          average_playtime_forever, median_playtime_forever, peak_ccu, tags)
 
 ```
@@ -102,12 +100,16 @@ games_string <- games_tibble |>
 # glimpse(games_tibble3)
 
 # change numeric values back into number form
+# keep observations with descriptions and a publisher
 games_clean <- games_string |>
-  mutate(across(c(required_age, price, dlc_count,
-                metacritic_score, achievements, recommendations,
-                user_score, positive, negative, 
-                average_playtime_forever, median_playtime_forever,peak_ccu),
-         ~ parse_number(.x)))
+  mutate(across(c(required_age, price, dlc_count, metacritic_score,
+                  achievements, recommendations, positive, negative,
+                  average_playtime_forever, median_playtime_forever, peak_ccu),
+         ~ parse_number(.x))) |>
+  filter((detailed_description != "") &
+           (about_the_game != "") &
+           (short_description != "") &
+           (publishers != ""))
 
 #glimpse(games_clean)
 ```
