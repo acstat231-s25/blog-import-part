@@ -1,11 +1,16 @@
 ---
 title: "Preparing Word Analysis"
-author: ""
+author: "Tiffany Sun"
 date: "2025-04-24"
 format: pdf
 ---
 
 The purpose of this file is to...
+
+AGENDA:
+- Fix up Word Clouds 
+- Get rid of special characters and numbers
+- AFINN?
 
 ```{r}
 #| label: setup
@@ -20,6 +25,9 @@ options(scipen = 1, knitr.kable.NA = '')
 library(tidyverse)
 library(readr)
 library(purrr)
+library(tidytext)
+library(wordcloud)
+library(textdata)
 ```
 
 ```{r}
@@ -28,12 +36,58 @@ library(purrr)
 # read clean game data 
 game_data <- readRDS("../data/processed/clean_games.rds")
 
+game_description <- game_data |>
+  select(name, about_the_game)
+
 ```
 
 ```{r}
 #| label: word-prep
 
+games_words_all <- game_description |>
+  unnest_tokens(output = word, input = about_the_game)
 
+# Load `stop_words` into environment
+data(stop_words)
+
+games_words <- games_words_all |>
+  anti_join(stop_words, by="word")
+
+# test run
+games_words |>
+  # it would be the game name the user selects. but here I'll go with 
+  # "Good Knight"
+  filter(name == "Good Knight") |>
+  count(word, sort = TRUE) |>
+  slice(1:10) |>
+  ggplot(aes(x = fct_reorder(word, n), y = n, color = word, fill = word)) +
+  geom_col() +
+  # Rotate graph
+  coord_flip() +
+  guides(color = "none", 
+         fill = "none") +
+  labs(
+    x = NULL,
+    y = "Number of instances",
+    title = "The most common words in [insert game name] poems") +
+  theme_light() 
+
+```
+
+```{r}
+#| label: word cloud
+
+set.seed(28)
+
+# Create word cloud using tidyverse
+word_frequency <- games_words |>
+  filter (name == "Good Knight") |>
+  with(wordcloud(words = word, freq = n, max.words = 50))
+
+# Create word cloud using base R to reference variables directly
+wordcloud(words = word_frequency$word,
+          freq = word_frequency$n, 
+          max.words = 50)
 
 ```
 
