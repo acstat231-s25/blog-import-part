@@ -85,6 +85,15 @@ ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
 
 # 5 clusters appear to be the best
 
+# for reproducibility
+set.seed(42069777)
+
+games_kmeans5 <- game_standardized |>
+  kmeans(centers = 5, nstart = 25)
+
+games_c5 <- augment(games_kmeans5, game_data2) |>
+  rename(cluster_standardized = .cluster)
+
 ```
 
 
