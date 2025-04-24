@@ -100,13 +100,14 @@ games_string <- games_tibble |>
 # glimpse(games_tibble3)
 
 # change numeric values back into number form
-# keep english games with complete descriptions and a publisher
+# keep English games with complete descriptions and a publisher
 games_clean <- games_string |>
   mutate(across(c(required_age, price, dlc_count, metacritic_score,
                   achievements, recommendations, positive, negative,
                   average_playtime_forever, median_playtime_forever, peak_ccu),
          ~ parse_number(.x))) |>
-  # Removed game names in other languages by removing the following unicode blocks corresponding to korean, chinese, and japanese 
+  # Removed game names in other languages by removing the following unicode
+  # blocks corresponding to korean, chinese, and japanese 
   # 4E00-9FFF for CJK Unified Ideographs
   # 3000-303F for CJK Symbols and Punctuation
   # u30a0 - u30ff for Katakana Japanese
