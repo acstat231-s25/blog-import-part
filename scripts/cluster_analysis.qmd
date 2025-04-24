@@ -1,6 +1,6 @@
 ---
 title: "Preparing Cluster Analysis"
-author: ""
+author: "John Lim"
 date: "2025-04-24"
 format: pdf
 ---
@@ -26,7 +26,7 @@ library(purrr)
 #| label: read-files
 
 # read clean game data 
-game_data <- readRDS("../data/processed/clean_games")
+game_data <- readRDS("../data/processed/clean_games.rds")
 
 ```
 
