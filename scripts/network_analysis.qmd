@@ -1,6 +1,6 @@
 ---
 title: "Preparing Network Analysis"
-author: ""
+author: "Surya Rao"
 date: "2025-04-24"
 format: pdf
 ---
@@ -31,10 +31,11 @@ game_data <- readRDS("../data/processed/clean_games.rds")
 ```
 
 ```{r}
-#| label: word-prep
-
-
-
+#| label: network-prep
+game_data <- game_data |> arrange(desc(metacritic_score))
+short_game_data <- game_data |> slice_head(n = 40) 
+short_game_data <- short_game_data |> mutate(isFree = case_when(price == 0 ~ "true",
+                                                                .default = 'false'))
 ```
 
 
