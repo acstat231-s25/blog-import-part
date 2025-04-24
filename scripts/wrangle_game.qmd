@@ -106,13 +106,18 @@ games_clean <- games_string |>
                   achievements, recommendations, positive, negative,
                   average_playtime_forever, median_playtime_forever, peak_ccu),
          ~ parse_number(.x))) |>
-  filter(str_detect(name, "[:alpha:]") &
+  # Removed game names in other languages by removing the following unicode blocks corresponding to korean, chinese, and japanese 
+  # 4E00-9FFF for CJK Unified Ideographs
+  # 3000-303F for CJK Symbols and Punctuation
+  # u30a0 - u30ff for Katakana Japanese
+  # u3040-u309f for Hiragana Japanese
+  # UAC00-UD7AF for Hangul Syllable
+  filter(!(str_detect(name, "[\U4E00-\U9FFF\U3000-\U303F-\u30a0-\u30ff\u3040-\u309f-\UAC00-\UD7AF]")) &
            detailed_description != "" &
            about_the_game != "" &
            short_description != "" &
            publishers != "")
   
-
 #glimpse(games_clean)
 ```
 
