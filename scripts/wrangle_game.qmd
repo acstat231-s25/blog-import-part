@@ -66,7 +66,7 @@ games_tibble <- games_transpose |>
          detailed_description, about_the_game, short_description, reviews,
          metacritic_score, achievements, recommendations, notes,
          supported_languages, full_audio_languages, developers, publishers,
-         categories, genres, positive, negative,
+         categories, genres, positive, negative, estimated_owners,
          average_playtime_forever, median_playtime_forever, peak_ccu, tags)
 
 ```
@@ -100,16 +100,18 @@ games_string <- games_tibble |>
 # glimpse(games_tibble3)
 
 # change numeric values back into number form
-# keep observations with descriptions and a publisher
+# keep english games with complete descriptions and a publisher
 games_clean <- games_string |>
   mutate(across(c(required_age, price, dlc_count, metacritic_score,
                   achievements, recommendations, positive, negative,
                   average_playtime_forever, median_playtime_forever, peak_ccu),
          ~ parse_number(.x))) |>
-  filter((detailed_description != "") &
-           (about_the_game != "") &
-           (short_description != "") &
-           (publishers != ""))
+  filter(str_detect(name, "[:alpha:]") &
+           detailed_description != "" &
+           about_the_game != "" &
+           short_description != "" &
+           publishers != "")
+  
 
 #glimpse(games_clean)
 ```
