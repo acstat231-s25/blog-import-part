@@ -1,11 +1,11 @@
 ---
-title: "Title"
-subtitle: "Optional subtitle"
+title: "Steam Games Analysis"
+subtitle: "Clustering, Word Analysis, and Network Building"
 author: 
 - "Tiffany Sun"
 - "John Lim"
 - "Surya Rao"
-abstract: "A brief abstract summarizing your project is required here. This abstract, along with the first image or figure in your blog, will be used as a preview to your blog on the course's landing page for all the blogs."
+abstract: "Steam is a platform that hosts games. Tens of thousands of games are currently on the platform, with additional information. Our goals are to...--------A brief abstract summarizing your project is required here. This abstract, along with the first image or figure in your blog, will be used as a preview to your blog on the course's landing page for all the blogs."
 ---
 
 ```{r}
