@@ -117,7 +117,9 @@ games_clean <- games_string |>
            detailed_description != "" &
            about_the_game != "" &
            short_description != "" &
-           publishers != "")
+           publishers != "") |>
+  arrange(desc(recommendations), desc(positive), desc(negative)) |>
+  distinct(name, .keep_all = TRUE)
   
 #glimpse(games_clean)
 ```
