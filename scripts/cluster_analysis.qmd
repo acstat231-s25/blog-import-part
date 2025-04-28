@@ -100,6 +100,23 @@ games_kmeans5 <- game_standardized |>
 
 games_c5 <- augment(games_kmeans5, game_data2) |>
   rename(cluster_standardized = .cluster)
+
+games_kmeans5$size
+games_kmeans5$centers
+
+# look at these clusters, then give some specific examples
+# include centroids on plots
+
+# Cluster 1 appears to be: High metacritic_score, high price
+
+# Cluster 2 appears to be: high age, higher prices, higher metacritic scores (not as high as c1), high recommendations
+
+# Cluster 3 appears to be: low net review ratio
+
+# Cluster 4 appears to be: very average, except for higher net review ratio z
+
+# Cluster 5 appears to be: high dlc, high achievements, high playtime, high ccu
+
 ```
 
 ```{r}
@@ -111,7 +128,7 @@ games_c5 |>
          achievements, recommendations,
          median_playtime_forever, peak_ccu, net_review_ratio, 
          cluster_standardized) |>
-ggpairs(aes(color = cluster_standardized), 
+ggpairs(aes(color = cluster_standardized),
         upper = list(continuous = "blank"), 
         progress = FALSE) +
   theme(text = element_text(size = 8))
