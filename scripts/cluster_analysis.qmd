@@ -36,15 +36,21 @@ game_data <- readRDS("../data/processed/clean_games.rds")
 ```{r}
 #| label: cluster-prep
 
-# get net rating
+# keep games that people have actually reviewed
+# create game rating metric that describes how people think of games
+# find net review rating, then divide by total reviews to get the ratio
+# values range from -1 to 1, where -1 means all reviews were negative,
+# 0 means there were an equal number of positive and negative reviews,
+# and 1 means all reviews were positive
 game_data2 <- game_data |>
-  mutate(net_review = positive + negative)
+  filter(positive != 0 | negative !=0) |>
+  mutate(net_review_ratio = (positive - negative) / (positive + negative))
 
 # get quantitative variables that I want to use for clustering
 game_quant <- game_data2 |>
   select(required_age, price, dlc_count, metacritic_score,
          achievements, recommendations,
-         median_playtime_forever, peak_ccu, net_review) |>
+         median_playtime_forever, peak_ccu, net_review_ratio) |>
   drop_na()
 
 # glimpse(game_quant)
@@ -83,7 +89,8 @@ ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
 ```{r}
 #| label: fit-cluster
 
-# 5 clusters appear to be the best
+# there appears to be a reasonable "elbow" bend at 5 clusters
+# so, I will continue with 5
 
 # for reproducibility
 set.seed(42069777)
@@ -93,15 +100,30 @@ games_kmeans5 <- game_standardized |>
 
 games_c5 <- augment(games_kmeans5, game_data2) |>
   rename(cluster_standardized = .cluster)
-
 ```
+
+```{r}
+#| label: scatterplot-matrix
+
+# create scatterplot matrix of clusters
+games_c5 |>
+  select(required_age, price, dlc_count, metacritic_score,
+         achievements, recommendations,
+         median_playtime_forever, peak_ccu, net_review_ratio, 
+         cluster_standardized) |>
+ggpairs(aes(color = cluster_standardized), 
+        upper = list(continuous = "blank"), 
+        progress = FALSE) +
+  theme(text = element_text(size = 8))
+```
+
 
 
 ```{r}
 #| label: saving-data
 
 # data used for cluster analysis
-saveRDS(*******, file = "../data/processed/cluster_data.RDS")
+saveRDS(games_c5, file = "../data/processed/cluster_data.RDS")
 
 ```
 
