@@ -5,7 +5,7 @@ author:
 - "Tiffany Sun"
 - "John Lim"
 - "Surya Rao"
-abstract: "Steam is a platform that hosts games. Tens of thousands of games are currently on the platform, with additional information. Our goals are to...--------A brief abstract summarizing your project is required here. This abstract, along with the first image or figure in your blog, will be used as a preview to your blog on the course's landing page for all the blogs."
+abstract: "There are tens of thousands of video games in the world. Through techniques for unsupervised learning, text analysis, and network science, we hope to uncover similarities, patterns, and connections between Steam games.--------A brief abstract summarizing your project is required here. This abstract, along with the first image or figure in your blog, will be used as a preview to your blog on the course's landing page for all the blogs."
 ---
 
 ```{r}
@@ -22,6 +22,10 @@ library(kableExtra)
 ```
 
 # Getting started
+
+Steam is a platform that hosts games. Tens of thousands of games are currently on the platform, with additional information. Our goals are to...
+
+
 
 This is an example of a Quarto website. All the [Quarto markdown features](https://quarto.org/docs/authoring/markdown-basics.html) we learned for formatting text, adding headings and subheadings, adding code and output, adding labels and captions and whatnot work as usual. 
 
