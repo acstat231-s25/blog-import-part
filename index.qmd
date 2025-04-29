@@ -5,7 +5,7 @@ author:
 - "Tiffany Sun"
 - "John Lim"
 - "Surya Rao"
-abstract: "There are tens of thousands of video games in the world. Through techniques for unsupervised learning, text analysis, and network science, we hope to uncover similarities, patterns, and connections between video games on the gaming platform Steam.--------A brief abstract summarizing your project is required here. This abstract, along with the first image or figure in your blog, will be used as a preview to your blog on the course's landing page for all the blogs."
+abstract: "There are tens of thousands of video games in the world. Through techniques for unsupervised learning, text analysis, and network science, we hope to uncover similarities, patterns, and connections between video games uploaded to the gaming platform Steam."
 ---
 
 ```{r}
@@ -21,19 +21,15 @@ library(knitr)
 library(kableExtra)
 ```
 
+![Image courtesy of steampowered.com](images/steam_image.jpg "Title: Steam Logo")
+
 # Getting started
-![Image courtesy of steam.com](images/steam_image.jpg "Title: Steam Logo")
 
+Steam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset, @martin_bustos_roman_2022, which we used to begin our guided analysis of the many games on the high-esteemed platform.
 
-Steam is a platform that hosts games. Tens of thousands of games are currently on the platform, with additional information. Our goals are to...
+# Data
 
-
-
-
-We gathered our data from @martin_bustos_roman_2022.
-
-
-This is an example of a Quarto website. All the [Quarto markdown features](https://quarto.org/docs/authoring/markdown-basics.html) we learned for formatting text, adding headings and subheadings, adding code and output, adding labels and captions and whatnot work as usual. 
+More aobut the data... what did we do, what did we wrangle....
 
 
 ## Website project structure
