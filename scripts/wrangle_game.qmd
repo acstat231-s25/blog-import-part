@@ -85,7 +85,7 @@ clean <- function(x) {
 # tags lose words, but retain quantity of each term
 # if words are needed, use lapply
 games_string <- games_tibble |>
-  mutate(across(everything(),
+  mutate(across(-c("tags"),
                 ~ .x |>
                   map(~ paste0(.x, collapse = ", ")) |>
                   clean()))
