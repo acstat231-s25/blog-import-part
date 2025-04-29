@@ -22,9 +22,15 @@ library(kableExtra)
 ```
 
 # Getting started
+![Image courtesy of steam.com](images/steam_image.jpg "Title: Steam Logo")
+
 
 Steam is a platform that hosts games. Tens of thousands of games are currently on the platform, with additional information. Our goals are to...
 
+
+
+
+We gathered our data from @martin_bustos_roman_2022.
 
 
 This is an example of a Quarto website. All the [Quarto markdown features](https://quarto.org/docs/authoring/markdown-basics.html) we learned for formatting text, adding headings and subheadings, adding code and output, adding labels and captions and whatnot work as usual. 
