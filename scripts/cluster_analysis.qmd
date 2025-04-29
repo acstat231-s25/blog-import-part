@@ -23,6 +23,7 @@ library(purrr)
 library(broom)
 library(ggrepel)
 library(GGally)
+library(kableExtra)
 ```
 
 ```{r}
@@ -102,7 +103,11 @@ games_c5 <- augment(games_kmeans5, game_data2) |>
   rename(cluster_standardized = .cluster)
 
 games_kmeans5$size
-games_kmeans5$centers
+games_kmeans5$centers |>
+  kable(booktabs = TRUE,
+        col.names = c("Required Age", "Price", "DLC Count", "Metacritic Score", "Achievements", "Recommendations", "Median Playtime Forever", "Peak CCU", "Net Review Ratio"),
+        caption = "Locations of Centroids based on Standardized Variables") |>
+  kable_styling()
 
 # look at these clusters, then give some specific examples
 # include centroids on plots
@@ -132,6 +137,21 @@ ggpairs(aes(color = cluster_standardized),
         upper = list(continuous = "blank"), 
         progress = FALSE) +
   theme(text = element_text(size = 8))
+
+ggplot(games_c5) +
+  geom_point(aes(x=metacritic_score, y=price, color=cluster_standardized))
+
+ggplot(games_c5) +
+  geom_point(aes(x=required_age, y=recommendations, color=cluster_standardized))
+
+ggplot(games_c5) +
+  geom_point(aes(x=net_review_ratio, y=dlc_count, color=cluster_standardized))
+
+ggplot(games_c5) +
+  geom_point(aes(x=net_review_ratio, y=peak_ccu, color=cluster_standardized))
+
+ggplot(games_c5) +
+  geom_point(aes(x=achievements, y=median_playtime_forever, color=cluster_standardized))
 ```
 
 
