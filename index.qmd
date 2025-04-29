@@ -1,5 +1,5 @@
 ---
-title: "Steam Games Analysis"
+title: "Video Game Analysis"
 subtitle: "Clustering, Word Analysis, and Network Building"
 author: 
 - "Tiffany Sun"
