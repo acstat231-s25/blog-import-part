@@ -1,3 +1,7 @@
+---
+title: "Another page"
+author: "Kat Correia"
+---
 
 This is *yet* another page that can be linked! You are not required to include more than just *index.qmd*, but you are welcome to make content on different pages, if desired. This may help with managing GitHub commits, as well. 
 
