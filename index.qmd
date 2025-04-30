@@ -1,6 +1,6 @@
 ---
 title: "Video Game Analysis"
-subtitle: "Clustering, Word Analysis, and Network Building"
+subtitle: "Unsupervised Learning, Text Analysis, and Network Science"
 author: 
 - "Tiffany Sun"
 - "John Lim"
@@ -25,7 +25,7 @@ library(kableExtra)
 
 # Getting started
 
-Steam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset, @martin_bustos_roman_2022, which we used to begin our guided analysis of the many games on the high-esteemed platform.
+Steam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset [@martin_bustos_roman_2022], which we used to begin our guided analysis of the many games on the high-esteemed platform.
 
 # Data
 
