@@ -21,14 +21,73 @@ library(GGally)
 library(kableExtra)
 ```
 
-To address the question about which video games are similar (and how), I wanted to use unsupervised learning. I will use *k*-means clustering as a way to assign video games to distinct groups, which may uncover similarities between them. 
+```{r}
+#| label: read-files
 
-For this analysis, I used 9 quantitative variables to cluster games by: the age required to play, the price, the number of DLCs, the metacritic score, the number of game achievements, the number of recommendations, the median playtime since the game's release, the highest CCU count, and the net review ratio statistic.
+# read data for clustering
+game_data <- readRDS("data/processed/clean_games.rds")
+```
 
-To determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. With too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning.
+To address the question about which video games are similar (and how), I wanted to use unsupervised learning techniques. I will use *k*-means clustering as a way to assign video games to distinct groups, which may uncover similarities between the games. 
 
-Based on the elbow plot, 5 clusters appears to be reasonably optimal as it is where the graph "bends" without becoming too many clusters.
+For this analysis, I chose 9 quantitative variables to cluster the games by: the age required to play, the price, the number of DLCs (Downloadable Content), the metacritic score, the number of game achievements, the number of recommendations, the median playtime since the game's release, the highest CCU (Concurrent User) count, and the net review ratio statistic. Since the variables on different scales (e.g. 0 to 100, -1 to 1, and 0 to 1,000,000+), it is important to standardize the variables (i.e. level the playing field). This way, the locations of the centroids will not be dominated by its relation to one variable over another when using *k*-means clustering.
+
+```{r}
+#| label: cluster-prep
+
+game_standardized <- game_data |>
+  # get quantitative variables that I want to use for clustering
+  select(required_age, price, dlc_count, metacritic_score,
+         achievements, recommendations,
+         median_playtime_forever, peak_ccu, net_review_ratio) |>
+  # make sure observations are complete
+  drop_na() |>
+  # standardize variables for clustering
+  mutate(across(everything(),
+                ~ (.x - mean(.x)) / sd(.x),
+                .names = "{.col}_z")) |>
+  select(ends_with("_z"))
+```
+
+
+To determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. However, with too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning. Therefore, based on the elbow plot, 5 clusters appears to be reasonably optimal as it is where the graph "bends" without containing too many clusters.
+
+```{r}
+#| label: elbow-plot
+#| fig-cap: "Elbow Plot Indicates Bend at 5 Clusters"
+
+# set seed for reproducibility
+set.seed(42069777)
+
+# iterate through clustering algorithm for 10 different values of k
+elbow_plot <- tibble(k = 1:10) |>
+  mutate(
+    kmeans_results = purrr::map(k, ~ kmeans(game_standardized, .x, nstart=25)),
+    glanced = purrr::map(kmeans_results, glance)) |>
+  unnest(cols = c(glanced))
+
+# construct elbow plot
+ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
+  geom_point() + 
+  geom_line() +
+  geom_point(data = (elbow_plot |> filter(k == 5)), color = "red", size = 3) +
+  scale_x_continuous(breaks = 1:10) +
+  labs(x = "Number of Clusters (k)", 
+       y = "Total Within-Cluster Sum of Squares",
+       title = "Elbow Plot with Standardized Variables") +
+  theme_classic()
+```
+
 
 ![Elbow Plot](images/elbow_plot.png "Title: Elbow Plot")
 
-a
+adasdasdadasdasda
+
+
+
+It appears that our clusters are
+
+
+
+
+A word shape can be found [first subpage](word-page.qmd)
