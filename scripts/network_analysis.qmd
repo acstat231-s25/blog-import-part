@@ -2,7 +2,7 @@
 title: "Preparing Network Analysis"
 author: "Surya Rao"
 date: "2025-04-24"
-format: pdf
+format: html
 ---
 
 The purpose of this file is to...
@@ -84,14 +84,4 @@ g<- ggraph(degreegraph, 'drl') +
 girafe(ggobj = g)
 
 ```
-
-
-```{r}
-#| label: saving-data
-
-# data used for cluster analysis
-saveRDS(*********, file = "../data/processed/network_data.RDS")
-
-```
-
 
