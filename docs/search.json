@@ -100,9 +100,9 @@
   {
     "objectID": "word-page.html",
     "href": "word-page.html",
-    "title": "Another page",
+    "title": "Text Analysis",
     "section": "",
-    "text": "This is yet another page that can be linked! You are not required to include more than just index.qmd, but you are welcome to make content on different pages, if desired. This may help with managing GitHub commits, as well."
+    "text": "There are so many games on Steam, so it is fascinating to explore the patterns, especially through text analysis. What are some of the most prevalent terms overall? Are there more positive or negative descriptive terms? What patterns do these prevalent terms tell?\nThe visualizations below seek to address such questions.\n\n\n\n\n\n\nNote\n\n\n\nDisclaimer: Visualizations exclude most games in other languages.\n\n\n\nWord CloudSentimental Circle\n\n\nThis word cloud represents words in all Steam games’ descriptions excluding those of other languages. Hover to see the prevalence of each word.\n\n\n\n\n\n\n\n\nThis distribution circle explores the overall distribution of words in terms of sentiment values. Inward streaks in orange represent words with negative sentimental values. Outward streaks in blue represent words with positive sentimental values."
   },
   {
     "objectID": "word-page.html#sec-note",
@@ -124,5 +124,19 @@
     "title": "Top 40 Steam Games by Metacritic Score",
     "section": "",
     "text": "The network shows a few interesting things about the top Metacritic rated games. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. The edges demonstrate a connection between two games via shared tags. The more shared tags, the bluer the color of the edge is and the thicker it is. Games with a higher weighted degree shared more connections, which were weighted by the number of tags for each edge. One thing I noticed were action games in famous high budget series like GTA, Red Dead Redemption and the Elder Scrolls had higher degree centrality while games in other genres like the Baseball game and Microsoft Flight simulator had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores."
+  },
+  {
+    "objectID": "word-page.html#overall-analysis",
+    "href": "word-page.html#overall-analysis",
+    "title": "Text Analysis",
+    "section": "",
+    "text": "There are so many games on Steam, so it is fascinating to explore the patterns, especially through text analysis. What are some of the most prevalent terms overall? Are there more positive or negative descriptive terms? What patterns do these prevalent terms tell?\nThe visualizations below seek to address such questions.\n\n\n\n\n\n\nNote\n\n\n\nDisclaimer: Visualizations exclude most games in other languages.\n\n\n\nWord CloudSentimental Circle\n\n\nThis word cloud represents words in all Steam games’ descriptions excluding those of other languages. Hover to see the prevalence of each word.\n\n\n\n\n\n\n\n\nThis distribution circle explores the overall distribution of words in terms of sentiment values. Inward streaks in orange represent words with negative sentimental values. Outward streaks in blue represent words with positive sentimental values."
+  },
+  {
+    "objectID": "word-page.html#game-specific-analysis",
+    "href": "word-page.html#game-specific-analysis",
+    "title": "Text Analysis",
+    "section": "Game-Specific Analysis",
+    "text": "Game-Specific Analysis\nWhile it can be informative to see patterns and trends from a VERY big picture, potential crucial, small details may go unnoticed.\n\nElder Scrolls vs. Grand Auto Theft?\nIf you explored Surya’s Top 40 Highest Rated Games Network, you’ll notice that game series Elder Scrolls and Grand Auto Theft are the top Metacritic rated games. I’m curious as to see what textual commonalities they share. So…\nNote: Somehow when you hover, the terms’ values correspond to their absolute values. Refer to the y-axis for their true values. (Still a WIP)\n\nElder Scrolls IV Deluxe Word CloudElder Scrolls IV Deluxe Sentiment Analysis\n\n\n\n\n\n\n\n\n\n\nHover to see the word associated with the value.\n\n\n\n\n\n\n\n\n\n\nGrand Theft Auto III Word CloudGrand Theft Auto III Sentiment Analysis\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIt’s interesting to see that while both games differ in terms of settings and their overall themes, they share several terms, one especially is “world”. Other terms such as “characters” and “explore” hint their similarity as games that empower players to roam in their respective realms and engage in roleplaying. Perhaps this similarity also contribute to their statuses as top rated games."
   }
 ]
