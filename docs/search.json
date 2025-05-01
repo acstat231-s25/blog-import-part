@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Video Game Analysis",
     "section": "",
-    "text": "Image courtesy of steampowered.com"
+    "text": "Image courtesy of steampowered.com\n\n\n\nIntroduction\nSteam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset (Roman 2022), which we used to begin our guided analysis of the many games on the high-esteemed platform.\n\n\nData\nWe got our data from a Kaggle dataset that got data from Steams API and scraped data from a website named Steam Spy. We downloaded this data and cleaned it up by making sure numbers were numeric variables, removing games in other languages and getting variables out of a list format they were not supposed to be in.\n\n\n\n\n\nReferences\n\nRoman, M. B. (2022), “Steam games dataset,” Kaggle. https://doi.org/10.34740/KAGGLE/DS/2109585."
   },
   {
     "objectID": "index.html#website-project-structure",
