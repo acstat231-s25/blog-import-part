@@ -1,8 +1,7 @@
 ---
-title: "Word Analysis"
+title: "Text Analysis"
 author: "Tiffany Sun"
 ---
-
 
 ```{r}
 #| label: setup
