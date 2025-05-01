@@ -21,6 +21,14 @@ library(GGally)
 library(kableExtra)
 ```
 
-To address the question about which video games are similar (and how), I wanted to use unsupervised learning. I will use *k*-means clustering as a way to assign video games to distinct groups. similar 
+To address the question about which video games are similar (and how), I wanted to use unsupervised learning. I will use *k*-means clustering as a way to assign video games to distinct groups, which may uncover similarities between them. 
+
+For this analysis, I used 9 quantitative variables to cluster games by: the age required to play, the price, the number of DLCs, the metacritic score, the number of game achievements, the number of recommendations, the median playtime since the game's release, the highest CCU count, and the net review ratio statistic.
+
+To determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. With too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning.
+
+Based on the elbow plot, 5 clusters appears to be reasonably optimal as it is where the graph "bends" without becoming too many clusters.
 
 ![Elbow Plot](images/elbow_plot.png "Title: Elbow Plot")
+
+a
