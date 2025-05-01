@@ -84,7 +84,10 @@ ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
   geom_line() +
   scale_x_continuous(breaks = 1:10) +
   labs(x = "Number of clusters (k)", 
-       y = "Total within-cluster sum of squares")
+       y = "Total within-cluster sum of squares",
+       title = "Elbow Plot")
+# save image of elbow plot
+ggsave("../images/elbowplot.png")
 ```
 
 ```{r}

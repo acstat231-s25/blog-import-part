@@ -60,9 +60,11 @@ game_standardized <- game_quant |>
 
 ```
 
+To address the question about which video games are similar (and how), I wanted to use unsupervised learning. I will use *k*-means clustering as a way to assign video games to distinct groups. similar 
 ```{r}
-#| label: idk
-#| 
+#| label: elbow-plot
+#| fig-cap: "Elbow Plot"
+
 # set seed for reproducibility
 set.seed(42069777)
 
@@ -74,19 +76,11 @@ elbow_plot <- tibble(k = 1:10) |>
   unnest(cols = c(glanced))
 
 # construct elbow plot
-
-
-```
-
-Hello world
-```{r}
-#| label: elbow-plot
-#| fig-cap: "Elbow Plot"
-
 ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
   geom_point() + 
   geom_line() +
   scale_x_continuous(breaks = 1:10) +
-  labs(x = "Number of clusters (k)", 
-       y = "Total within-cluster sum of squares")
+  labs(x = "Number of Clusters (k)", 
+       y = "Total Within-Cluster Sum of Squares",
+       title = "Elbow Plot for Games")
 ```

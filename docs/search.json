@@ -116,7 +116,7 @@
     "href": "cluster-page.html",
     "title": "Grouping Games Through Clustering",
     "section": "",
-    "text": "Hello world\n\n\n\n\n\nElbow Plot"
+    "text": "To address the question about which video games are similar (and how), I wanted to use unsupervised learning. I will use k-means clustering as a way to assign video games to distinct groups. similar\n\n\n\n\n\nElbow Plot"
   },
   {
     "objectID": "network-page.html",
