@@ -49,12 +49,11 @@ game_standardized <- game_data |>
   select(ends_with("_z"))
 ```
 
-
 To determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. However, with too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning. Therefore, based on the elbow plot, 5 clusters appears to be reasonably optimal as it is where the graph "bends" without containing too many clusters.
 
 ```{r}
 #| label: elbow-plot
-#| fig-cap: "Elbow Plot Indicates Bend at 5 Clusters"
+#| fig-cap: "Elbow Plot Indicates A Bend at 5 Clusters"
 
 # set seed for reproducibility
 set.seed(42069777)
@@ -78,16 +77,125 @@ ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
   theme_classic()
 ```
 
+```{r}
+#| label: fit-cluster
+#| tbl-cap: "Locations of Centroids based on Standardized Variables"
+#| tbl-cap-location: top
 
-![Elbow Plot](images/elbow_plot.png "Title: Elbow Plot")
+# for reproducibility
+set.seed(42069777)
 
-adasdasdadasdasda
+# save 5 cluster object
+games_kmeans5 <- game_standardized |>
+  kmeans(centers = 5, nstart = 25)
 
+# augment original dataset to include which cluster each game belongs to 
+games_c5 <- augment(games_kmeans5, game_data) |>
+  rename(cluster_standardized = .cluster) |>
+  select(name, release_date, required_age, price,
+         dlc_count, metacritic_score, achievements, recommendations,
+         median_playtime_forever, peak_ccu, net_review_ratio,
+         cluster_standardized)
 
+# present table that shows where these centroids are located
+games_kmeans5$centers |>
+  as_tibble() |>
+  mutate(Cluster = row_number(), .before = 1) |>
+ kable(booktabs = TRUE,
+       col.names = c("Cluster","Required Age", "Price", "DLC Count",
+                      "Metacritic Score", "Achievements", "Recommendations",
+                      "Median Playtime Forever", "Peak CCU",
+                      "Net Review Ratio"),
+       caption = "Note: Each Quantitative Variable is Standardized",
+       digits = 3) |>
+  kable_styling()
 
-It appears that our clusters are
+```
 
+It appears that our clusters are grouped by the following characteristics:
 
+1. Higher DLC counts, extremely high number of achievements, and lower ratings.
 
+2. Generally average values across the variables except for lower metacritic scores and high ratings.
 
-A word shape can be found [first subpage](word-page.qmd)
+3. Highest age requirements, highest prices, higher metacritic scores, high number of recommendations, and the highest CCU counts.
+
+4. Lowest median playtimes and lowest ratings.
+
+5. Higher prices, highest DLC counts, highest metacritic scores, and highest median playtimes.
+
+Therefore, Cluster 1 contains games that may cater towards completionist gamers, although lacking in ratings. Cluster 2 contains games that are not approved by metacritics but supported and favored by players. Cluster 3 contains games that are catered towards older audiences and also widely shared. Cluster 4 contains games that plain out suck; players do not play these games for long and give bad ratings. Finally, Cluster 5 contains expensive games with a lot of content for committed players.
+
+```{r}
+#| label: game-example
+#| tbl-cap: "Table Featuring Games From Cluster 5"
+
+# # showcase games in cluster 1
+# games_c5 |>
+#   filter(cluster_standardized == 1) |>
+#   arrange(desc(achievements), desc(dlc_count), net_review_ratio) |>
+#   head() |>
+#   kable(booktabs = TRUE,
+#        col.names = c("Name","Release Date","Required Age", "Price",
+#                      "DLC Count", "Metacritic Score", "Achievements",
+#                      "Recommendations", "Median Playtime Forever", "Peak CCU",
+#                      "Net Review Ratio", "Cluster"),
+#        digits = 3) |>
+#   kable_styling()
+# 
+# # showcase games in cluster 2
+# games_c5 |>
+#   filter(cluster_standardized == 2) |>
+#   arrange(desc(net_review_ratio), metacritic_score) |>
+#   head() |>
+#   kable(booktabs = TRUE,
+#        col.names = c("Name","Release Date","Required Age", "Price",
+#                      "DLC Count", "Metacritic Score", "Achievements",
+#                      "Recommendations", "Median Playtime Forever", "Peak CCU",
+#                      "Net Review Ratio", "Cluster"),
+#        digits = 3) |>
+#   kable_styling()
+# 
+# # showcase games in cluster 3
+# games_c5 |>
+#   filter(cluster_standardized == 3) |>
+#   arrange(desc(required_age), desc(price), desc(recommendations),
+#           desc(peak_ccu), desc(metacritic_score)) |>
+#   head() |>
+#   kable(booktabs = TRUE,
+#        col.names = c("Name","Release Date","Required Age", "Price",
+#                      "DLC Count", "Metacritic Score", "Achievements",
+#                      "Recommendations", "Median Playtime Forever", "Peak CCU",
+#                      "Net Review Ratio", "Cluster"),
+#        digits = 3) |>
+#   kable_styling()
+# 
+# # showcase games in cluster 4
+# games_c5 |>
+#   filter(cluster_standardized == 4) |>
+#   arrange(desc(net_review_ratio), desc(median_playtime_forever)) |>
+#   head() |>
+#   kable(booktabs = TRUE,
+#        col.names = c("Name","Release Date","Required Age", "Price",
+#                      "DLC Count", "Metacritic Score", "Achievements",
+#                      "Recommendations", "Median Playtime Forever", "Peak CCU",
+#                      "Net Review Ratio", "Cluster"),
+#        digits = 3) |>
+#   kable_styling()
+
+# showcase games in cluster 5
+games_c5 |>
+  filter(cluster_standardized == 5) |>
+  arrange(desc(metacritic_score), desc(median_playtime_forever), desc(dlc_count), desc(price)) |>
+  head() |>
+  kable(booktabs = TRUE,
+       col.names = c("Name","Release Date","Required Age", "Price",
+                     "DLC Count", "Metacritic Score", "Achievements",
+                     "Recommendations", "Median Playtime Forever", "Peak CCU",
+                     "Net Review Ratio", "Cluster"),
+       digits = 3) |>
+  kable_styling()
+
+```
+
+From the table, we can see that *Portal 2*, *Sid Meier's Civilization® IV*, and *Tetris Effect: Connected* are similar as they have high Metacritic Scores and high median playtimes.

@@ -9,7 +9,7 @@
 <meta name="author" content="John Lim">
 <meta name="dcterms.date" content="2025-05-01">
 
-<title>Grouping Games Through Clustering – Video Game Analysis</title>
+<title>Grouping Games Through Clustering – Video Games Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -41,7 +41,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="dark">
 <link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -70,6 +70,8 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="styles.css">
@@ -83,7 +85,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Video Game Analysis</span>
+    <span class="navbar-title">Video Games Analysis</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -103,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./word-page.html"> 
-<span class="menu-text">Another page</span></a>
+<span class="menu-text">Word Analysis</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./network-page.html"> 
@@ -166,20 +168,217 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="cluster-page_files/figure-html/elbow-plot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Elbow Plot Indicates Bend at 5 Clusters</figcaption>
+<figcaption>Elbow Plot Indicates A Bend at 5 Clusters</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/elbow_plot.png" title="Title: Elbow Plot" class="img-fluid figure-img"></p>
-<figcaption>Elbow Plot</figcaption>
-</figure>
+<div class="cell tbl-cap-location-top">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Locations of Centroids based on Standardized Variables</caption>
+<thead>
+<tr class="header">
+<th style="text-align: right;" data-quarto-table-cell-role="th">Cluster</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Required Age</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Price</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">DLC Count</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Metacritic Score</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Achievements</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Recommendations</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median Playtime Forever</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Peak CCU</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Net Review Ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">-0.141</td>
+<td style="text-align: right;">-0.357</td>
+<td style="text-align: right;">0.201</td>
+<td style="text-align: right;">-0.239</td>
+<td style="text-align: right;">23.643</td>
+<td style="text-align: right;">-0.037</td>
+<td style="text-align: right;">-0.009</td>
+<td style="text-align: right;">-0.025</td>
+<td style="text-align: right;">-0.414</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">-0.140</td>
+<td style="text-align: right;">-0.012</td>
+<td style="text-align: right;">-0.014</td>
+<td style="text-align: right;">-0.239</td>
+<td style="text-align: right;">-0.036</td>
+<td style="text-align: right;">-0.038</td>
+<td style="text-align: right;">-0.018</td>
+<td style="text-align: right;">-0.014</td>
+<td style="text-align: right;">0.478</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6.931</td>
+<td style="text-align: right;">0.922</td>
+<td style="text-align: right;">0.129</td>
+<td style="text-align: right;">1.387</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: right;">1.195</td>
+<td style="text-align: right;">0.163</td>
+<td style="text-align: right;">0.677</td>
+<td style="text-align: right;">-0.087</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">-0.140</td>
+<td style="text-align: right;">-0.221</td>
+<td style="text-align: right;">-0.019</td>
+<td style="text-align: right;">-0.235</td>
+<td style="text-align: right;">-0.062</td>
+<td style="text-align: right;">-0.058</td>
+<td style="text-align: right;">-0.043</td>
+<td style="text-align: right;">-0.024</td>
+<td style="text-align: right;">-1.486</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">-0.141</td>
+<td style="text-align: right;">0.845</td>
+<td style="text-align: right;">0.238</td>
+<td style="text-align: right;">4.017</td>
+<td style="text-align: right;">0.044</td>
+<td style="text-align: right;">0.341</td>
+<td style="text-align: right;">0.404</td>
+<td style="text-align: right;">0.039</td>
+<td style="text-align: right;">0.151</td>
+</tr>
+</tbody>
+</table>
+
+
 </div>
-<p>adasdasdadasdasda</p>
-<p>It appears that our clusters are</p>
-<p>A word shape can be found <a href="./word-page.html">first subpage</a></p>
+</div>
+<p>It appears that our clusters are grouped by the following characteristics:</p>
+<ol type="1">
+<li><p>Higher DLC counts, extremely high number of achievements, and lower ratings.</p></li>
+<li><p>Generally average values across the variables except for lower metacritic scores and high ratings.</p></li>
+<li><p>Highest age requirements, highest prices, higher metacritic scores, high number of recommendations, and the highest CCU counts.</p></li>
+<li><p>Lowest median playtimes and lowest ratings.</p></li>
+<li><p>Higher prices, highest DLC counts, highest metacritic scores, and highest median playtimes.</p></li>
+</ol>
+<p>Therefore, Cluster 1 contains games that may cater towards completionist gamers, although lacking in ratings. Cluster 2 contains games that are not approved by metacritics but supported and favored by players. Cluster 3 contains games that are catered towards older audiences and also widely shared. Cluster 4 contains games that plain out suck; players do not play these games for long and give bad ratings. Finally, Cluster 5 contains expensive games with a lot of content for committed players.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="table caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Table Featuring Games From Cluster 5</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Name</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Release Date</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Required Age</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Price</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">DLC Count</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Metacritic Score</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Achievements</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Recommendations</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Median Playtime Forever</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Peak CCU</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">Net Review Ratio</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Portal 2</td>
+<td style="text-align: left;">Apr 18, 2011</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9.99</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">95</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: right;">243925</td>
+<td style="text-align: right;">514</td>
+<td style="text-align: right;">2693</td>
+<td style="text-align: right;">0.976</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sid Meier's Civilization® IV</td>
+<td style="text-align: left;">Oct 25, 2006</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">19.99</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">94</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1991</td>
+<td style="text-align: right;">233</td>
+<td style="text-align: right;">785</td>
+<td style="text-align: right;">0.855</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tetris® Effect: Connected</td>
+<td style="text-align: left;">Aug 17, 2021</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">39.99</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">3699</td>
+<td style="text-align: right;">2059</td>
+<td style="text-align: right;">170</td>
+<td style="text-align: right;">0.920</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hades</td>
+<td style="text-align: left;">Sep 17, 2020</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">24.99</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">49</td>
+<td style="text-align: right;">178350</td>
+<td style="text-align: right;">1330</td>
+<td style="text-align: right;">6396</td>
+<td style="text-align: right;">0.972</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Beat Saber</td>
+<td style="text-align: left;">May 21, 2019</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">29.99</td>
+<td style="text-align: right;">71</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">58334</td>
+<td style="text-align: right;">754</td>
+<td style="text-align: right;">1364</td>
+<td style="text-align: right;">0.920</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Dwarf Fortress</td>
+<td style="text-align: left;">Dec 6, 2022</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">29.99</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">93</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10086</td>
+<td style="text-align: right;">548</td>
+<td style="text-align: right;">28026</td>
+<td style="text-align: right;">0.934</td>
+<td style="text-align: left;">5</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+<p>From the table, we can see that <em>Portal 2</em>, <em>Sid Meier’s Civilization® IV</em>, and <em>Tetris Effect: Connected</em> are similar as they have high Metacritic Scores and high median playtimes.</p>
 
 
 
