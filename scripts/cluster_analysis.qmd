@@ -124,7 +124,7 @@ games_c5 |>
 
 games_c5 |>
   filter(cluster_standardized == 3) |>
-  arrange(net_review_ratio) |>
+  arrange(net_review_ratio, metacritic_score) |>
   head()
 
 games_c5 |>
@@ -140,8 +140,8 @@ games_c5 |>
 #Portal 2, Sid Meier's Civilization IV, TEKKEN 8
 #Hades Ultimate Fighting Ball, Yet Another Waveshooter, Booty Calls
 # MiniFarm 2020, Lucky Night: Poker Games, Model Building Restoration
-#
-# LOOK AT PALWORLD AND HOGWARTS LEGACY
+# The Void Rains Upon Her Heart, Penko Park, DEVIL BLADE REBOOT
+# Palworld, Black Myth: Wukong, Hogwarts Legacy
 
 # look at these clusters, then give some specific examples
 # include centroids on plots
