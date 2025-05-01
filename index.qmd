@@ -31,4 +31,3 @@ Steam is a platform that hosts video games. Tens of thousands of games are curre
 
 We got our data from a Kaggle dataset that got data from Steams API and scraped data from a website named Steam Spy. We downloaded this data and cleaned it up by making sure numbers were numeric variables, removing games in other languages and getting variables out of a list format they were not supposed to be in.
 
-# Variables

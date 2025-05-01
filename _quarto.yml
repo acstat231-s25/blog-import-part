@@ -30,13 +30,13 @@ format:
     # Uncomment the next line if you want *all* entries in library.bib to be 
     # listed in a reference list that appears on every page, regardless of
     # whether the entried are cited in the text (NOT recommended).
-    # nocite: "@*" 
+    nocite: "@*" 
     # Update any of the following options to modify the theme
     # See https://quarto.org/docs/output-formats/html-code.html#highlighting
     highlight-style: arrow
     # See https://quarto.org/docs/output-formats/html-themes.html
     theme: 
-      light: superhero
+      light: lumen
       dark: superhero
     fontsize: 13pt
     # If you want to customize beyond a built-in theme, you can add content to
