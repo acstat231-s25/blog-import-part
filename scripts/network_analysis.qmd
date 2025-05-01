@@ -81,6 +81,7 @@ ggraph(degreegraph, 'drl') +
     fill = "Weighted Degree", 
     repel = TRUE
   )
+
 ggsave("../docs/images/networkg.jpg")
 ```
 

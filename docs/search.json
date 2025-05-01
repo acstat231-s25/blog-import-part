@@ -121,8 +121,8 @@
   {
     "objectID": "network-page.html",
     "href": "network-page.html",
-    "title": "Another page",
+    "title": "Top 40 Steam Games by Metacritic Score",
     "section": "",
-    "text": "This is just another page that can be linked! You are not required to include more than just index.qmd, but you are welcome to make content on different pages, if desired. This may help with managing GitHub commits, as well.\nEach page can have it’s own list of references based on what you cite. For example, did you know that good graphs “have a clear purpose, show the data clearly, and make the message obvious”? (Vandemeulebroecke et al. 2019).\n\n\n\n\nReferences\n\nVandemeulebroecke, M., Baillie, M., Carr, D., Kanitra, L., Margolskee, A., Wright, A., and Magnusson, B. (2019), “How can we make better graphs? An initiative to increase the graphical expertise and productivity of quantitative scientists,” Pharmaceutical Statistics, 18, 106–114. https://doi.org/10.1002/pst.1912."
+    "text": "The network shows a few interesting things about the top Metacritic rated games. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. The edges demonstrate a connection between two games via shared tags. The more shared tags, the bluer the color of the edge is and the thicker it is. Games with a higher weighted degree shared more connections, which were weighted by the number of tags for each edge. One thing I noticed were action games in famous high budget series like GTA, Red Dead Redemption and the Elder Scrolls had higher degree centrality while games in other genres like the Baseball game and Microsoft Flight simulator had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores."
   }
 ]
