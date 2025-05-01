@@ -1,11 +1,110 @@
 ---
-title: "Another page"
-author: "Kat Correia"
+title: "Word Analysis"
+author: "Tiffany Sun"
 ---
 
 This is *yet* another page that can be linked! You are not required to include more than just *index.qmd*, but you are welcome to make content on different pages, if desired. This may help with managing GitHub commits, as well. 
 
-## A note {#sec-note} 
 
-Notice that you can also modify the YAML headings at the top of each page as I did in the [first subpage](another-page.qmd) or completely delete them, as I did here.
+```{r}
+#| label: setup
+#| include: false
+
+# improve digit and NA display 
+options(scipen = 1, knitr.kable.NA = '')
+
+# load packages
+library(tidyverse)
+library(readr)
+library(purrr)
+library(wordcloud2)
+library(RColorBrewer)
+library(wordcloud)
+library(plotly)
+library(ggiraph)
+
+#portal 2 and pub g 
+```
+
+```{r}
+#| label: read-files
+
+# read clean game data 
+total_games_words <- readRDS("data/processed/total_word_data.rds")
+grouped_games_words <- readRDS("data/processed/grouped_word_data.rds")
+games <- readRDS("data/processed/clean_games.rds")
+grouped_games_sentiment <- readRDS("data/processed/grouped_word_sentiment_data.rds")
+
+#Palworld Hogwarts Legacy 
+
+```
+
+
+## Overall Analysis {#sec-note} 
+
+There are so many games on Steam, so it is fascinating to explore the patterns, especially through text analysis. What are some of the most prevalent terms overall? Are there more positive or negative descriptive terms? What patterns do these prevalent terms tell? 
+
+The visualizations below seek to address such inquiries. 
+
+::: {.callout-note}
+Disclaimer: Visualizations exclude most games in other languages. 
+:::
+
+::: {.panel-tabset}
+
+### Word Cloud
+This word cloud represents words in all Steam games' descriptions excluding those of other languages. Hover to see the prevalence of each word. 
+
+```{r}
+#| 
+
+set.seed(2025)
+
+wordcloud2(total_games_words, 
+           size = .6, shape = "pentagon", color = "#66c0f4", backgroundColor = "white", fontFamily = 'SegoeUI', fontWeight = 'normal')
+
+```
+
+### Sentimental Circle
+This distribution circle explores the overall distribution of words in terms of sentiment values. Inward streaks in orange represent words with negative sentimental values. Outward streaks in blue represent words with positive sentimental values. 
+
+```{r}
+
+total_games_words <- total_games_words |>
+  mutate(cond = case_when(
+    value > -1 ~ '#66c0f4',
+    value < 0 ~ '#FF8E00'))
+    
+
+plot <-
+    ggplot(total_games_words, 
+         aes(x = word, 
+         y = value, 
+         data_id = word, 
+         tool_tip = word)) +
+  geom_bar_interactive(stat="identity", aes(fill=cond)) +
+  scale_fill_identity() +
+  ylim(-8,8) +
+  coord_polar(start=0) +
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-2,4), "cm")
+  )
+  
+
+girafe(ggobj = plot,
+       width_svg = 12,
+      height_svg = 12)
+
+```
+
+
+:::
+
+
+
+
 

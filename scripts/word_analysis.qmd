@@ -68,7 +68,7 @@ grouped_games_words <- games_description |>
   count(word, sort = TRUE)
 
 # Added to include sentiment values per word
-grouped_games_words <- 
+grouped_games_words_sentiment <- 
   mutate(
     left_join(grouped_games_words, afinn_lexicon)
   ) |>
@@ -91,5 +91,6 @@ total_games_words |>
 # data used for word analysis
 saveRDS(grouped_games_words, file = "../data/processed/grouped_word_data.RDS")
 saveRDS(total_games_words, file = "../data/processed/total_word_data.RDS")
+saveRDS(grouped_games_words_sentiment, file = "../data/processed/grouped_word_sentiment_data.RDS")
 
 ```
