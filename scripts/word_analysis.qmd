@@ -5,7 +5,9 @@ date: "2025-04-24"
 format: html
 ---
 
-The purpose of this file is to...
+The purpose of this file is to wrangle the dataset to prepare for word analysis.
+Here I have created two datasets: one that enables analysis at a bigger picture
+ana another that enables analysis per game. 
 
 ```{r}
 #| label: setup
@@ -18,13 +20,8 @@ options(scipen = 1, knitr.kable.NA = '')
 
 # load packages
 library(tidyverse)
-library(readr)
-library(purrr)
 library(tidytext)
-library(wordcloud)
-library(textdata)
-library(wordcloud2)
-library(ggiraph)
+
 ```
 
 ```{r}
@@ -33,6 +30,7 @@ library(ggiraph)
 # read clean game data 
 games_data <- readRDS("../data/processed/clean_games.rds")
 
+# Removed numeric values 
 games_description <- games_data |>
   select(name, about_the_game) |>
   mutate(
@@ -43,31 +41,40 @@ games_description <- games_data |>
 
 ```{r}
 #| label: word-analysis-prep
+
+#Retrieve AFINN dataset
 afinn_lexicon <- get_sentiments("afinn")
 
+# Creating a word dataset that allows analysis as a whole
+# Has variables: name, word, n (count)
 total_games_words <- games_description |>
   unnest_tokens(output = word, input = about_the_game) |>
   anti_join(stop_words, by = "word") |>
   count(word, sort = TRUE) 
 
+# Added to include sentiment values per word
 total_games_words <-
    mutate(
     left_join(total_games_words, afinn_lexicon)
   ) |>
   na.omit()
 
+# Creating a word dataset that allows analysis per game
+# Has variables: name, word, n (count)
 grouped_games_words <- games_description |>
   unnest_tokens(output = word, input = about_the_game) |>
   anti_join(stop_words, by = "word") |>
   group_by(name) |>
   count(word, sort = TRUE)
 
+# Added to include sentiment values per word
 grouped_games_words <- 
   mutate(
     left_join(grouped_games_words, afinn_lexicon)
   ) |>
   na.omit()
 
+# See if they work
 grouped_games_words |>
   slice(1:10)
 
@@ -76,107 +83,12 @@ total_games_words |>
 
 ```
 
-```{r}
-set.seed(2025)
 
-# Create word cloud using tidyverse
-
-pal <- brewer.pal(9, "Blues")
-
-set.seed(2024)
-
-game_words |>
-  with(wordcloud(
-    words = word, 
-    freq = n,
-    min.freq = 2,
-    max.words = 15,
-    random.order = TRUE,
-    scale = c(2, 1.75),
-    rot.per = 0.3,
-    colors = pal,
-    family = "serif"
-  ))
-
-
-total_games_words |>
-  select(word, n) |>
-  letterCloud(word = "PEACE", color="white", backgroundColor="pink")
-
-letterCloud( demoFreq, word = "PEACE", color="white", backgroundColor="pink")
-
-
-
-
-```
-
-```{R}
-#| label: afinn sentiment analysis
-
-p <- ggplot(game_word_freqs, 
-       aes(x = reorder(word, value), value),
-       label = value, 
-       tooltip = value) + 
-  geom_bar_interactive(stat = "identity", aes(fill = value), show.legend = FALSE, color = "darkgrey") + 
-  coord_flip() +
-  labs(
-    title = "Sentiment Analysis of Words",
-    subtitle = "Some words are excluded due to not having any sentiment value",
-    y = "Value",
-    x = "Word"
-  ) +
-  scale_fill_gradient2(low = "#046E94",
-                       mid = "aliceblue",
-                       high = "#FFDE21") +
-  theme_minimal()
-
-
-interactive_plot <- girafe(ggobj = p)
-
-interactive_plot
-
-  
-
-```
-
-```{R}
-#| label: circular diagram
-circle <-
-  ggplot(game_word_freqs, aes(word, abs(value))) + 
-  geom_bar(stat = "identity", aes(fill = value), show.legend = FALSE, color = "darkgrey") + 
-  ylim(-1,4) +
-  scale_fill_gradient2(low = "#046E94",
-                       mid = "aliceblue",
-                       high = "#FFDE21") +
-  coord_polar(start = 0) +
-  theme_minimal() +
-  theme(
-    panel.grid = element_blank(),
-    axis.text = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm")) +
-  labs(
-    title = "Hi"
-  ) +
-   geom_text(
-     data=game_word_freqs, 
-     aes(x=word, y=value+10, label = word), 
-     color="black", 
-     fontface="bold",
-     alpha=0.6, 
-     size=2.5
-     ) 
- 
-  
-
-circle
-
-
-```
 
 ```{r}
 #| label: saving-data
 
-# data used for cluster analysis
+# data used for word analysis
 saveRDS(grouped_games_words, file = "../data/processed/grouped_word_data.RDS")
 saveRDS(total_games_words, file = "../data/processed/total_word_data.RDS")
 
