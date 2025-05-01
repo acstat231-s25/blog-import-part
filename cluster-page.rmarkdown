@@ -28,9 +28,13 @@ library(kableExtra)
 game_data <- readRDS("data/processed/clean_games.rds")
 ```
 
+
+
 To address the question about which video games are similar (and how), I wanted to use unsupervised learning techniques. I will use *k*-means clustering as a way to assign video games to distinct groups, which may uncover similarities between the games. 
 
 For this analysis, I chose 9 quantitative variables to cluster the games by: the age required to play, the price, the number of DLCs (Downloadable Content), the metacritic score, the number of game achievements, the number of recommendations, the median playtime since the game's release, the highest CCU (Concurrent User) count, and the net review ratio statistic. Since the variables on different scales (e.g. 0 to 100, -1 to 1, and 0 to 1,000,000+), it is important to standardize the variables (i.e. level the playing field). This way, the locations of the centroids will not be dominated by its relation to one variable over another when using *k*-means clustering.
+
+
 
 ```{r}
 #| label: cluster-prep
@@ -49,7 +53,11 @@ game_standardized <- game_data |>
   select(ends_with("_z"))
 ```
 
+
+
 To determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. However, with too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning. Therefore, based on the elbow plot, 5 clusters appears to be reasonably optimal as it is where the graph "bends" without containing too many clusters.
+
+
 
 ```{r}
 #| label: elbow-plot
@@ -112,6 +120,8 @@ games_kmeans5$centers |>
 
 ```
 
+
+
 It appears that our clusters are grouped by the following characteristics:
 
 1. Higher DLC counts, extremely high number of achievements, and lower ratings.
@@ -125,6 +135,8 @@ It appears that our clusters are grouped by the following characteristics:
 5. Higher prices, highest DLC counts, highest metacritic scores, and highest median playtimes.
 
 Therefore, Cluster 1 contains games that may cater towards completionist gamers, although lacking in ratings. Cluster 2 contains games that are not approved by metacritics but supported and favored by players. Cluster 3 contains games that are catered towards older audiences and also widely shared. Cluster 4 contains games that plain out suck; players do not play these games for long and give bad ratings. Finally, Cluster 5 contains expensive games with a lot of content for committed players.
+
+
 
 ```{r}
 #| label: game-example
@@ -197,5 +209,7 @@ games_c5 |>
   kable_styling()
 
 ```
+
+
 
 From the table, we can see that *Portal 2*, *Sid Meier's Civilization® IV*, and *Tetris Effect: Connected* are similar as they have high Metacritic Scores and high median playtimes.
