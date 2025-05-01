@@ -112,6 +112,37 @@ games_kmeans5$centers |>
         caption = "Locations of Centroids based on Standardized Variables") |>
   kable_styling()
 
+games_c5 |>
+  filter(cluster_standardized == 1) |>
+  arrange(desc(metacritic_score), desc(price)) |>
+  head()
+
+games_c5 |>
+  filter(cluster_standardized == 2) |>
+  arrange(desc(required_age), desc(recommendations), desc(price)) |>
+  head()
+
+games_c5 |>
+  filter(cluster_standardized == 3) |>
+  arrange(net_review_ratio) |>
+  head()
+
+games_c5 |>
+  filter(cluster_standardized == 4) |>
+  arrange(desc(net_review_ratio)) |>
+  head()
+
+games_c5 |>
+  filter(cluster_standardized == 5) |>
+  arrange(desc(peak_ccu), desc(median_playtime_forever), desc(achievements), desc(price)) |>
+  head()
+
+#Portal 2, Sid Meier's Civilization IV, TEKKEN 8
+#Hades Ultimate Fighting Ball, Yet Another Waveshooter, Booty Calls
+# MiniFarm 2020, Lucky Night: Poker Games, Model Building Restoration
+#
+# LOOK AT PALWORLD AND HOGWARTS LEGACY
+
 # look at these clusters, then give some specific examples
 # include centroids on plots
 

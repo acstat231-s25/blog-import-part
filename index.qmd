@@ -30,7 +30,7 @@ Steam is a platform that hosts video games. Tens of thousands of games are curre
 # Data
 
 More aobut the data... what did we do, what did we wrangle....
-
+what are the variables
 
 ## Website project structure
 

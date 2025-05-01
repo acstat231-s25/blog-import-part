@@ -107,9 +107,8 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Yet another page with a custom label and icon</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./network-page.html"> <i class="bi bi-arrow-through-heart-fill" role="img">
-</i> 
-<span class="menu-text">Yet another page with a custom label and icon</span></a>
+    <a class="nav-link" href="./network-page.html"> 
+<span class="menu-text">Network of Top 40 Highest Metacritic rated games of Steam</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -160,13 +159,17 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>To address the question about which video games are similar (and how), I wanted to use unsupervised learning. I will use <em>k</em>-means clustering as a way to assign video games to distinct groups. similar</p>
+<p>To address the question about which video games are similar (and how), I wanted to use unsupervised learning. I will use <em>k</em>-means clustering as a way to assign video games to distinct groups, which may uncover similarities between them.</p>
+<p>For this analysis, I used 9 quantitative variables to cluster games by: the age required to play, the price, the number of DLCs, the metacritic score, the number of game achievements, the number of recommendations, the median playtime since the game’s release, the highest CCU count, and the net review ratio statistic.</p>
+<p>To determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. With too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning.</p>
+<p>Based on the elbow plot, 5 clusters appears to be reasonably optimal as it is where the graph “bends” without becoming too many clusters.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/elbow_plot.png" title="Title: Elbow Plot" class="img-fluid figure-img"></p>
 <figcaption>Elbow Plot</figcaption>
 </figure>
 </div>
+<p>a</p>
 
 
 

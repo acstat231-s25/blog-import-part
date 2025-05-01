@@ -98,7 +98,7 @@ games_clean <- games_string |>
                   average_playtime_forever, median_playtime_forever, peak_ccu),
          ~ parse_number(.x))) |>
   # Removed game names in other languages by removing the following unicode
-  # blocks corresponding to korean, chinese, and japanese 
+  # blocks corresponding to Korean, Chinese, and Japanese 
   # 4E00-9FFF for CJK Unified Ideographs
   # 3000-303F for CJK Symbols and Punctuation
   # u30a0 - u30ff for Katakana Japanese
