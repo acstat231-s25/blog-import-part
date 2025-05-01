@@ -107,7 +107,7 @@ games_clean0 <- games_string |>
            about_the_game != "" &
            short_description != "" &
            publishers != "" &
-           (positive != 0 | negative != 0)) |>
+           positive + negative != 0) |>
   # remove duplicates and keeping the most updated values
   arrange(desc(recommendations), desc(positive), desc(negative)) |>
   distinct(name, .keep_all = TRUE)
