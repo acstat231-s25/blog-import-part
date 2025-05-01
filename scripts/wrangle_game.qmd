@@ -90,15 +90,6 @@ games_string <- games_tibble |>
                   map(~ paste0(.x, collapse = ", ")) |>
                   clean()))
 
-#glimpse(games_string)
-
-# # use lapply
-# games_tibble1 <- lapply(games_tibble, paste0)
-# games_tibble2 <- lapply(games_tibble1, clean)
-# games_tibble3 <- games_tibble2 |> as_tibble()
-# 
-# glimpse(games_tibble3)
-
 # change numeric values back into number form
 # keep English games with complete descriptions and a publisher
 games_clean <- games_string |>
@@ -120,8 +111,6 @@ games_clean <- games_string |>
            publishers != "") |>
   arrange(desc(recommendations), desc(positive), desc(negative)) |>
   distinct(name, .keep_all = TRUE)
-  
-#glimpse(games_clean)
 ```
 
 ```{r}
