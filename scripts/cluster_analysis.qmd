@@ -85,9 +85,9 @@ ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
   scale_x_continuous(breaks = 1:10) +
   labs(x = "Number of clusters (k)", 
        y = "Total within-cluster sum of squares",
-       title = "Elbow Plot")
+       title = "Elbow Plot for Standardized Variables")
 # save image of elbow plot
-ggsave("../images/elbowplot.png")
+ggsave("../images/elbow_plot.png")
 ```
 
 ```{r}
