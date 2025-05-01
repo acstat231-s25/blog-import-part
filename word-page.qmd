@@ -35,16 +35,14 @@ grouped_games_words <- readRDS("data/processed/grouped_word_data.rds")
 games <- readRDS("data/processed/clean_games.rds")
 grouped_games_sentiment <- readRDS("data/processed/grouped_word_sentiment_data.rds")
 
-#Palworld Hogwarts Legacy 
-
 ```
 
 
-## Overall Analysis {#sec-note} 
+## Overall Analysis
 
 There are so many games on Steam, so it is fascinating to explore the patterns, especially through text analysis. What are some of the most prevalent terms overall? Are there more positive or negative descriptive terms? What patterns do these prevalent terms tell? 
 
-The visualizations below seek to address such inquiries. 
+The visualizations below seek to address such questions. 
 
 ::: {.callout-note}
 Disclaimer: Visualizations exclude most games in other languages. 
@@ -101,9 +99,100 @@ girafe(ggobj = plot,
 
 ```
 
+:::
+
+## Game-Specific Analysis 
+While it can be informative to see patterns and trends from a VERY big picture, potential crucial, small details may go unnoticed. 
+
+### Elder Scrolls vs. Grand Auto Theft?
+If you explored Surya's Top 40 Highest Rated Games Network, you'll notice that game series Elder Scrolls and Grand Auto Theft are the top Metacritic rated games. I'm curious as to see what textual commonalities they share. So...
+
+Note: Somehow when you hover, the terms' values correspond to their absolute values. Refer to the y-axis for their true values. (Still a WIP)
+
+::: {.panel-tabset}
+
+#### Elder Scrolls IV Deluxe Word Cloud
+
+```{r}
+elder_scrolls <- 
+  grouped_games_words |>
+  filter(name == "The Elder Scrolls IV: Oblivion® Game of the Year Edition Deluxe") |>
+  ungroup() 
+
+elder_scrolls |>
+  select(word, n) |>
+  wordcloud2(size = .4, shape = "square", color = "#1b2838", backgroundColor = "white", fontFamily = 'SegoeUI', fontWeight = 'normal')
+
+```
+
+#### Elder Scrolls IV Deluxe Sentiment Analysis
+Hover to see the word associated with the value. 
+
+```{R}
+elder_sentiments <- grouped_games_sentiment |>
+  filter(name == "The Elder Scrolls IV: Oblivion® Game of the Year Edition Deluxe") |>
+  ungroup() 
+
+p <- ggplot(unique(elder_sentiments), aes(x = reorder(word, value), y = value)) + 
+  geom_bar(stat = "identity", aes(fill = value), show.legend = FALSE, color = "darkgrey") +
+  scale_fill_gradient2(low = "#ff9000",
+                       mid = "aliceblue",
+                       high = "#66c0f4") +
+  
+  theme_minimal() +
+  labs(
+    title = "The Elder Scrolls IV: Oblivion® Game of the Year Edition Deluxe",
+    x = "Word",
+    y = "Sentiment Value"
+  ) + 
+  theme(axis.text.x = element_blank())
+
+
+ggplotly(p, tooltip = c("x", "y"))
+```
 
 :::
 
+
+::: {.panel-tabset}
+#### Grand Theft Auto III Word Cloud
+
+```{r}
+grand_theft <- grouped_games_words |>
+  filter(name == "Grand Theft Auto III") |>
+  ungroup() 
+
+grand_theft |>
+  select(word, n) |>
+  wordcloud2(size = .7, shape = "square", color = "#1b2838", backgroundColor = "white", fontFamily = 'SegoeUI', fontWeight = 'normal')
+
+```
+
+#### Grand Theft Auto III Sentiment Analysis
+```{R}
+grand_theft_sentiments <- grouped_games_sentiment |>
+  filter(name == "Grand Theft Auto III") |>
+  ungroup() 
+
+q <- ggplot(unique(grand_theft_sentiments), aes(x = reorder(word, value), y = value)) + 
+  geom_bar(stat = "identity", aes(fill = value), show.legend = FALSE, color = "darkgrey") +
+  scale_fill_gradient2(low = "#ff9000",
+                       mid = "aliceblue",
+                       high = "#66c0f4") +
+  
+  theme_minimal() +
+  labs(
+    title = "Grand Theft Auto III",
+    x = "Word",
+    y = "Sentiment Value"
+  )
+
+
+ggplotly(q, tooltip = c("x", "y"))
+```
+:::
+
+It's interesting to see that while both games differ in terms of settings and their overall themes, they share several terms, one especially is "world". Other terms such as "characters" and "explore" hint their similarity as games that empower players to roam in their respective realms and engage in roleplaying. Perhaps this similarity also contribute to their statuses as top rated games. 
 
 
 
