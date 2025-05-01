@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="John Lim">
-<meta name="dcterms.date" content="2025-04-30">
+<meta name="dcterms.date" content="2025-05-01">
 
 <title>Grouping Games Through Clustering – Video Game Analysis</title>
 <style>
@@ -102,14 +102,12 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Grouping Games Through Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./word-page.html"> <i class="bi bi-arrow-through-heart-fill" role="img">
-</i> 
-<span class="menu-text">Yet another page with a custom label and icon</span></a>
+    <a class="nav-link" href="./word-page.html"> 
+<span class="menu-text">Another page</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./network-page.html"> <i class="bi bi-arrow-through-heart-fill" role="img">
-</i> 
-<span class="menu-text">Yet another page with a custom label and icon</span></a>
+    <a class="nav-link" href="./network-page.html"> 
+<span class="menu-text">Top 40 Steam Games by Metacritic Score</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -148,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Last updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 30, 2025</p>
+      <p class="date">May 1, 2025</p>
     </div>
   </div>
   
@@ -160,17 +158,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Hello world</p>
+<p>To address the question about which video games are similar (and how), I wanted to use unsupervised learning techniques. I will use <em>k</em>-means clustering as a way to assign video games to distinct groups, which may uncover similarities between the games.</p>
+<p>For this analysis, I chose 9 quantitative variables to cluster the games by: the age required to play, the price, the number of DLCs (Downloadable Content), the metacritic score, the number of game achievements, the number of recommendations, the median playtime since the game’s release, the highest CCU (Concurrent User) count, and the net review ratio statistic. Since the variables on different scales (e.g.&nbsp;0 to 100, -1 to 1, and 0 to 1,000,000+), it is important to standardize the variables (i.e.&nbsp;level the playing field). This way, the locations of the centroids will not be dominated by its relation to one variable over another when using <em>k</em>-means clustering.</p>
+<p>To determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. However, with too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning. Therefore, based on the elbow plot, 5 clusters appears to be reasonably optimal as it is where the graph “bends” without containing too many clusters.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="cluster-page_files/figure-html/elbow-plot-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption>Elbow Plot</figcaption>
+<figcaption>Elbow Plot Indicates Bend at 5 Clusters</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/elbow_plot.png" title="Title: Elbow Plot" class="img-fluid figure-img"></p>
+<figcaption>Elbow Plot</figcaption>
+</figure>
+</div>
+<p>adasdasdadasdasda</p>
+<p>It appears that our clusters are</p>
+<p>A word shape can be found <a href="./word-page.html">first subpage</a></p>
 
 
 

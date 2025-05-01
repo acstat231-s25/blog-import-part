@@ -13,12 +13,8 @@ website:
         icon: house # Get icon names: https://icons.getbootstrap.com/?q=home
       # Add or remove additional pages below in desired order of appearance
       - cluster-page.qmd
-      - href: word-page.qmd
-        text: "Yet another page with a custom label and icon"
-        icon: arrow-through-heart-fill
-      - href: network-page.qmd
-        text: "Yet another page with a custom label and icon"
-        icon: arrow-through-heart-fill
+      - word-page.qmd
+      - network-page.qmd
         
 format:
   html:

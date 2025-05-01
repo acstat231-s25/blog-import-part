@@ -84,7 +84,10 @@ ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
   geom_line() +
   scale_x_continuous(breaks = 1:10) +
   labs(x = "Number of clusters (k)", 
-       y = "Total within-cluster sum of squares")
+       y = "Total within-cluster sum of squares",
+       title = "Elbow Plot for Standardized Variables")
+# save image of elbow plot
+ggsave("../images/elbow_plot.png")
 ```
 
 ```{r}
@@ -108,6 +111,37 @@ games_kmeans5$centers |>
         col.names = c("Required Age", "Price", "DLC Count", "Metacritic Score", "Achievements", "Recommendations", "Median Playtime Forever", "Peak CCU", "Net Review Ratio"),
         caption = "Locations of Centroids based on Standardized Variables") |>
   kable_styling()
+
+games_c5 |>
+  filter(cluster_standardized == 1) |>
+  arrange(desc(metacritic_score), desc(price)) |>
+  head()
+
+games_c5 |>
+  filter(cluster_standardized == 2) |>
+  arrange(desc(required_age), desc(recommendations), desc(price)) |>
+  head()
+
+games_c5 |>
+  filter(cluster_standardized == 3) |>
+  arrange(net_review_ratio, metacritic_score) |>
+  head()
+
+games_c5 |>
+  filter(cluster_standardized == 4) |>
+  arrange(desc(net_review_ratio)) |>
+  head()
+
+games_c5 |>
+  filter(cluster_standardized == 5) |>
+  arrange(desc(peak_ccu), desc(median_playtime_forever), desc(achievements), desc(price)) |>
+  head()
+
+#Portal 2, Sid Meier's Civilization IV, TEKKEN 8
+#Hades Ultimate Fighting Ball, Yet Another Waveshooter, Booty Calls
+# MiniFarm 2020, Lucky Night: Poker Games, Model Building Restoration
+# The Void Rains Upon Her Heart, Penko Park, DEVIL BLADE REBOOT
+# Palworld, Black Myth: Wukong, Hogwarts Legacy
 
 # look at these clusters, then give some specific examples
 # include centroids on plots

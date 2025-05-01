@@ -23,7 +23,7 @@ library(purrr)
 library(ggraph)
 library(ggiraph)
 library(plotly)
-
+library(tidygraph)
 
 ```
 
@@ -66,14 +66,14 @@ degreegraph <-  g |>
   activate(nodes) |> 
   mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) 
 
-g<- ggraph(degreegraph, 'drl') +
+ggraph(degreegraph, 'drl') +
   scale_size(range = c(1,10)) +
   geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.25) + 
   scale_edge_width(range = c(.5, 2)) +
   geom_node_label(aes(label = name, fill = weighted_degree), size = 2, repel = TRUE) +
   scale_edge_color_gradientn(colours = c("yellow2", "green4", "blue")) +
   scale_fill_gradientn(colours = c("red", "white", "blue")) +
-  geom_node_point(color = "dodgerblue") + 
+  geom_node_point(aes(color = GreatSteamReview)) + 
   theme_void() + labs(
     title = "Top 40 Highest Rated Games Network",
     edge_color = "Total number of Shared Tags",
@@ -81,7 +81,7 @@ g<- ggraph(degreegraph, 'drl') +
     fill = "Weighted Degree", 
     repel = TRUE
   )
-girafe(ggobj = g)
 
+ggsave("../docs/images/networkg.jpg")
 ```
 

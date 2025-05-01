@@ -1,8 +1,11 @@
 ---
-title: "Another page"
-author: "Kat Correia"
+title: "Top 40 Steam Games by Metacritic Score"
+author: "Surya Rao"
 ---
 
-This is just another page that can be linked! You are not required to include more than just *index.qmd*, but you are welcome to make content on different pages, if desired. This may help with managing GitHub commits, as well. 
 
-Each page can have it's own list of references based on what you cite. For example, did you know that good graphs "have a clear purpose, show the data clearly, and make the message obvious"? [@vandem2019].
+The network shows a few interesting things about the top Metacritic rated games. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. The edges demonstrate a connection between two games via shared tags. The more shared tags, the bluer the color of the edge is and the thicker it is. Games with a higher weighted degree shared more connections, which were weighted by the number of tags for each edge. One thing I noticed were action games in famous high budget series like GTA, Red Dead Redemption and the Elder Scrolls had higher degree centrality while games in other genres like the Baseball game and Microsoft Flight simulator had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores. 
+
+[](docs/images/networkg.jpg)
+
+<p><img src="images/networkg.jpg" width = 1000></p>

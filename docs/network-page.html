@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Kat Correia">
+<meta name="author" content="Surya Rao">
 <meta name="dcterms.date" content="2025-04-30">
 
-<title>Another page – Video Game Analysis</title>
+<title>Top 40 Steam Games by Metacritic Score – Video Game Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,27 +22,7 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -122,14 +102,12 @@ div.csl-indent {
 <span class="menu-text">Grouping Games Through Clustering</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./word-page.html"> <i class="bi bi-arrow-through-heart-fill" role="img">
-</i> 
-<span class="menu-text">Yet another page with a custom label and icon</span></a>
+    <a class="nav-link" href="./word-page.html"> 
+<span class="menu-text">Another page</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./network-page.html" aria-current="page"> <i class="bi bi-arrow-through-heart-fill" role="img">
-</i> 
-<span class="menu-text">Network of Top 40 Highest Metacritic rated games of Steam</span></a>
+    <a class="nav-link active" href="./network-page.html" aria-current="page"> 
+<span class="menu-text">Top 40 Steam Games by Metacritic Score</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -151,7 +129,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Network of Top 40 Highest Metacritic rated games of Steam</h1>
+<h1 class="title">Top 40 Steam Games by Metacritic Score</h1>
 </div>
 
 
@@ -180,16 +158,15 @@ div.csl-indent {
 </header>
 
 
-<p>Network of Top 40 Steam Games <em>index.qmd</em>, but you are welcome to make content on different pages, if desired. This may help with managing GitHub commits, as well.</p>
-<p><img src="images/network.png" width = 1000></p>
+<p>The network shows a few interesting things about the top Metacritic rated games. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. The edges demonstrate a connection between two games via shared tags. The more shared tags, the bluer the color of the edge is and the thicker it is. Games with a higher weighted degree shared more connections, which were weighted by the number of tags for each edge. One thing I noticed were action games in famous high budget series like GTA, Red Dead Redemption and the Elder Scrolls had higher degree centrality while games in other genres like the Baseball game and Microsoft Flight simulator had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores.</p>
+<p><a href="docs/images/networkg.jpg"></a></p>
+<p>
+<img src="images/networkg.jpg" width="1000">
+</p>
 
 
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-vandem2019" class="csl-entry" role="listitem">
-Vandemeulebroecke, M., Baillie, M., Carr, D., Kanitra, L., Margolskee, A., Wright, A., and Magnusson, B. (2019), <span>“How can we make better graphs? An initiative to increase the graphical expertise and productivity of quantitative scientists,”</span> <em>Pharmaceutical Statistics</em>, 18, 106–114. <a href="https://doi.org/10.1002/pst.1912">https://doi.org/10.1002/pst.1912</a>.
-</div>
-</div></section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
