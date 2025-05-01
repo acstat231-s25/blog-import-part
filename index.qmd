@@ -29,7 +29,7 @@ Steam is a platform that hosts video games. Tens of thousands of games are curre
 
 # Data
 
-Steam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset <span class="citation" data-cites="martin_bustos_roman_2022">(<a href="#ref-martin_bustos_roman_2022" role="doc-biblioref">Roman 2022</a>)</span>, which we used to begin our guided analysis of the many games on the high-esteemed platform.
+We got our data from a Kaggle dataset that got data from Steams API and scraped data from a website named Steam Spy. We downloaded this data and cleaned it up by making sure numbers were numeric variables, removing games in other languages and getting variables out of a list format they were not supposed to be in.
 
 ## Website project structure
 
