@@ -2,7 +2,7 @@
 title: "Preparing Network Analysis"
 author: "Surya Rao"
 date: "2025-04-24"
-format: pdf
+format: html
 ---
 
 The purpose of this file is to...
@@ -20,6 +20,11 @@ options(scipen = 1, knitr.kable.NA = '')
 library(tidyverse)
 library(readr)
 library(purrr)
+library(ggraph)
+library(ggiraph)
+library(plotly)
+
+
 ```
 
 ```{r}
@@ -47,16 +52,36 @@ short_game_data <- short_game_data |> mutate(genres1 =  strsplit(genres, ", "))
 
 betterformat <- short_game_data |> unnest_longer(tags) 
 simpleformat <- betterformat |> select(name,tags_id)
-attempt <- simpleformat |> full_join(simpleformat,simpleformat, by = join_by(tags_id == tags_id))
+edges <- simpleformat |> full_join(simpleformat,simpleformat, by = join_by(tags_id == tags_id))
+V <- short_game_data |> select(name, isFree, AdultOnly,GreatSteamReview)
+edges <-edges |> filter(name.x != name.y)
+E <- edges |> mutate(from = name.x) |> mutate(to = name.y) |> group_by(from,to) |> summarize(n = n(), tags = list(tags_id))
+g <- tbl_graph(nodes = V, directed = FALSE, edges = E)
+g
 ```
 
 
 ```{r}
-#| label: saving-data
+degreegraph <-  g |> 
+  activate(nodes) |> 
+  mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) 
 
-# data used for cluster analysis
-saveRDS(*********, file = "../data/processed/network_data.RDS")
+g<- ggraph(degreegraph, 'drl') +
+  scale_size(range = c(1,10)) +
+  geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.25) + 
+  scale_edge_width(range = c(.5, 2)) +
+  geom_node_label(aes(label = name, fill = weighted_degree), size = 2, repel = TRUE) +
+  scale_edge_color_gradientn(colours = c("yellow2", "green4", "blue")) +
+  scale_fill_gradientn(colours = c("red", "white", "blue")) +
+  geom_node_point(color = "dodgerblue") + 
+  theme_void() + labs(
+    title = "Top 40 Highest Rated Games Network",
+    edge_color = "Total number of Shared Tags",
+    edge_width = "Total number of Shared Tags",
+    fill = "Weighted Degree", 
+    repel = TRUE
+  )
+girafe(ggobj = g)
 
 ```
-
 

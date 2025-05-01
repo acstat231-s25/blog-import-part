@@ -1,8 +1,92 @@
 ---
-title: "Another page"
-author: "Kat Correia"
+title: "Grouping Games Through Clustering"
+author: "John Lim"
 ---
 
-This is just another page that can be linked! You are not required to include more than just *index.qmd*, but you are welcome to make content on different pages, if desired. This may help with managing GitHub commits, as well. 
+```{r}
+#| label: setup
+#| include: false
 
-Each page can have it's own list of references based on what you cite. For example, did you know that good graphs "have a clear purpose, show the data clearly, and make the message obvious"? [@vandem2019].
+# improve digit and NA display 
+options(scipen = 1, knitr.kable.NA = '')
+
+# load packages
+library(tidyverse)
+library(readr)
+library(purrr)
+library(broom)
+library(ggplot2)
+library(ggrepel)
+library(GGally)
+library(kableExtra)
+```
+
+```{r}
+#| label: read-files
+
+# read clean game data 
+game_data <- readRDS("data/processed/clean_games.rds")
+
+```
+
+```{r}
+#| label: cluster-prep---move-later
+
+# keep games that people have actually reviewed
+# create game rating metric that describes how people think of games
+# find net review rating, then divide by total reviews to get the ratio
+# values range from -1 to 1, where -1 means all reviews were negative,
+# 0 means there were an equal number of positive and negative reviews,
+# and 1 means all reviews were positive
+game_data2 <- game_data |>
+  filter(positive != 0 | negative !=0) |>
+  mutate(net_review_ratio = (positive - negative) / (positive + negative))
+
+# get quantitative variables that I want to use for clustering
+game_quant <- game_data2 |>
+  select(required_age, price, dlc_count, metacritic_score,
+         achievements, recommendations,
+         median_playtime_forever, peak_ccu, net_review_ratio) |>
+  drop_na()
+
+# glimpse(game_quant)
+
+# standardize variables for clustering
+game_standardized <- game_quant |>
+  mutate(across(everything(),
+                ~ (.x - mean(.x)) / sd(.x),
+                .names = "{.col}_z")) |>
+  select(ends_with("_z"))
+
+```
+
+```{r}
+#| label: idk
+#| 
+# set seed for reproducibility
+set.seed(42069777)
+
+# iterate through clustering algorithm for 10 different values of k
+elbow_plot <- tibble(k = 1:10) |>
+  mutate(
+    kmeans_results = purrr::map(k, ~ kmeans(game_standardized, .x, nstart=25)),
+    glanced = purrr::map(kmeans_results, glance)) |>
+  unnest(cols = c(glanced))
+
+# construct elbow plot
+
+
+```
+
+Hello world
+```{r}
+#| label: elbow-plot
+#| fig-cap: "Elbow Plot"
+
+ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
+  geom_point() + 
+  geom_line() +
+  scale_x_continuous(breaks = 1:10) +
+  labs(x = "Number of clusters (k)", 
+       y = "Total within-cluster sum of squares")
+```
