@@ -17,8 +17,7 @@ website:
         text: "Yet another page with a custom label and icon"
         icon: arrow-through-heart-fill
       - href: network-page.qmd
-        text: "Yet another page with a custom label and icon"
-        icon: arrow-through-heart-fill
+        text: "Network of Top 40 Highest Metacritic rated games of Steam"
         
 format:
   html:
