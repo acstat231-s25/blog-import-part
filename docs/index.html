@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.40">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Tiffany Sun">
 <meta name="author" content="John Lim">
 <meta name="author" content="Surya Rao">
-<meta name="dcterms.date" content="2025-05-01">
+<meta name="dcterms.date" content="2025-05-05">
 
 <title>STEAM Games Analysis</title>
 <style>
@@ -59,12 +59,12 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-8ea72dc5fed832574809a9c94082fbbb.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b3c032ad53392ab4f4776de63f750ca6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-dark-4889ea36da1ebf92e0baab29227ed795.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -150,6 +150,7 @@ div.csl-indent {
   <ul>
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#analyses" id="toc-analyses" class="nav-link" data-scroll-target="#analyses">Analyses</a></li>
   </ul>
 </nav>
     </div>
@@ -178,7 +179,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Last updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 1, 2025</p>
+      <p class="date">May 5, 2025</p>
     </div>
   </div>
   
@@ -204,43 +205,37 @@ div.csl-indent {
 </div>
 <section id="introduction" class="level1">
 <h1>Introduction</h1>
-<p>Steam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset <span class="citation" data-cites="martin_bustos_roman_2022">(<a href="#ref-martin_bustos_roman_2022" role="doc-biblioref">Roman 2022</a>)</span>, which we used to begin our guided analysis of the many games on the high-esteemed platform.</p>
+<p>Steam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset <span class="citation" data-cites="martin_bustos_roman_2022">(<a href="#ref-martin_bustos_roman_2022" role="doc-biblioref">Roman 2022</a>)</span>, which we used to begin our guided analysis of the many games on the high-esteemed platform. Some questions we have are:</p>
+<ol type="1">
+<li><p>What trends can we uncover through clustering games based on their characteristics? What can these insights tell us?</p></li>
+<li><p>What are some prominent patterns within game descriptions? Are games generally positive or negative based on how they are described?</p></li>
+<li><p>How are popular games connected to each other? What characteristics do they share?</p></li>
+</ol>
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>We got our data from a Kaggle dataset that got data from Steams API and scraped data from a website named Steam Spy. We downloaded this data and cleaned it up by making sure numbers were numeric variables, removing games in other languages and getting variables out of a list format they were not supposed to be in.</p>
+<p>We got our data from <a href="https://www.kaggle.com/discussions/general/328265">Kaggle</a>, a website that serves as a collection of datasets for data scientists and machine learning engineers. The Steam Games Dataset <span class="citation" data-cites="martin_bustos_roman_2022">(<a href="#ref-martin_bustos_roman_2022" role="doc-biblioref">Roman 2022</a>)</span> utilizes <a href="https://steamcommunity.com/dev">Steam API</a> and <a href="https://steamspy.com/about">Steam Spy</a> to scrape data from thousands of Steam games.The data came in <em>.csv</em> and <em>.json</em> files. After examination of the <em>.csv</em> file, the data were shifted and, unfortunately, unusable. Therefore, we further wrangled the <em>.json</em> file to obtain game data for this project.</p>
+<p>We transposed <span class="citation" data-cites="transpose">(<a href="#ref-transpose" role="doc-biblioref">Wickham and Henry 2023</a>)</span> the data to get appropriate game data as row entries, and parsed quantitative values as numeric variables. We also removed games with incomplete or duplicate game information and titles in Korean, Chinese, and Japanese.</p>
+</section>
+<section id="analyses" class="level1">
+<h1>Analyses</h1>
+<p>With this dataset limited to games in English, we were then able to:</p>
+<ol type="1">
+<li><p><a href="./cluster-page.html">Find similarities between different games through clustering</a></p></li>
+<li><p><a href="./word-page.html">Analyze patterns and trends in game descriptions</a></p></li>
+<li><p><a href="./network-page.html">Explore how games are connected to one another</a></p></li>
+</ol>
 
 
 
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-mdsr2" class="csl-entry" role="listitem">
-Baumer, B. S., Kaplan, D. T., and Horton, N. J. (2021), <em>Modern data science with <span>R</span></em>, New York, NY: Taylor &amp; Francis Group, LLC.
-</div>
-<div id="ref-ggnetwork" class="csl-entry" role="listitem">
-Briatte, F. (2024), <em><a href="https://github.com/briatte/ggnetwork"><span class="nocase">ggnetwork</span>: Geometries to plot networks with ’ggplot2’</a></em>.
-</div>
-<div id="ref-hadley2016" class="csl-entry" role="listitem">
-Hadley, W. (2016), <em><a href="https://ggplot2-book.org"><span class="nocase">ggplot2</span>: Elegant graphics for data analysis</a></em>, Online book, New York, NY: Springer.
-</div>
-<div id="ref-dancedata" class="csl-entry" role="listitem">
-Merom, D., and Mathieu, E. (2016), <span>“Incidence of falls and risk factors for falls over 12 months among older adults living independently in retirement villages in <span>NSW</span> – <span>The DANCE</span> randomised controlled trial,”</span> Dataset, Western Sydney University, Available at <a href="https://research-data.westernsydney.edu.au/published/160811c0519411ecb15399911543e199/">https://research-data.westernsydney.edu.au/published/160811c0519411ecb15399911543e199/</a>. <a href="https://doi.org/10.4225/35/5786e2b480334">https://doi.org/10.4225/35/5786e2b480334</a>.
-</div>
-<div id="ref-datacarpentry" class="csl-entry" role="listitem">
-<span>“Processing JSON data (optional)”</span> (2025), <em>R for Social Scientists</em>, Available at <a href="https://datacarpentry.github.io/r-socialsci/07-json.html">https://datacarpentry.github.io/r-socialsci/07-json.html</a>.
-</div>
 <div id="ref-martin_bustos_roman_2022" class="csl-entry" role="listitem">
 Roman, M. B. (2022), <span>“Steam games dataset,”</span> Kaggle. <a href="https://doi.org/10.34740/KAGGLE/DS/2109585">https://doi.org/10.34740/KAGGLE/DS/2109585</a>.
 </div>
-<div id="ref-ggsave" class="csl-entry" role="listitem">
-<span>“Save a ggplot (or other grid object) with sensible defaults”</span> (n.d.). Available at <a href="https://ggplot2.tidyverse.org/reference/ggsave.html">https://ggplot2.tidyverse.org/reference/ggsave.html</a>.
-</div>
 <div id="ref-transpose" class="csl-entry" role="listitem">
-<span>“Transpose a list”</span> (n.d.). Available at <a href="https://purrr.tidyverse.org/reference/transpose.html">https://purrr.tidyverse.org/reference/transpose.html</a>.
-</div>
-<div id="ref-vandem2019" class="csl-entry" role="listitem">
-Vandemeulebroecke, M., Baillie, M., Carr, D., Kanitra, L., Margolskee, A., Wright, A., and Magnusson, B. (2019), <span>“How can we make better graphs? An initiative to increase the graphical expertise and productivity of quantitative scientists,”</span> <em>Pharmaceutical Statistics</em>, 18, 106–114. <a href="https://doi.org/10.1002/pst.1912">https://doi.org/10.1002/pst.1912</a>.
+Wickham, H., and Henry, L. (2023), <span>“Transpose a list,”</span> Available at <a href="https://purrr.tidyverse.org/reference/transpose.html">https://purrr.tidyverse.org/reference/transpose.html</a>.
 </div>
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -379,7 +374,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = false;
+  const darkModeDefault = true;
   let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
@@ -469,6 +464,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')

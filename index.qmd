@@ -25,9 +25,27 @@ library(kableExtra)
 
 # Introduction
 
-Steam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset [@martin_bustos_roman_2022], which we used to begin our guided analysis of the many games on the high-esteemed platform.
+Steam is a platform that hosts video games. Tens of thousands of games are currently on the platform, which all cater towards various users. Steam collects information about each video game, such as name, price, rating, and game description. This data was parsed into the Kaggle Steam Games Dataset [@martin_bustos_roman_2022], which we used to begin our guided analysis of the many games on the high-esteemed platform. Some questions we have are:
+
+1. What trends can we uncover through clustering games based on their characteristics? What can these insights tell us?
+
+2. What are some prominent patterns within game descriptions? Are games generally positive or negative based on how they are described?
+
+3. How are popular games connected to each other? What characteristics do they share?
 
 # Data
 
-We got our data from a Kaggle dataset that got data from Steams API and scraped data from a website named Steam Spy. We downloaded this data and cleaned it up by making sure numbers were numeric variables, removing games in other languages and getting variables out of a list format they were not supposed to be in.
+We got our data from [Kaggle](https://www.kaggle.com/discussions/general/328265), a website that serves as a collection of datasets for data scientists and machine learning engineers. The Steam Games Dataset [@martin_bustos_roman_2022] utilizes [Steam API](https://steamcommunity.com/dev) and [Steam Spy](https://steamspy.com/about) to scrape data from thousands of Steam games.The data came in *.csv* and *.json* files. After examination of the *.csv* file, the data were shifted and, unfortunately, unusable. Therefore, we further wrangled the *.json* file to obtain game data for this project.
+
+We transposed [@transpose] the data to get appropriate game data as row entries, and parsed quantitative values as numeric variables. We also removed games with incomplete or duplicate game information and titles in Korean, Chinese, and Japanese.
+
+# Analyses
+
+With this dataset limited to games in English, we were then able to:
+
+1. [Find similarities between different games through clustering](cluster-page.qmd)
+
+2. [Analyze patterns and trends in game descriptions](word-page.qmd)
+
+3. [Explore how games are connected to one another](network-page.qmd)
 
