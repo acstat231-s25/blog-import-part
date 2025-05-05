@@ -15,7 +15,7 @@ price - How much the game costs.
 dlc_count - How many dlc's the game has.
 detailed_description, about_the_game, short_description - Information about game.
 reviews - Thoughts on the game.
-metacritic_score - Numeric score out of 100 from publications.
+metacritic_score - Numeric score out of 100 from Metacritic.
 achievements - Number of achievements in the game.
 recommendations - How many recommendations the game received.
 notes - Further disclaimers about the game.
@@ -59,15 +59,16 @@ library(purrr)
 games_json <- read_json("../data/raw/games.json")
 # flip the rows and columns since we want each observation as own row
 games_transpose <- transpose(games_json)
-# turn into data table with specific variables of interest 
+# turn into data table with specific variables of interest
+# we may not use all of these variables
 games_tibble <- games_transpose |>
   as_tibble() |>
   select(name, release_date, required_age, price, dlc_count,
-         detailed_description, about_the_game, short_description, reviews,
-         metacritic_score, achievements, recommendations, notes,
+         detailed_description, about_the_game, short_description,
+         metacritic_score, achievements, recommendations,
          supported_languages, full_audio_languages, developers, publishers,
          categories, genres, positive, negative, estimated_owners,
-         average_playtime_forever, median_playtime_forever, peak_ccu, tags)
+         median_playtime_forever, peak_ccu, tags)
 
 ```
 
@@ -92,7 +93,7 @@ games_string <- games_tibble |>
 games_clean0 <- games_string |>
   mutate(across(c(required_age, price, dlc_count, metacritic_score,
                   achievements, recommendations, positive, negative,
-                  average_playtime_forever, median_playtime_forever, peak_ccu),
+                  median_playtime_forever, peak_ccu),
          ~ parse_number(.x))) |>
   # remove game names in other languages by removing the following unicode
   # blocks corresponding to Korean, Chinese, and Japanese:
@@ -118,7 +119,7 @@ games_clean0 <- games_string |>
 # 0 means there were an equal number of positive and negative reviews,
 # and 1 means all reviews were positive
 games_clean <- games_clean0 |>
-  mutate(net_review_ratio = (positive - negative) / (positive + negative))
+  mutate(player_rating_ratio = (positive - negative) / (positive + negative))
 
 ```
 
