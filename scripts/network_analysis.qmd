@@ -64,7 +64,8 @@ g
 ```{r}
 degreegraph <-  g |> 
   activate(nodes) |> 
-  mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) 
+  mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) |>
+  slice_head(n = 40)
 
 ggraph(degreegraph, 'drl') +
   scale_size(range = c(1,10)) +
@@ -81,7 +82,37 @@ ggraph(degreegraph, 'drl') +
     fill = "Weighted Degree", 
     repel = TRUE
   )
+```
 
+
+```{r}
 ggsave("../docs/images/networkg.jpg")
+```
+
+
+```{r}
+degreegraph <-  g |> 
+  activate(nodes) |> 
+  mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) |>
+  slice_head(n = 10)
+
+ggraph(degreegraph, 'drl') +
+  scale_size(range = c(1,10)) +
+  geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
+  scale_edge_width(range = c(.5, 2)) +
+  geom_node_label(aes(label = name, fill = weighted_degree),color = "white", size = 2, repel = TRUE) +
+  geom_node_point(aes(color = GreatSteamReview)) + 
+  theme_void() + labs(
+    title = "Top 40 Highest Rated Games Network",
+    edge_color = "Total number of Shared Tags",
+    color = "Overwhellingly Possitive Steam Reviews (>.95)",
+    edge_width = "Total number of Shared Tags",
+    fill = "Weighted Degree", 
+    repel = TRUE)
+```
+
+
+```{r}
+ggsave("../docs/images/network_top10.jpg")
 ```
 

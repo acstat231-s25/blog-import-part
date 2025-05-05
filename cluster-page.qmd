@@ -320,6 +320,11 @@ datatable(colnames = c("Name", "Cluster" ,"Release Date","Required Age",
           options = list(pageLength = 5)) |>
   # round player rating to 3 decimals
   formatRound(12, digits = 3)
+```
 
+
+```{r}
+
+saveRDS(games_c5, file = "data/processed/cluster.RDS")
 ```
 
