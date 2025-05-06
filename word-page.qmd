@@ -41,7 +41,7 @@ year_2005 <- readRDS("data/processed/year_2005.RDS")
 We can uncover meaningful insights and patterns about the tens of thousands of games people play on STEAM through text analysis. What are the prominent patterns in game descriptions? What words and sentimental patterns appear the most common in all game descriptions combined? Do text tell us the differences and similarities of released games through the passage time? In what ways can we apply these findings?
 
 ## Analysis Process
-To address these inquiries, I analyzed text through predominantly word-clouds and bar-charts. Games with only english text are included. Words excluded definitively are stop words. In some visualizations, words without AFINN values are excluded to place emphasis on analyzing sentiment across text. 
+To address these inquiries, I analyzed text through predominantly word-clouds and bar-charts. Word clouds are achieved through the package [@wordcloud2] Games with only english text are included. Words excluded definitively are stop words. In some visualizations, words without AFINN values are excluded to place emphasis on analyzing sentiment across text. A total of eight datasets were used for this analysis, five were to explore the differences in text across time and were achieved through dynamic variables in a for-loop, which I was aided by [@StatisticsGlobe]
 
 #### Variables Explored:
 There are four main variables that are explored in various visualizations:
@@ -78,7 +78,7 @@ Disclaimer: Visualizations exclude most games which descriptions are in other la
 ## Overall Analysis
 
 ### Word Cloud
-This word cloud represents words in all Steam games' descriptions excluding those of other languages AND are associated with their corresponding sentimental values. Hover to see the prevalence of each word.
+This word cloud represents words in all Steam games' descriptions excluding those of other languages AND are associated with their corresponding sentimental values. Hover to see the prevalence of each word. 
 
 
 ```{r}
