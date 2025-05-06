@@ -125,6 +125,7 @@ pull(cluster_network,weighted_degree)
 
 
 ```{r}
+saveRDS(degreegraph, file = "../data/processed/Top10Network.RDS")
 ggsave("../docs/images/network_top10.jpg")
 ```
 
@@ -156,7 +157,9 @@ ggraph(cluster_network, 'drl') +
 #mean(pull(cluster_network,weighted_degree))
 #pull(cluster_network,weighted_degree)
 ```
+
 ```{r}
+saveRDS(cluster_network, file = "../data/processed/Cluster2.RDS")
 ggsave("../docs/images/network_cluster2.jpg")
 ```
 
@@ -188,6 +191,7 @@ ggraph(cluster_network, 'drl') +
 #mean(pull(cluster_network,weighted_degree))
 ```
 ```{r}
+saveRDS(cluster_network, file = "../data/processed/Cluster3.RDS")
 ggsave("../docs/images/network_cluster3.jpg")
 ```
 
@@ -219,7 +223,9 @@ ggraph(cluster_network, 'drl') +
 #mean(pull(cluster_network,weighted_degree))
 
 ```
+
 ```{r}
+saveRDS(cluster_network, file = "../data/processed/Cluster4.RDS")
 ggsave("../docs/images/network_cluster4.jpg")
 ```
 
@@ -249,7 +255,9 @@ ggraph(cluster_network, 'drl') +
     repel = TRUE)
 mean(pull(cluster_network,weighted_degree))
 ```
+
 ```{r}
+saveRDS(cluster_network, file = "../data/processed/Cluster5.RDS")
 ggsave("../docs/images/network_cluster5.jpg")
 
 ```
