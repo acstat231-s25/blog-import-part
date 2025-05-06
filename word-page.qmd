@@ -45,7 +45,7 @@ Disclaimer: Visualizations exclude most games which descriptions are in other la
 :::
 
 ### Word Cloud
-This word cloud represents words in all Steam games' descriptions excluding those of other languages AND are associated with a sentimental value. Hover to see the prevalence of each word.
+This word cloud represents words in all Steam games' descriptions excluding those of other languages AND are associated with their corresponding sentimental values. Hover to see the prevalence of each word.
 
 
 ```{r}
