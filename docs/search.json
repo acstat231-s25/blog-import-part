@@ -4,69 +4,121 @@
     "href": "word-page.html",
     "title": "Text Analysis",
     "section": "",
-    "text": "There are so many games on Steam, so it is fascinating to explore the patterns, especially through text analysis. What are some of the most prevalent terms overall? Are there more positive or negative descriptive terms? What patterns do these prevalent terms tell?\nThe visualizations below seek to address such questions.\n\n\n\n\n\n\nNote\n\n\n\nDisclaimer: Visualizations exclude most games which descriptions are in other languages.\n\n\n\n\nThis word cloud represents words in all Steam games’ descriptions excluding those of other languages AND are associated with their corresponding sentimental values. Hover to see the prevalence of each word.\n\n\n\n\n\n\n\n\n\nExplore the top 10 most common sentimental words found in all recorded STEAM games across time! I decided to visualize the top ten words found in games released the following years to explore and determine potential differences and similarities found after each five years intervals: 2005, 2010, 2015, 2020, and 2025.\n\n20252020201520102005\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe top ten words in STEAM’s Games Descriptions in all five years tend to be action-themed. There were also a several words that were on the top 10 across different years, which are: enemies, battle, and adventure. In most years, more than half the terms evoke a negative sentiment whereas in 2015, there was a balanced mixture of both positive and negative AFINN words."
+    "text": "We can uncover meaningful insights and patterns about the tens of thousands of games people play on STEAM through text analysis. What are the prominent patterns in game descriptions? What words and sentimental patterns appear the most common in all game descriptions combined? Do text tell us the differences and similarities of released games through the passage time? In what ways can we apply these findings?"
   },
   {
     "objectID": "word-page.html#overall-analysis",
     "href": "word-page.html#overall-analysis",
     "title": "Text Analysis",
-    "section": "",
-    "text": "There are so many games on Steam, so it is fascinating to explore the patterns, especially through text analysis. What are some of the most prevalent terms overall? Are there more positive or negative descriptive terms? What patterns do these prevalent terms tell?\nThe visualizations below seek to address such questions.\n\n\n\n\n\n\nNote\n\n\n\nDisclaimer: Visualizations exclude most games which descriptions are in other languages.\n\n\n\n\nThis word cloud represents words in all Steam games’ descriptions excluding those of other languages AND are associated with their corresponding sentimental values. Hover to see the prevalence of each word.\n\n\n\n\n\n\n\n\n\nExplore the top 10 most common sentimental words found in all recorded STEAM games across time! I decided to visualize the top ten words found in games released the following years to explore and determine potential differences and similarities found after each five years intervals: 2005, 2010, 2015, 2020, and 2025.\n\n20252020201520102005\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe top ten words in STEAM’s Games Descriptions in all five years tend to be action-themed. There were also a several words that were on the top 10 across different years, which are: enemies, battle, and adventure. In most years, more than half the terms evoke a negative sentiment whereas in 2015, there was a balanced mixture of both positive and negative AFINN words."
+    "section": "Overall Analysis",
+    "text": "Overall Analysis\n\nWord Cloud\nThis word cloud represents words in all Steam games’ descriptions excluding those of other languages AND are associated with their corresponding sentimental values. Hover to see the prevalence of each word.\n\n\n\n\n\n\n\n\nTop Ten Sentimental Words Across 5 Year Intervals\nExplore the top 10 most common sentimental words found in all recorded STEAM games across time! I decided to visualize the top ten words found in games released the following years to explore and determine potential differences and similarities found after each five years intervals: 2005, 2010, 2015, 2020, and 2025.\n\n20252020201520102005\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTrends across Time\nThe top ten words in STEAM’s Games Descriptions in all five years tend to be action-themed. There were also a several words that were on the top 10 across different years, which are: “enemies”, “battle”, and “adventure”. In most years, more than half the terms evoke a negative sentiment whereas in 2015, there was a balanced mixture of both positive and negative AFINN words."
   },
   {
     "objectID": "word-page.html#game-specific-analysis",
     "href": "word-page.html#game-specific-analysis",
     "title": "Text Analysis",
     "section": "Game-Specific Analysis",
+<<<<<<< HEAD
+    "text": "Game-Specific Analysis\nWhile it can be informative to see patterns and trends from a VERY big picture, potential crucial, small details may go unnoticed.\n\nElder Scrolls vs. Grand Auto Theft?\nIf you explored Surya’s General Top Ten Network, you’ll notice that game series Elder Scrolls and Grand Auto Theft are two of the most top Metacritic rated games. This poses a few questions: What textual commonalites do they both share that may contribute to their high ratings? What does that say about STEAM’s audience?\n\nElder Scrolls IV Deluxe Word CloudElder Scrolls IV Deluxe Sentiment Analysis\n\n\n\n\n\n\n\n\n\n\nHover to see the word associated with the value.\n\n\n\n\n\n\n\n\n\n\nGrand Theft Auto V Word CloudGrand Theft Auto V Sentiment Analysis\n\n\n\n\n\n\n\n\n\n\nHover to see the word associated with the value.\n\n\n\n\n\n\n\n\n\nIt’s interesting to see that while both games differ in terms of settings and their overall themes, they share several terms, one especially is “world”. Other terms such as “characters” and “explore” hint their similarity as games that empower players to roam in their respective realms and engage in roleplaying. Perhaps this similarity also contribute to their statuses as top rated games, as these games that enable high immersive interaction and exploration may appeal to most of STEAM’s audience. While there are many similarities, a noticeable difference between the two games lies in their average sentimental values. Elder Scrolls IV has a balanced mixture of both positive and negative words while Grand Theft Auto V has more positive words."
+=======
     "text": "Game-Specific Analysis\nWhile it can be informative to see patterns and trends from a VERY big picture, potential crucial, small details may go unnoticed.\n\nElder Scrolls vs. Grand Auto Theft?\nIf you explored Surya’s General Top Ten Network, you’ll notice that game series Elder Scrolls and Grand Auto Theft are two of the most top Metacritic rated games. This poses a few questions: What textual commonalites do they both share that may contribute to their high ratings? What does that say about STEAM’s audience?\n\nElder Scrolls IV Deluxe Word CloudElder Scrolls IV Deluxe Sentiment Analysis\n\n\n\n\n\n\n\n\n\n\nHover to see the word associated with the value.\n\n\n\n\n\n\n\n\n\n\nGrand Theft Auto V Word CloudGrand Theft Auto V Sentiment Analysis\n\n\n\n\n\n\n\n\n\n\nHover to see the word associated with the value.\n\n\n\n\n\n\n\n\n\nIt’s interesting to see that while both games differ in terms of settings and their overall themes, they share several terms, one especially is world. Other terms such as characters and explore hint their similarity as games that empower players to roam in their respective realms and engage in roleplaying. Perhaps this similarity also contribute to their statuses as top rated games, as these games that enable high immersive interaction and exploration may appeal to most of STEAM’s audience."
+>>>>>>> b217957a7c17b23f657562bac4e2452c54ffb528
   },
   {
     "objectID": "network-page.html",
     "href": "network-page.html",
     "title": "Steam Network",
     "section": "",
+<<<<<<< HEAD
+    "text": "For this component I have displayed the network of the top 10 highest rated games on Metacritic in general and in each cluster from the cluster analysis. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes."
+=======
     "text": "For this component, I have displayed the network of the top 10 games with the highest ratings on Metacritic in general and in each cluster from the cluster analysis. Metacritic is a platform that averages critic scores for video games, a lot like Rotten Tomatoes."
+>>>>>>> b217957a7c17b23f657562bac4e2452c54ffb528
   },
   {
     "objectID": "network-page.html#variables",
     "href": "network-page.html#variables",
     "title": "Steam Network",
     "section": "Variables",
+<<<<<<< HEAD
+    "text": "Variables\n\nFor the edges the variable I used were tags, specifically the number of shared tags between each game. Tags are user suggested words or short phrases that describe each game. The color and width of each edge is determined by the number of shared tags.\nThe other variable displayed on the network is a boolean node variable which records if a game’s steam reviews are overwhelmingly positive. On Steam a user can rate a game with either a thumbs up or down, if 95% or more of the reviews are a thumbs up the game marked as having overwhelming positive reviews. The data set gives the number of positive user reviews and negative user reviews, I divided positive reviews by the sum of positive user reviews and negative user reviews to get the percentage. The node is colored red if the percentage is below 95% but blue if it is.\n\n\nThis image shows the steam page of my favorite game and one visualized in some of these networks, Portal 2. This shows how you would see the variables used in these networks when browsing the steam store, and what they look like.\nDisclaimer: The network for Cluster 1 is not shown due to inapproprate results"
+=======
     "text": "Variables\n\nFor the edges, the variable I used was tags, specifically the number of shared tags between each game. Tags are user-suggested words or short phrases that describe each game. The number of shared tags determines the color and width of each edge.\nThe other variable displayed on the network is a boolean node variable which records if a game’s Steam reviews are overwhelmingly positive. On Steam, a user can rate a game with either a thumbs-up or down. If 95% or more of the reviews are a thumbs up, the game is marked as having overwhelmingly positive reviews. The dataset gives the number of positive user reviews and negative user reviews. I divided positive reviews by the sum of positive user reviews and negative user reviews to get the percentage. The node is colored red if the percentage is below 95%, but blue if it is.\n\n\nThis image shows the Steam page of my favorite game, and one visualized in some of these networks, Portal 2. This shows how you would see the variables used in these networks when browsing the Steam store.\nDisclaimer: The network for Cluster 1 is not shown due to inappropriate results. I used the StackOverflow post (“Convert ggraph to interative plot with plotyly or Network3D” 2020) to help me create these networks."
+>>>>>>> b217957a7c17b23f657562bac4e2452c54ffb528
   },
   {
     "objectID": "network-page.html#general-top-10-network",
     "href": "network-page.html#general-top-10-network",
     "title": "Steam Network",
     "section": "General Top 10 Network",
+<<<<<<< HEAD
+    "text": "General Top 10 Network\n\n\n\n\n\n\n\n\n\nThe network shows a few interesting things about the top Metacritic rated games. One thing I noticed was action games in famous high budget series like Grand Theft Auto and The Elder Scrolls had higher degree centrality while games in other genres like the Portal 2 and Persona 5 had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores. The average weighted degree is 1093.8 which is higher then many any of the cluster’s average weighted degree, this shows that the top rated games on Metacritic are similar in their own ways."
+=======
     "text": "General Top 10 Network\n\n\n\n\n\n\nThe network shows a few interesting things about the top Metacritic-rated games. One thing I noticed was that action games in famous high-budget series like Grand Theft Auto and The Elder Scrolls had a higher degree of centrality, while games in other genres like Portal 2 and Persona 5 had a much lower degree of centrality. This shows the tendency of these large-budget action games to get high Metacritic scores. The average weighted degree is 1093.8, which is higher than many of the cluster’s average weighted degrees. This shows that the top-rated games on Metacritic are similar in their many ways."
+>>>>>>> b217957a7c17b23f657562bac4e2452c54ffb528
   },
   {
     "objectID": "network-page.html#cluster-2",
     "href": "network-page.html#cluster-2",
     "title": "Steam Network",
     "section": "Cluster 2",
+<<<<<<< HEAD
+    "text": "Cluster 2\n\n\n\n\n\n\n\n\n\nThus network has a average weighted degree of 874.2 which is much reasonably high when compared to other clusters. Only one of these games is overwhelmingly positive on steam - Bloons TD 5, this game also has a notably high weighted degree. The game Konung 2 has the lowest weighted degree in this network and is tied for the lowest degree on any network. It seems that most of the top rated games in the cluster are generally similar as seen by the average weighted degree to each other except Konung 2 and are not considered to be excellent games except for Bloons TD5."
+=======
     "text": "Cluster 2\n\n\n\n\n\n\nThus network has an average weighted degree of 874.2, which is reasonably high when compared to other clusters. Only one of these games is overwhelmingly positive on Steam - Bloons TD 5, this game also has a notably high weighted degree. The game Konung 2 has the lowest weighted degree in this network and is tied for the lowest degree on any network. It seems that most of the top-rated games in the cluster are generally similar, as seen by the average weighted degree, except Konung 2, and are not considered to be excellent games, except for Bloons TD5."
+>>>>>>> b217957a7c17b23f657562bac4e2452c54ffb528
   },
   {
     "objectID": "network-page.html#cluster-3",
     "href": "network-page.html#cluster-3",
     "title": "Steam Network",
     "section": "Cluster 3",
+<<<<<<< HEAD
+    "text": "Cluster 3\n\n\n\n\n\n\n\n\n\nThis network has a higher range of weighted degree then any other cluster, with a weighted degree of 1494.2. Many of these games are reviewed as being overwhelmingly positive. The games in this network are over represented in the top 10 games showing that this type of game (one that has high age requirements, price, and recommendations) is predisposed to succeed critically. The high average weighted degree suggests there is a sort of formula in terms of the types of games that make it into this cluster and get high metacritic ratings."
+=======
     "text": "Cluster 3\n\n\n\n\n\n\nThis network has a higher range of weighted degree than any other cluster, with a weighted degree of 1494.2. Many of these games are reviewed as being overwhelmingly positive. The games in this network are overrepresented in the top 10 games, showing that this type of game (one that has high age requirements, price, and recommendations) is predisposed to succeed critically. The high average weighted degree suggests there is a sort of formula in terms of the types of games that make it into this cluster and get high metacritic ratings."
+>>>>>>> b217957a7c17b23f657562bac4e2452c54ffb528
   },
   {
     "objectID": "network-page.html#cluster-4",
     "href": "network-page.html#cluster-4",
     "title": "Steam Network",
     "section": "Cluster 4",
+<<<<<<< HEAD
+    "text": "Cluster 4\n\n\n\n\n\n\n\n\n\nThis network has a very low weighted degree of 337, the lowest of any cluster. None of these games are reviewed as being overwhelmingly positive. The degree of these nodes vary wildly, with Perimeter 2 having only one edge and a very low weighted degree while Everreach has a much higher weighted degree then any other game in the network, showing considerable variation in terms of tags for this cluster. This shows that highly rated games from this cluster have not much to do with each other and are not very well liked by the steam community."
+=======
     "text": "Cluster 4\n\n\n\n\n\n\nThis network has a very low weighted degree of 337, the lowest of any cluster. None of these games are reviewed as being overwhelmingly positive. The degree of these nodes varies wildly, with Perimeter 2 having only one edge and a very low weighted degree, while Everreach has a much higher weighted degree than any other game in the network, showing considerable variation in terms of tags for this cluster. This shows that highly rated games from this cluster have not much to do with each other and are not very well liked by the Steam community."
+>>>>>>> b217957a7c17b23f657562bac4e2452c54ffb528
   },
   {
     "objectID": "network-page.html#cluster-5",
     "href": "network-page.html#cluster-5",
     "title": "Steam Network",
     "section": "Cluster 5",
+<<<<<<< HEAD
+    "text": "Cluster 5\n\n\n\n\n\n\n\n\n\nThis network has a reasonably small weighted degree of 753.4. It has by far the most number of games rated Overwhelmingly Positive by the steam community. Most of these games have a high weighted degree except Team Fortress 2, suggesting it is a bit of an outlier in the top games of this cluster. This network shows that the of the highest rated games in cluster 5 are very well liked and have diverse play styles as seen by their comparatively small average weighted degree."
+  },
+  {
+    "objectID": "word-page.html#analysis-process",
+    "href": "word-page.html#analysis-process",
+    "title": "Text Analysis",
+    "section": "Analysis Process",
+    "text": "Analysis Process\nTo address these inquiries, I analyzed text through predominantly word-clouds and bar-charts. Games with only english text are included. Words excluded definitively are stop words. In some visualizations, words without AFINN values are excluded to place emphasis on analyzing sentiment across text.\n\nVariables Explored:\nThere are four main variables that are explored in various visualizations:\n\nword - Singular words extracted from game’s descriptions.\nyear - A categorical variable of time.\nn - Count of instances, which in this context refer to words.\nvalue - AFINN Sentimental Value\n\n\n\nPackages Utilized:\n\ntidyverse\nreadr\nwordcloud2\nRColorBrewer\nplotly\n\n\n\nAFINN:\nAFINN, developed by Finn Arup Nielson, is a lexicon (list) of words rated for their emotional valence. Each word can be assigned to a value from -5 to +5, with negative values indicative of negative sentiments and positive values indicative of positive sentiments. For instance, words such as “happy”, “adventurous”, and “magic” would have positive values, while words like “disgust’ and”evil” would have negative values.\n\n\nStop Words:\nStop words are essentially your everyday words that don’t really contribute to meanings or ideas. They include articles such as “the” and “is”.\n\n\n\n\n\n\nNote\n\n\n\nDisclaimer: Visualizations exclude most games which descriptions are in other languages."
+  },
+  {
+    "objectID": "word-page.html#conclusion",
+    "href": "word-page.html#conclusion",
+    "title": "Text Analysis",
+    "section": "Conclusion",
+    "text": "Conclusion"
+  },
+  {
+    "objectID": "word-page.html#take-aways",
+    "href": "word-page.html#take-aways",
+    "title": "Text Analysis",
+    "section": "Take-Aways",
+    "text": "Take-Aways\nA recurring theme found in most words is action. Whether it be analyzing game descriptions from big, small, or chronological scale, I tend to see most words related to action. Additionally, prevalent words that have a negative AFINN values are typically about challenges such as combat or war while those with positive AFINN values are typically descriptive- “fun”, “glory”, “powerful”, etc. What piqued my curiosity was the fact that prevalent words remain similar across time, and there were several that even stayed in the top 10. Perhaps this is due to the fact that action games tend to be more popular, as reinforced by my partners’ analyses. Action games entice players with prospects of fun challenges and immersive exploration. Hence, more games that are released are in the genre of action than others genres. Overall, textual analysis can be used to reveal trends and insights such as those uncovered in this project, which can contribute to market research in the field of entertainment such as video-games production."
+=======
     "text": "Cluster 5\n\n\n\n\n\n\nThis network has a reasonably small weighted degree of 753.4. It has by far the most number of games rated Overwhelmingly Positive by the Steam community. Most of these games have a high weighted degree except Team Fortress 2, suggesting it is a bit of an outlier in the top games of this cluster. This network shows that the highest rated games in cluster 5 are very well liked and have diverse play styles, as seen by their comparatively small average weighted degree."
   },
   {
@@ -75,5 +127,6 @@
     "title": "Steam Network",
     "section": "Conclusion",
     "text": "Conclusion\nThese networks show that games with high Metacritic scores often share many characteristics, demonstrated by shared tags. Some of the clusters in the previous analysis have more shared characteristics with highly reviewed games than others, and some clusters are overrepresented in the top games when compared to the rest. Finding the shared characteristics of these highly rated games, especially those in cluster 3, which are overrepresented in the general top ten network, might be useful for predicting if a game will be a critical success. In the future, I would like to create a network of all of the data and find the shared tags that correlate most to higher critic scores."
+>>>>>>> b217957a7c17b23f657562bac4e2452c54ffb528
   }
 ]
