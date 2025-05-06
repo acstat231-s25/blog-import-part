@@ -214,7 +214,7 @@ div.csl-indent {
 </section>
 <section id="data" class="level1">
 <h1>Data</h1>
-<p>We got our data from <a href="https://www.kaggle.com/discussions/general/328265">Kaggle</a>, a website that serves as a collection of datasets for data scientists and machine learning engineers. The Steam Games Dataset <span class="citation" data-cites="martin_bustos_roman_2022">(<a href="#ref-martin_bustos_roman_2022" role="doc-biblioref">Roman 2022</a>)</span> utilizes <a href="https://steamcommunity.com/dev">Steam API</a> and <a href="https://steamspy.com/about">Steam Spy</a> to scrape data from thousands of Steam games.The data came in <em>.csv</em> and <em>.json</em> files. After examination of the <em>.csv</em> file, the data were shifted and, unfortunately, unusable. Therefore, we further wrangled the <em>.json</em> file to obtain game data for this project.</p>
+<p>We got our data from <a href="https://www.kaggle.com/discussions/general/328265">Kaggle</a>, a website that serves as a collection of datasets for data scientists and machine learning engineers. The Steam Games Dataset <span class="citation" data-cites="martin_bustos_roman_2022">(<a href="#ref-martin_bustos_roman_2022" role="doc-biblioref">Roman 2022</a>)</span> utilizes <a href="https://steamcommunity.com/dev">Steam API</a> and <a href="https://steamspy.com/about">Steam Spy</a> to scrape data from thousands of Steam games.The data came in <em>.csv</em> and <em>.json</em> files. After examination of the <em>.csv</em> file, the data were shifted and, unfortunately, unusable. Therefore, we further wrangled the <em>.json</em> file <span class="citation" data-cites="datacarpentry">(<a href="#ref-datacarpentry" role="doc-biblioref">Carpentries 2025</a>)</span> to obtain game data for this project.</p>
 <p>We transposed <span class="citation" data-cites="transpose">(<a href="#ref-transpose" role="doc-biblioref">Wickham and Henry 2023</a>)</span> the data to get appropriate game data as row entries, and parsed quantitative values as numeric variables. We also removed games with incomplete or duplicate game information and titles in Korean, Chinese, and Japanese.</p>
 </section>
 <section id="analyses" class="level1">
@@ -231,6 +231,9 @@ div.csl-indent {
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-datacarpentry" class="csl-entry" role="listitem">
+Carpentries, T. (2025), <span>“Processing JSON data (optional),”</span> <em>R for Social Scientists</em>, Available at <a href="https://datacarpentry.github.io/r-socialsci/07-json.html">https://datacarpentry.github.io/r-socialsci/07-json.html</a>.
+</div>
 <div id="ref-martin_bustos_roman_2022" class="csl-entry" role="listitem">
 Roman, M. B. (2022), <span>“Steam games dataset,”</span> Kaggle. <a href="https://doi.org/10.34740/KAGGLE/DS/2109585">https://doi.org/10.34740/KAGGLE/DS/2109585</a>.
 </div>

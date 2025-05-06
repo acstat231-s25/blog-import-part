@@ -35,7 +35,7 @@ Steam is a platform that hosts video games. Tens of thousands of games are curre
 
 # Data
 
-We got our data from [Kaggle](https://www.kaggle.com/discussions/general/328265), a website that serves as a collection of datasets for data scientists and machine learning engineers. The Steam Games Dataset [@martin_bustos_roman_2022] utilizes [Steam API](https://steamcommunity.com/dev) and [Steam Spy](https://steamspy.com/about) to scrape data from thousands of Steam games.The data came in *.csv* and *.json* files. After examination of the *.csv* file, the data were shifted and, unfortunately, unusable. Therefore, we further wrangled the *.json* file to obtain game data for this project.
+We got our data from [Kaggle](https://www.kaggle.com/discussions/general/328265), a website that serves as a collection of datasets for data scientists and machine learning engineers. The Steam Games Dataset [@martin_bustos_roman_2022] utilizes [Steam API](https://steamcommunity.com/dev) and [Steam Spy](https://steamspy.com/about) to scrape data from thousands of Steam games.The data came in *.csv* and *.json* files. After examination of the *.csv* file, the data were shifted and, unfortunately, unusable. Therefore, we further wrangled the *.json* file [@datacarpentry] to obtain game data for this project.
 
 We transposed [@transpose] the data to get appropriate game data as row entries, and parsed quantitative values as numeric variables. We also removed games with incomplete or duplicate game information and titles in Korean, Chinese, and Japanese.
 
