@@ -26,7 +26,8 @@ library(DT)
 #| label: read-files
 
 # read data for clustering
-game_data <- readRDS("data/processed/clean_games.rds")
+games_kmeans5 <- readRDS("data/processed/games_kmeans5.rds")
+games_c5 <- readRDS("data/processed/games_c5.rds")
 ```
 
 # Technique
@@ -57,52 +58,12 @@ For this analysis, I chose 9 quantitative variables to cluster the games by as f
 
 Since the variables on different scales (e.g. 0 to 100, -1 to 1, and 0 to 1,000,000+), it is important to standardize the variables (i.e. level the playing field). This way, the locations of the centroids will not be dominated by its relation to one variable over another when using *k*-means clustering.
 
-```{r}
-#| label: cluster-prep
-
-game_standardized <- game_data |>
-  # get quantitative variables that I want to use for clustering
-  select(required_age, price, dlc_count, metacritic_score,
-         achievements, recommendations,
-         median_playtime_forever, peak_ccu, player_rating_ratio) |>
-  # make sure observations are complete
-  drop_na() |>
-  # standardize variables for clustering
-  mutate(across(everything(),
-                ~ (.x - mean(.x)) / sd(.x),
-                .names = "{.col}_z")) |>
-  select(ends_with("_z"))
-```
-
 ## Elbow Plot
 
 Since we are working with 9 quantitative variables, to determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. However, with too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning. Therefore, based on the elbow plot (see @fig-elbow-plot), 5 clusters appear to be reasonably optimal as it is where the graph "bends" without containing too many clusters.
 
-```{r}
-#| label: fig-elbow-plot
-#| fig-cap: "Elbow Plot Indicates A Bend at 5 Clusters"
+![Elbow Plot Indicates A Bend at 5 Clusters](images/elbow_plot.png){#fig-elbow-plot}
 
-# set seed for reproducibility
-set.seed(42069777)
-
-# iterate through clustering algorithm for 10 different values of k
-elbow_plot <- tibble(k = 1:10) |>
-  mutate(
-    kmeans_results = purrr::map(k, ~ kmeans(game_standardized, .x, nstart=25)),
-    glanced = purrr::map(kmeans_results, glance)) |>
-  unnest(cols = c(glanced))
-
-# construct elbow plot
-ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
-  geom_point() + 
-  geom_line() +
-  geom_point(data = (elbow_plot |> filter(k == 5)), color = "red", size = 3) +
-  scale_x_continuous(breaks = 1:10) +
-  labs(x = "Number of Clusters (k)", 
-       y = "Total Within-Cluster Sum of Squares",
-       title = "Elbow Plot with Standardized Variables") +
-  theme_classic()
-```
 ## Clusters
 
 After performing a *k*-means clustering with *k* = 5 clusters, it appears that our clusters are grouped by the following characteristics (see @tbl-fit-cluster):
@@ -122,21 +83,7 @@ After performing a *k*-means clustering with *k* = 5 clusters, it appears that o
 #| tbl-cap: "Locations of Centroids based on Standardized Variables"
 #| tbl-cap-location: bottom
 
-# for reproducibility
-set.seed(42069777)
-
-# save 5 cluster object
-games_kmeans5 <- game_standardized |>
-  kmeans(centers = 5, nstart = 25)
-
-# augment original dataset to include which cluster each game belongs to 
-games_c5 <- augment(games_kmeans5, game_data) |>
-  rename(cluster_standardized = .cluster) |>
-  select(name, cluster_standardized, release_date, required_age, price,
-         dlc_count, metacritic_score, achievements, recommendations,
-         median_playtime_forever, peak_ccu, player_rating_ratio)
-
-# present table that shows where these centroids are located
+# present table that shows where centroids are located
 games_kmeans5$centers |>
   as_tibble() |>
   mutate(Cluster = row_number(), .before = 1) |>
@@ -321,10 +268,3 @@ datatable(colnames = c("Name", "Cluster" ,"Release Date","Required Age",
   # round player rating to 3 decimals
   formatRound(12, digits = 3)
 ```
-
-
-```{r}
-
-saveRDS(games_c5, file = "data/processed/cluster.RDS")
-```
-

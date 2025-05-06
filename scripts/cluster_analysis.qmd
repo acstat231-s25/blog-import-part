@@ -1,0 +1,109 @@
+---
+title: "Preparing Cluster Analysis"
+author: "John Lim"
+format: pdf
+---
+
+Purpose of this file is to do the time-consuming code here, so that the blog page runs quickly :)
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(eval = FALSE, message = FALSE)
+
+# improve digit and NA display 
+options(scipen = 1, knitr.kable.NA = '')
+
+# load packages
+library(tidyverse)
+library(readr)
+library(purrr)
+library(broom)
+library(ggplot2)
+library(ggrepel)
+library(GGally)
+library(kableExtra)
+library(DT)
+
+```
+
+```{r}
+#| label: read-files
+
+# read clean game data 
+game_data <- readRDS("../data/processed/clean_games.rds")
+```
+
+```{r}
+#| label: cluster-prep
+
+game_standardized <- game_data |>
+  # get quantitative variables that I want to use for clustering
+  select(required_age, price, dlc_count, metacritic_score,
+         achievements, recommendations,
+         median_playtime_forever, peak_ccu, player_rating_ratio) |>
+  # make sure observations are complete
+  drop_na() |>
+  # standardize variables for clustering
+  mutate(across(everything(),
+                ~ (.x - mean(.x)) / sd(.x),
+                .names = "{.col}_z")) |>
+  select(ends_with("_z"))
+```
+
+```{r}
+#| label: elbow-plot
+
+# set seed for reproducibility
+set.seed(42069777)
+
+# iterate through clustering algorithm for 10 different values of k
+# TAKES UNCOMFORTABLY LONG TIME
+elbow_plot <- tibble(k = 1:10) |>
+  mutate(
+    kmeans_results = purrr::map(k, ~ kmeans(game_standardized, .x, nstart=25)),
+    glanced = purrr::map(kmeans_results, glance)) |>
+  unnest(cols = c(glanced))
+
+# construct elbow plot
+ggplot(elbow_plot, aes(x = k, y = tot.withinss)) +
+  geom_point() + 
+  geom_line() +
+  geom_point(data = (elbow_plot |> filter(k == 5)), color = "red", size = 3) +
+  scale_x_continuous(breaks = 1:10) +
+  labs(x = "Number of Clusters (k)", 
+       y = "Total Within-Cluster Sum of Squares",
+       title = "Elbow Plot with Standardized Variables") +
+  theme_classic()
+# save image to use!
+ggsave("../images/elbow_plot.png")
+```
+
+```{r}
+#| label: fit-cluster
+
+# for reproducibility
+set.seed(42069777)
+
+# save 5 cluster object
+games_kmeans5 <- game_standardized |>
+  kmeans(centers = 5, nstart = 25)
+
+# augment original dataset to include which cluster each game belongs to 
+games_c5 <- augment(games_kmeans5, game_data) |>
+  rename(cluster_standardized = .cluster) |>
+  select(name, cluster_standardized, release_date, required_age, price,
+         dlc_count, metacritic_score, achievements, recommendations,
+         median_playtime_forever, peak_ccu, player_rating_ratio)
+
+```
+
+```{r}
+#| label: saving-data
+
+# save data used for cluster page
+saveRDS(games_kmeans5, file = "../data/processed/games_kmeans5.rds")
+saveRDS(games_c5, file = "../data/processed/games_c5.rds")
+
+```

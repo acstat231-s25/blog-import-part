@@ -32,7 +32,7 @@ library(tidygraph)
 
 # read clean game data 
 game_data <- readRDS("../data/processed/clean_games.rds")
-cluster_data <- readRDS("../data/processed/cluster.rds")
+cluster_data <- readRDS("../data/processed/games_c5.rds")
 
 ```
 
