@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Surya Rao">
-<meta name="dcterms.date" content="2025-04-30">
+<meta name="dcterms.date" content="2025-05-06">
 
-<title>Top 40 Steam Games by Metacritic Score – STEAM Games Analysis</title>
+<title>Steam Network – STEAM Games Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,7 @@ ul.task-list li input[type="checkbox"] {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./network-page.html" aria-current="page"> 
-<span class="menu-text">Top 40 Steam Games by Metacritic Score</span></a>
+<span class="menu-text">Steam Network</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -129,7 +129,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Top 40 Steam Games by Metacritic Score</h1>
+<h1 class="title">Steam Network</h1>
 </div>
 
 
@@ -146,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Last updated</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 30, 2025</p>
+      <p class="date">May 6, 2025</p>
     </div>
   </div>
   
@@ -158,11 +158,35 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>For this component I have displayed the network of the top 10 highest rated games on Metacritic in general and in each cluster from the cluster analysis. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. I used a few variables to create the network;</p>
+<ul>
+<li><p>For the edges the variable I used were <strong>tags</strong>, specifically the number of shared tags between each game. Tags are user suggested words or short phrases that describe each game. The <strong>color</strong> and <strong>width</strong> of each edge is determined by the number of shared tags.</p></li>
+<li><p>The other variable displayed on the network is a boolean node variable which records if a game’s steam reviews are <strong>overwhelmingly positive</strong>. On Steam a user can rate a game with either a thumbs up or down, if 95% or more of the reviews are a thumbs up the game marked as having overwhelming positive reviews. The data set gives the number of <strong>positive user reviews</strong> and <strong>negative user reviews</strong>, I divided positive reviews by the sum of positive user reviews and negative user reviews to get the percentage. The node is colored red if the percentage is below 95% but blue if it is.</p></li>
+</ul>
+<p>Disclaimer: Analysis for each graph shows up when you click on the corresponding tab, cluster one is not shown due to inappropriate results</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">General Top 10 Network</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Cluster 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Cluster 3</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false">Cluster 4</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false">Cluster 5</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><img src="docs/images/network_top10.jpg" class="img-fluid"></p>
 <p>The network shows a few interesting things about the top Metacritic rated games. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. The edges demonstrate a connection between two games via shared tags. The more shared tags, the bluer the color of the edge is and the thicker it is. Games with a higher weighted degree shared more connections, which were weighted by the number of tags for each edge. One thing I noticed were action games in famous high budget series like GTA, Red Dead Redemption and the Elder Scrolls had higher degree centrality while games in other genres like the Baseball game and Microsoft Flight simulator had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores.</p>
-<p><a href="docs/images/networkg.jpg"></a></p>
-<p>
-<img src="images/networkg.jpg" width="1000">
-</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><img src="docs/images/network_cluster2.jpg" class="img-fluid"></p>
+<p>Thus network has a much lower range of weighted degree then the network for the top 10 games, as many of these games seem to not share many tags. Only one of these games is overwhelmingly positive on steam - Boolons TD5, this game also has a noteably higher degree centrality than the rest of them.</p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><img src="docs/images/network_cluster3.jpg" class="img-fluid"></p>
+<p>This network has a higher range of weighted degree then any other cluster, and many of these games are overwhelmingly positive</p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><img src="docs/images/network_cluster4.jpg" class="img-fluid"></p>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<p><img src="docs/images/network_cluster5.jpg" class="img-fluid"></p>
+</div>
+</div>
+</div>
 
 
 

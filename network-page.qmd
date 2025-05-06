@@ -26,12 +26,14 @@ The network shows a few interesting things about the top Metacritic rated games.
 
 ![](docs/images/network_cluster2.jpg)
 
-Thus network has a much lower range of weighted degree then the network for the top 10 games, as many of these games seem to not share many tags
+Thus network has a much lower range of weighted degree then the network for the top 10 games, as many of these games seem to not share many tags. Only one of these games is overwhelmingly positive on steam - Boolons TD5, this game also has a noteably higher degree centrality than the rest of them. 
 
 
 #### Cluster 3
 
 ![](docs/images/network_cluster3.jpg)
+
+This network has a higher range of weighted degree then any other cluster, and many of these games are overwhelmingly positive 
 
 #### Cluster 4
 

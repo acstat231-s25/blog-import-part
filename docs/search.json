@@ -121,9 +121,9 @@
   {
     "objectID": "network-page.html",
     "href": "network-page.html",
-    "title": "Top 40 Steam Games by Metacritic Score",
+    "title": "Steam Network",
     "section": "",
-    "text": "The network shows a few interesting things about the top Metacritic rated games. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. The edges demonstrate a connection between two games via shared tags. The more shared tags, the bluer the color of the edge is and the thicker it is. Games with a higher weighted degree shared more connections, which were weighted by the number of tags for each edge. One thing I noticed were action games in famous high budget series like GTA, Red Dead Redemption and the Elder Scrolls had higher degree centrality while games in other genres like the Baseball game and Microsoft Flight simulator had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores."
+    "text": "For this component I have displayed the network of the top 10 highest rated games on Metacritic in general and in each cluster from the cluster analysis. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. I used a few variables to create the network;\n\nFor the edges the variable I used were tags, specifically the number of shared tags between each game. Tags are user suggested words or short phrases that describe each game. The color and width of each edge is determined by the number of shared tags.\nThe other variable displayed on the network is a boolean node variable which records if a game’s steam reviews are overwhelmingly positive. On Steam a user can rate a game with either a thumbs up or down, if 95% or more of the reviews are a thumbs up the game marked as having overwhelming positive reviews. The data set gives the number of positive user reviews and negative user reviews, I divided positive reviews by the sum of positive user reviews and negative user reviews to get the percentage. The node is colored red if the percentage is below 95% but blue if it is.\n\nDisclaimer: Analysis for each graph shows up when you click on the corresponding tab, cluster one is not shown due to inappropriate results\n\nGeneral Top 10 NetworkCluster 2Cluster 3Cluster 4Cluster 5\n\n\n\nThe network shows a few interesting things about the top Metacritic rated games. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. The edges demonstrate a connection between two games via shared tags. The more shared tags, the bluer the color of the edge is and the thicker it is. Games with a higher weighted degree shared more connections, which were weighted by the number of tags for each edge. One thing I noticed were action games in famous high budget series like GTA, Red Dead Redemption and the Elder Scrolls had higher degree centrality while games in other genres like the Baseball game and Microsoft Flight simulator had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores.\n\n\n\nThus network has a much lower range of weighted degree then the network for the top 10 games, as many of these games seem to not share many tags. Only one of these games is overwhelmingly positive on steam - Boolons TD5, this game also has a noteably higher degree centrality than the rest of them.\n\n\n\nThis network has a higher range of weighted degree then any other cluster, and many of these games are overwhelmingly positive"
   },
   {
     "objectID": "word-page.html#overall-analysis",
@@ -180,5 +180,12 @@
     "title": "Grouping Games Through Clustering",
     "section": "",
     "text": "If you have a favorite game on Steam, use the following table (see Table 7) created with the DT package (Xie et al. 2024) to see which cluster it is in! Does its classification make sense?\n\n\n\n\nTable 7: Table of Games"
+  },
+  {
+    "objectID": "scripts/network_analysis.html",
+    "href": "scripts/network_analysis.html",
+    "title": "Preparing Network Analysis",
+    "section": "",
+    "text": "The purpose of this file is to…"
   }
 ]
