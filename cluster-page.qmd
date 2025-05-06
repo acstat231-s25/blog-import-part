@@ -246,7 +246,7 @@ From Tables [-@tbl-game-example1]-[-@tbl-game-example5], we can see that even ga
 
 Although clustering did not perfectly group games from the 9 quantitative variables, we could still see some similarities based on game price, required age, and player reviews! Games target different players, so this analysis succeeded in some way. 
 
-## Bonus
+# Bonus
 
 If you have a favorite game on Steam, use the following table (see @tbl-full-data) created with the DT package [@DT] to see which cluster it is in! Does its classification make sense?
 
