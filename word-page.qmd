@@ -19,18 +19,17 @@ library(RColorBrewer)
 library(wordcloud)
 library(plotly)
 library(ggiraph)
-
-#portal 2 and pub g 
 ```
 
 ```{r}
 #| label: read-files
 
 # read clean game data 
-total_games_words <- readRDS("data/processed/total_word_data.rds")
-grouped_games_words <- readRDS("data/processed/grouped_word_data.rds")
+total_games_words <- readRDS("data/processed/total_games_words.rds")
+grouped_games_words <- readRDS("data/processed/grouped_games_words.rds")
 games <- readRDS("data/processed/clean_games.rds")
-grouped_games_sentiment <- readRDS("data/processed/grouped_word_sentiment_data.rds")
+sentiment_vs_time <- readRDS("data/processed/sentiment_vs_time.rds")
+grouped_games_sentiments <- readRDS("data/processed/grouped_games_sentiments.RDS")
 
 ```
 
@@ -42,57 +41,187 @@ There are so many games on Steam, so it is fascinating to explore the patterns, 
 The visualizations below seek to address such questions. 
 
 ::: {.callout-note}
-Disclaimer: Visualizations exclude most games in other languages. 
+Disclaimer: Visualizations exclude most games which descriptions are in other languages. 
 :::
 
-::: {.panel-tabset}
-
 ### Word Cloud
-This word cloud represents words in all Steam games' descriptions excluding those of other languages. Hover to see the prevalence of each word. 
+This word cloud represents words in all Steam games' descriptions excluding those of other languages AND are associated with a sentimental value. Hover to see the prevalence of each word.
+
 
 ```{r}
-#| 
+#| label: Word Cloud
 
+# Set a fixed visual
 set.seed(2025)
 
+# Creates a wordcloud customizable by shape, color, and font. 
 wordcloud2(total_games_words, 
            size = .6, shape = "pentagon", color = "#66c0f4", backgroundColor = "white", fontFamily = 'SegoeUI', fontWeight = 'normal')
 
 ```
 
-### Sentimental Circle
-This distribution circle explores the overall distribution of words in terms of sentiment values. Inward streaks in orange represent words with negative sentimental values. Outward streaks in blue represent words with positive sentimental values. 
+
+
+### Top Ten Sentimental Words Across 5 Year Intervals
+Explore the top 10 most common sentimental words found in all recorded STEAM games across time. While the dataset included games released from 1997 to 2025, I decided to visualize the top ten words found in games released in 2005, 2010, 2015, 2020, and 2025 to capture potential differences found within these five years intervals. 
+
+::: {.panel-tabset}
 
 ```{r}
 
-total_games_words <- total_games_words |>
-  mutate(cond = case_when(
-    value > -1 ~ '#66c0f4',
-    value < 0 ~ '#FF8E00'))
-    
+# Create a numerical vector with no duplicates. 
+years <- unique(sentiment_vs_time$year)
 
-plot <-
-    ggplot(total_games_words, 
-         aes(x = word, 
-         y = value, 
-         data_id = word, 
-         tool_tip = word)) +
-  geom_bar_interactive(stat="identity", aes(fill=cond)) +
-  scale_fill_identity() +
-  ylim(-8,8) +
-  coord_polar(start=0) +
-  theme_minimal() +
-  theme(
-    axis.text = element_blank(),
-    axis.title = element_blank(),
-    panel.grid = element_blank(),
-    plot.margin = unit(rep(-2,4), "cm")
-  )
-  
+# Creates a function to filter out a specific component of the dataset
+topten <- function(y) {
+  sentiment_vs_time |>
+    filter(year == y) |>
+    arrange(desc(n)) 
+}
 
-girafe(ggobj = plot,
-       width_svg = 12,
-      height_svg = 12)
+# Goes through the numerical vector of years, if the year is later than 2000
+# and is divisible by 5, a dynamic variable is created, using the function
+# to create a top ten most common word dataset.
+for (i in 1:length(years)) {
+  if (years[[i]] %% 5 == 0 & 
+      years[[i]] > 2000) {
+  assign(paste0("year_", years[[i]]), topten((years[[i]])) |>
+    slice(1:10) )}
+}
+
+```
+
+### 2025
+```{r} 
+
+# A horizontal bar chart that shows the sentimental magnitude of the top 10
+# common words found in STEAM's games' descriptions.
+graph_2025 <- ggplot(year_2025, aes(x = fct_reorder(word, n), y = n)) + 
+  geom_col(aes(fill = value), color = "darkgrey") + 
+  coord_flip() + 
+  labs(
+    x = NULL,
+    y = "Number of instances",
+    title = "Top 10 Words in STEAM's Games Descriptions ", 
+    subtitle = "2025", 
+# A scale gradient is implemented, with severity in orange saturation 
+# indicating negative sentimentality and severity in blue saturation indicating
+# positive sentimentality
+    fill = "Sentimental Magnitude") +
+    scale_fill_gradient2(low = "#ff9000",
+                       mid = "aliceblue",
+                       high = "#66c0f4") +
+    theme_minimal() 
+# Customized hovered text. Features the specific count of the instance and its
+# corresponding AFINN value. 
+ggplotly(graph_2025, tooltip = c("y", "value"))
+
+```
+
+### 2020
+```{R}
+
+# A horizontal bar chart that shows the sentimental magnitude of the top 10
+# common words found in STEAM's games' descriptions.
+graph_2020 <- ggplot(year_2020, aes(x = fct_reorder(word, n), y = n)) + 
+  geom_col(aes(fill = value), color = "darkgrey") + 
+  coord_flip() + 
+  labs(
+    x = NULL,
+    y = "Number of instances",
+    title = "Top 10 Words in STEAM's Games Descriptions ", 
+    subtitle = "2020", 
+    fill = "Sentimental Magnitude") +
+# A scale gradient is implemented, with severity in orange saturation 
+# indicating negative sentimentality and severity in blue saturation indicating
+# positive sentimentality.
+    scale_fill_gradient2(low = "#ff9000",
+                       mid = "aliceblue",
+                       high = "#66c0f4") +
+    theme_minimal() 
+# Customized hovered text. Features the specific count of the instance and its
+# corresponding AFINN value.
+ggplotly(graph_2020, tooltip = c("y", "value"))
+
+
+
+```
+
+### 2015
+```{R}
+# A horizontal bar chart that shows the sentimental magnitude of the top 10
+# common words found in STEAM's games' descriptions.
+graph_2015 <- ggplot(year_2015, aes(x = fct_reorder(word, n), y = n)) + 
+  geom_col(aes(fill = value), color = "darkgrey") + 
+  coord_flip() + 
+  labs(
+    x = NULL,
+    y = "Number of instances",
+    title = "Top 10 Words in STEAM's Games Descriptions ", 
+    subtitle = "2015", 
+    fill = "Sentimental Magnitude") +
+# A scale gradient is implemented, with severity in orange saturation 
+# indicating negative sentimentality and severity in blue saturation indicating
+# positive sentimentality.
+    scale_fill_gradient2(low = "#ff9000",
+                       mid = "aliceblue",
+                       high = "#66c0f4") +
+    theme_minimal() 
+# Customized hovered text. Features the specific count of the instance and its
+# corresponding AFINN value.
+ggplotly(graph_2015, tooltip = c("y", "value"))
+
+```
+
+### 2010
+```{r}
+# A horizontal bar chart that shows the sentimental magnitude of the top 10
+# common words found in STEAM's games' descriptions.
+graph_2010 <- ggplot(year_2010, aes(x = fct_reorder(word, n), y = n)) + 
+  geom_col(aes(fill = value), color = "darkgrey") + 
+  coord_flip() + 
+  labs(
+    x = NULL,
+    y = "Number of instances",
+    title = "Top 10 Words in STEAM's Games Descriptions ", 
+    subtitle = "2010", 
+    fill = "Sentimental Magnitude") +
+# A scale gradient is implemented, with severity in orange saturation 
+# indicating negative sentimentality and severity in blue saturation indicating
+# positive sentimentality.
+    scale_fill_gradient2(low = "#ff9000",
+                       mid = "aliceblue",
+                       high = "#66c0f4") +
+    theme_minimal() 
+# Customized hovered text. Features the specific count of the instance and its
+# corresponding AFINN value.
+ggplotly(graph_2010, tooltip = c("y", "value"))
+
+```
+
+### 2005
+```{R}
+# A horizontal bar chart that shows the sentimental magnitude of the top 10
+# common words found in STEAM's games' descriptions.
+graph_2005 <- ggplot(year_2005, aes(x = fct_reorder(word, n), y = n)) + 
+  geom_col(aes(fill = value), color = "darkgrey") + 
+  coord_flip() + 
+  labs(
+    x = NULL,
+    y = "Number of instances",
+    title = "Top 10 Words in STEAM's Games Descriptions ", 
+    subtitle = "2005", 
+    fill = "Sentimental Magnitude") +
+# A scale gradient is implemented, with severity in orange saturation 
+# indicating negative sentimentality and severity in blue saturation indicating
+# positive sentimentality.
+    scale_fill_gradient2(low = "#ff9000",
+                       mid = "aliceblue",
+                       high = "#66c0f4") +
+    theme_minimal() 
+# Customized hovered text. Features the specific count of the instance and its
+# corresponding AFINN value.
+ggplotly(graph_2005, tooltip = c("y", "value"))
 
 ```
 
@@ -102,7 +231,7 @@ girafe(ggobj = plot,
 While it can be informative to see patterns and trends from a VERY big picture, potential crucial, small details may go unnoticed. 
 
 ### Elder Scrolls vs. Grand Auto Theft?
-If you explored Surya's Top 40 Highest Rated Games Network, you'll notice that game series Elder Scrolls and Grand Auto Theft are the top Metacritic rated games. I'm curious as to see what textual commonalities they share. So...
+If you explored Surya's General Top Ten Network, you'll notice that game series Elder Scrolls and Grand Auto Theft are two of the most top Metacritic rated games. I'm curious as to see what textual commonalities they share. So...
 
 Note: Somehow when you hover, the terms' values correspond to their absolute values. Refer to the y-axis for their true values. (Still a WIP)
 
@@ -126,12 +255,12 @@ elder_scrolls |>
 Hover to see the word associated with the value. 
 
 ```{R}
-elder_sentiments <- grouped_games_sentiment |>
+elder_sentiments <- grouped_games_sentiments |>
   filter(name == "The Elder Scrolls IV: Oblivion® Game of the Year Edition Deluxe") |>
   ungroup() 
 
-p <- ggplot(unique(elder_sentiments), aes(x = reorder(word, value), y = value)) + 
-  geom_bar(stat = "identity", aes(fill = value), show.legend = FALSE, color = "darkgrey") +
+p <- ggplot(unique(elder_sentiments), aes(x = word, y = value)) + 
+  geom_bar(stat = "identity", aes(fill = value), color = "darkgrey") +
   scale_fill_gradient2(low = "#ff9000",
                        mid = "aliceblue",
                        high = "#66c0f4") +
@@ -140,7 +269,8 @@ p <- ggplot(unique(elder_sentiments), aes(x = reorder(word, value), y = value)) 
   labs(
     title = "The Elder Scrolls IV: Oblivion® Game of the Year Edition Deluxe",
     x = "Word",
-    y = "Sentiment Value"
+    y = "Sentiment Value", 
+    fill = "Sentimental Magnitude"
   ) + 
   theme(axis.text.x = element_blank())
 
@@ -152,11 +282,11 @@ ggplotly(p, tooltip = c("x", "y"))
 
 
 ::: {.panel-tabset}
-#### Grand Theft Auto III Word Cloud
+#### Grand Theft Auto V Word Cloud
 
 ```{r}
 grand_theft <- grouped_games_words |>
-  filter(name == "Grand Theft Auto III") |>
+  filter(name == "Grand Theft Auto V") |>
   ungroup() 
 
 grand_theft |>
@@ -165,24 +295,26 @@ grand_theft |>
 
 ```
 
-#### Grand Theft Auto III Sentiment Analysis
+#### Grand Theft Auto V Sentiment Analysis
+Hover to see the word associated with the value. 
 ```{R}
-grand_theft_sentiments <- grouped_games_sentiment |>
-  filter(name == "Grand Theft Auto III") |>
+grand_theft_sentiments <- grouped_games_sentiments |>
+  filter(name == "Grand Theft Auto V") |>
   ungroup() 
 
-q <- ggplot(unique(grand_theft_sentiments), aes(x = reorder(word, value), y = value)) + 
-  geom_bar(stat = "identity", aes(fill = value), show.legend = FALSE, color = "darkgrey") +
+q <- ggplot(unique(grand_theft_sentiments), aes(x = word, y = value)) + 
+  geom_bar(stat = "identity", aes(fill = value), color = "darkgrey") +
   scale_fill_gradient2(low = "#ff9000",
                        mid = "aliceblue",
                        high = "#66c0f4") +
-  
-  theme_minimal() +
   labs(
-    title = "Grand Theft Auto III",
+    title = "Grand Theft Auto V",
     x = "Word",
-    y = "Sentiment Value"
-  )
+    y = "Sentiment Value",
+    fill = "Sentimental Magnitude"
+  )  +
+  theme_minimal() +
+  theme(axis.text.x = element_blank())
 
 
 ggplotly(q, tooltip = c("x", "y"))

@@ -21,6 +21,7 @@ options(scipen = 1, knitr.kable.NA = '')
 # load packages
 library(tidyverse)
 library(tidytext)
+library(parsedate)
 
 ```
 
@@ -30,9 +31,14 @@ library(tidytext)
 # read clean game data 
 games_data <- readRDS("../data/processed/clean_games.rds")
 
+
+games_data <- games_data |>
+mutate(release_date = parse_date(release_date),
+       year = year(release_date))
+
 # Removed numeric values 
 games_description <- games_data |>
-  select(name, about_the_game) |>
+  select(name, about_the_game, year) |>
   mutate(
     about_the_game = str_replace_all(about_the_game, "[:digit:]", "")
   )
@@ -41,6 +47,7 @@ games_description <- games_data |>
 
 ```{r}
 #| label: word-analysis-prep
+
 
 #Retrieve AFINN dataset
 afinn_lexicon <- get_sentiments("afinn")
@@ -65,12 +72,24 @@ grouped_games_words <- games_description |>
   unnest_tokens(output = word, input = about_the_game) |>
   anti_join(stop_words, by = "word") |>
   group_by(name) |>
-  count(word, sort = TRUE)
+  count(word, sort = TRUE) 
 
-# Added to include sentiment values per word
-grouped_games_words_sentiment <- 
+# Added to include sentiment values per word. This will cause exclusion of more words
+grouped_games_sentiments <- 
   mutate(
     left_join(grouped_games_words, afinn_lexicon)
+  ) |>
+  na.omit()
+
+sentimentvstime <- games_description |>
+  unnest_tokens(output = word, input = about_the_game) |>
+  anti_join(stop_words, by = "word") |>
+  group_by(year) |>
+  count(word, sort = TRUE)
+
+sentimentvstime <- 
+   mutate(
+    left_join(sentimentvstime, afinn_lexicon)
   ) |>
   na.omit()
 
@@ -89,8 +108,8 @@ total_games_words |>
 #| label: saving-data
 
 # data used for word analysis
-saveRDS(grouped_games_words, file = "../data/processed/grouped_word_data.RDS")
-saveRDS(total_games_words, file = "../data/processed/total_word_data.RDS")
-saveRDS(grouped_games_words_sentiment, file = "../data/processed/grouped_word_sentiment_data.RDS")
-
+saveRDS(total_games_words, file = "../data/processed/total_games_words.RDS")
+saveRDS(sentimentvstime, file = "../data/processed/sentiment_vs_time.RDS")
+saveRDS(grouped_games_words, file = "../data/processed/grouped_games_words.RDS")
+saveRDS(grouped_games_sentiments, file = "../data/processed/grouped_games_sentiments.RDS")
 ```
