@@ -32,32 +32,41 @@ library(tidygraph)
 
 # read clean game data 
 game_data <- readRDS("../data/processed/clean_games.rds")
+cluster_data <- readRDS("../data/processed/cluster.rds")
 
 ```
 
 ```{r}
 #| label: network-prep
+
+make_network <- function(short_game_data) {
+  short_game_data <- short_game_data |> mutate(isFree = case_when(price == 0 ~ TRUE,
+                                                                  .default = FALSE))
+  short_game_data <- short_game_data |> mutate(AdultOnly = case_when(required_age > 17 ~ TRUE,
+                                                                  .default = FALSE))
+  short_game_data <- short_game_data |> mutate(AdultOnly = case_when(required_age >= 17 ~ TRUE,
+                                                                  .default = FALSE))
+  short_game_data <- short_game_data |> mutate(GreatSteamReview = case_when((positive/(positive + negative)) >= .95 ~ TRUE, .default = FALSE))
+  
+  short_game_data <- short_game_data |> mutate(categories1 =  strsplit(categories, ", "))
+  short_game_data <- short_game_data |> mutate(genres1 =  strsplit(genres, ", "))
+  
+  betterformat <- short_game_data |> unnest_longer(tags) 
+  simpleformat <- betterformat |> select(name,tags_id)
+  edges <- simpleformat |> full_join(simpleformat,simpleformat, by = join_by(tags_id == tags_id))
+  V <- short_game_data |> select(name, isFree, AdultOnly,GreatSteamReview)
+  edges <-edges |> filter(name.x != name.y)
+  E <- edges |> mutate(from = name.x) |> mutate(to = name.y) |> group_by(from,to) |> summarize(n = n(), tags = list(tags_id))
+  g <- tbl_graph(nodes = V, directed = FALSE, edges = E)
+  
+  return(g)
+}
+
 game_data <- game_data |> arrange(desc(metacritic_score))
-short_game_data <- game_data |> slice_head(n = 40) 
-short_game_data <- short_game_data |> mutate(isFree = case_when(price == 0 ~ TRUE,
-                                                                .default = FALSE))
-short_game_data <- short_game_data |> mutate(AdultOnly = case_when(required_age > 17 ~ TRUE,
-                                                                .default = FALSE))
-short_game_data <- short_game_data |> mutate(AdultOnly = case_when(required_age >= 17 ~ TRUE,
-                                                                .default = FALSE))
-short_game_data <- short_game_data |> mutate(GreatSteamReview = case_when((positive/(positive + negative)) >= .95 ~ TRUE, .default = FALSE))
+short_game_data <- game_data |> slice_head(n = 100) 
+g <- make_network(short_game_data)
 
-short_game_data <- short_game_data |> mutate(categories1 =  strsplit(categories, ", "))
-short_game_data <- short_game_data |> mutate(genres1 =  strsplit(genres, ", "))
 
-betterformat <- short_game_data |> unnest_longer(tags) 
-simpleformat <- betterformat |> select(name,tags_id)
-edges <- simpleformat |> full_join(simpleformat,simpleformat, by = join_by(tags_id == tags_id))
-V <- short_game_data |> select(name, isFree, AdultOnly,GreatSteamReview)
-edges <-edges |> filter(name.x != name.y)
-E <- edges |> mutate(from = name.x) |> mutate(to = name.y) |> group_by(from,to) |> summarize(n = n(), tags = list(tags_id))
-g <- tbl_graph(nodes = V, directed = FALSE, edges = E)
-g
 ```
 
 
@@ -103,16 +112,146 @@ ggraph(degreegraph, 'drl') +
   geom_node_label(aes(label = name, fill = weighted_degree),color = "white", size = 2, repel = TRUE) +
   geom_node_point(aes(color = GreatSteamReview)) + 
   theme_void() + labs(
-    title = "Top 40 Highest Rated Games Network",
+    title = "Top 10 Highest Rated Games Network",
     edge_color = "Total number of Shared Tags",
     color = "Overwhellingly Possitive Steam Reviews (>.95)",
     edge_width = "Total number of Shared Tags",
     fill = "Weighted Degree", 
     repel = TRUE)
+mean(pull(cluster_network,weighted_degree))
+pull(cluster_network,weighted_degree)
+
 ```
 
 
 ```{r}
 ggsave("../docs/images/network_top10.jpg")
 ```
+
+
+```{r}
+cluster_sorted_data <-  game_data |>
+  left_join(select(cluster_data, name, cluster_standardized)) |>
+  filter(cluster_standardized == 2) |> 
+  slice_head(n = 100) 
+
+cluster_network <- make_network(cluster_sorted_data) |> 
+  activate(nodes) |> 
+  mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) |>
+  slice_head(n = 10)
+
+ggraph(cluster_network, 'drl') +
+  scale_size(range = c(1,10)) +
+  geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
+  scale_edge_width(range = c(.5, 2)) +
+  geom_node_label(aes(label = name, fill = weighted_degree),color = "white", size = 2, repel = TRUE) +
+  geom_node_point(aes(color = GreatSteamReview)) + 
+  theme_void() + labs(
+    title = "Top 10 Highest Rated In Cluster 2",
+    edge_color = "Total number of Shared Tags",
+    color = "Overwhellingly Possitive Steam Reviews (>.95)",
+    edge_width = "Total number of Shared Tags",
+    fill = "Weighted Degree", 
+    repel = TRUE)
+#mean(pull(cluster_network,weighted_degree))
+#pull(cluster_network,weighted_degree)
+```
+```{r}
+ggsave("../docs/images/network_cluster2.jpg")
+```
+
+
+```{r}
+cluster_sorted_data <-  game_data |>
+  left_join(select(cluster_data, name, cluster_standardized)) |>
+  filter(cluster_standardized == 3) |> 
+  slice_head(n = 100) 
+
+cluster_network <- make_network(cluster_sorted_data) |> 
+  activate(nodes) |> 
+  mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) |>
+  slice_head(n = 10)
+
+ggraph(cluster_network, 'drl') +
+  scale_size(range = c(1,10)) +
+  geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
+  scale_edge_width(range = c(.5, 2)) +
+  geom_node_label(aes(label = name, fill = weighted_degree),color = "white", size = 2, repel = TRUE) +
+  geom_node_point(aes(color = GreatSteamReview)) + 
+  theme_void() + labs(
+    title = "Top 10 Highest Rated In Cluster 3",
+    edge_color = "Total number of Shared Tags",
+    color = "Overwhellingly Possitive Steam Reviews (>.95)",
+    edge_width = "Total number of Shared Tags",
+    fill = "Weighted Degree", 
+    repel = TRUE)
+#mean(pull(cluster_network,weighted_degree))
+```
+```{r}
+ggsave("../docs/images/network_cluster3.jpg")
+```
+
+
+```{r}
+cluster_sorted_data <-  game_data |>
+  left_join(select(cluster_data, name, cluster_standardized)) |>
+  filter(cluster_standardized == 4) |> 
+  slice_head(n = 100) 
+
+cluster_network <- make_network(cluster_sorted_data) |> 
+  activate(nodes) |> 
+  mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) |>
+  slice_head(n = 10)
+
+ggraph(cluster_network, 'drl') +
+  scale_size(range = c(1,10)) +
+  geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
+  scale_edge_width(range = c(.5, 2)) +
+  geom_node_label(aes(label = name, fill = weighted_degree),color = "white", size = 2, repel = TRUE) +
+  geom_node_point(aes(color = GreatSteamReview)) + 
+  theme_void() + labs(
+    title = "Top 10 Highest Rated In Cluster 4",
+    edge_color = "Total number of Shared Tags",
+    color = "Overwhellingly Possitive Steam Reviews (>.95)",
+    edge_width = "Total number of Shared Tags",
+    fill = "Weighted Degree", 
+    repel = TRUE)
+#mean(pull(cluster_network,weighted_degree))
+
+```
+```{r}
+ggsave("../docs/images/network_cluster4.jpg")
+```
+
+```{r}
+cluster_sorted_data <-  game_data |>
+  left_join(select(cluster_data, name, cluster_standardized)) |>
+  filter(cluster_standardized == 5) |> 
+  slice_head(n = 100) 
+
+cluster_network <- make_network(cluster_sorted_data) |> 
+  activate(nodes) |> 
+  mutate(weighted_degree = centrality_degree(mode = "total", weights = n)) |>
+  slice_head(n = 10)
+
+ggraph(cluster_network, 'drl') +
+  scale_size(range = c(1,10)) +
+  geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
+  scale_edge_width(range = c(.5, 2)) +
+  geom_node_label(aes(label = name, fill = weighted_degree),color = "white", size = 2, repel = TRUE) +
+  geom_node_point(aes(color = GreatSteamReview)) + 
+  theme_void() + labs(
+    title = "Top 10 Highest Rated In Cluster 5",
+    edge_color = "Total number of Shared Tags",
+    color = "Overwhellingly Possitive Steam Reviews (>.95)",
+    edge_width = "Total number of Shared Tags",
+    fill = "Weighted Degree", 
+    repel = TRUE)
+mean(pull(cluster_network,weighted_degree))
+```
+```{r}
+ggsave("../docs/images/network_cluster5.jpg")
+
+```
+
 
