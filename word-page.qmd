@@ -24,12 +24,20 @@ library(ggiraph)
 ```{r}
 #| label: read-files
 
-# read clean game data 
+# Overall Text Analysis Dataset
 total_games_words <- readRDS("data/processed/total_games_words.rds")
+
+# Per Game Text Analysis Datasets
 grouped_games_words <- readRDS("data/processed/grouped_games_words.rds")
-games <- readRDS("data/processed/clean_games.rds")
-sentiment_vs_time <- readRDS("data/processed/sentiment_vs_time.rds")
 grouped_games_sentiments <- readRDS("data/processed/grouped_games_sentiments.RDS")
+
+# Time vs Text Analysis Datasets
+year_2025 <- readRDS("data/processed/year_2025.RDS")
+year_2020 <- readRDS("data/processed/year_2020.RDS")
+year_2015 <- readRDS("data/processed/year_2015.RDS")
+year_2010 <- readRDS("data/processed/year_2010.RDS")
+year_2005 <- readRDS("data/processed/year_2005.RDS")
+
 
 ```
 
@@ -63,33 +71,9 @@ wordcloud2(total_games_words,
 
 
 ### Top Ten Sentimental Words Across 5 Year Intervals
-Explore the top 10 most common sentimental words found in all recorded STEAM games across time. While the dataset included games released from 1997 to 2025, I decided to visualize the top ten words found in games released in 2005, 2010, 2015, 2020, and 2025 to capture potential differences found within these five years intervals. 
+Explore the top 10 most common sentimental words found in all recorded STEAM games across time! I decided to visualize the top ten words found in games released the following years to explore and determine potential differences and similarities found after each five years intervals: 2005, 2010, 2015, 2020, and 2025. 
 
 ::: {.panel-tabset}
-
-```{r}
-
-# Create a numerical vector with no duplicates. 
-years <- unique(sentiment_vs_time$year)
-
-# Creates a function to filter out a specific component of the dataset
-topten <- function(y) {
-  sentiment_vs_time |>
-    filter(year == y) |>
-    arrange(desc(n)) 
-}
-
-# Goes through the numerical vector of years, if the year is later than 2000
-# and is divisible by 5, a dynamic variable is created, using the function
-# to create a top ten most common word dataset.
-for (i in 1:length(years)) {
-  if (years[[i]] %% 5 == 0 & 
-      years[[i]] > 2000) {
-  assign(paste0("year_", years[[i]]), topten((years[[i]])) |>
-    slice(1:10) )}
-}
-
-```
 
 ### 2025
 ```{r} 
@@ -227,13 +211,15 @@ ggplotly(graph_2005, tooltip = c("y", "value"))
 
 :::
 
+#### Trends across Time
+The top ten words in STEAM's Games Descriptions in all five years tend to be action-themed. There were also a several words that were on the top 10 across different years, which are: `enemies`, `battle`, and `adventure`. In most years, more than half the terms evoke a negative sentiment whereas in 2015, there was a balanced mixture of both positive and negative AFINN words. 
+
+
 ## Game-Specific Analysis 
 While it can be informative to see patterns and trends from a VERY big picture, potential crucial, small details may go unnoticed. 
 
 ### Elder Scrolls vs. Grand Auto Theft?
-If you explored Surya's General Top Ten Network, you'll notice that game series Elder Scrolls and Grand Auto Theft are two of the most top Metacritic rated games. I'm curious as to see what textual commonalities they share. So...
-
-Note: Somehow when you hover, the terms' values correspond to their absolute values. Refer to the y-axis for their true values. (Still a WIP)
+If you explored Surya's General Top Ten Network, you'll notice that game series Elder Scrolls and Grand Auto Theft are two of the most top Metacritic rated games. This poses a few questions: What textual commonalites do they both share that may contribute to their high ratings? What does that say about STEAM's audience? 
 
 ::: {.panel-tabset}
 
@@ -321,7 +307,7 @@ ggplotly(q, tooltip = c("x", "y"))
 ```
 :::
 
-It's interesting to see that while both games differ in terms of settings and their overall themes, they share several terms, one especially is "world". Other terms such as "characters" and "explore" hint their similarity as games that empower players to roam in their respective realms and engage in roleplaying. Perhaps this similarity also contribute to their statuses as top rated games. 
+It's interesting to see that while both games differ in terms of settings and their overall themes, they share several terms, one especially is `world`. Other terms such as `characters` and `explore` hint their similarity as games that empower players to roam in their respective realms and engage in roleplaying. Perhaps this similarity also contribute to their statuses as top rated games, as these games that enable high immersive interaction and exploration may appeal to most of STEAM's audience. 
 
 
 
