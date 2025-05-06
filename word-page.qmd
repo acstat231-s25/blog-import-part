@@ -100,6 +100,11 @@ wordcloud2(total_games_words,
 ### Top Ten Sentimental Words Across 5 Year Intervals
 Explore the top 10 most common sentimental words found in all recorded STEAM games across time! I decided to visualize the top ten words found in games released the following years to explore and determine potential differences and similarities found after each five years intervals: 2005, 2010, 2015, 2020, and 2025. 
 
+::: {.callout-note}
+Disclaimer: The color feature was assisted with support from StackOverflow [@scale_fill_gradient]
+:::
+
+
 ::: {.panel-tabset}
 
 ### 2025
@@ -123,7 +128,7 @@ graph_2025 <- ggplot(year_2025, aes(x = fct_reorder(word, n), y = n)) +
 # positive sentimentality
     fill = "Sentimental Magnitude") +
     scale_fill_gradient2(low = "#ff9000",
-                       mid = "aliceblue",
+                       mid = "#FAFAFA",
                        high = "#66c0f4") +
     theme_minimal() 
 # Customized hovered text. Features the specific count of the instance and its
@@ -153,7 +158,7 @@ graph_2020 <- ggplot(year_2020, aes(x = fct_reorder(word, n), y = n)) +
 # indicating negative sentimentality and severity in blue saturation indicating
 # positive sentimentality.
     scale_fill_gradient2(low = "#ff9000",
-                       mid = "aliceblue",
+                       mid = "#FAFAFA",
                        high = "#66c0f4") +
     theme_minimal() 
 # Customized hovered text. Features the specific count of the instance and its
@@ -184,7 +189,7 @@ graph_2015 <- ggplot(year_2015, aes(x = fct_reorder(word, n), y = n)) +
 # indicating negative sentimentality and severity in blue saturation indicating
 # positive sentimentality.
     scale_fill_gradient2(low = "#ff9000",
-                       mid = "aliceblue",
+                       mid = "#FAFAFA",
                        high = "#66c0f4") +
     theme_minimal() 
 # Customized hovered text. Features the specific count of the instance and its
@@ -214,7 +219,7 @@ graph_2010 <- ggplot(year_2010, aes(x = fct_reorder(word, n), y = n)) +
 # indicating negative sentimentality and severity in blue saturation indicating
 # positive sentimentality.
     scale_fill_gradient2(low = "#ff9000",
-                       mid = "aliceblue",
+                       mid = "#FAFAFA",
                        high = "#66c0f4") +
     theme_minimal() 
 # Customized hovered text. Features the specific count of the instance and its
@@ -244,7 +249,7 @@ graph_2005 <- ggplot(year_2005, aes(x = fct_reorder(word, n), y = n)) +
 # indicating negative sentimentality and severity in blue saturation indicating
 # positive sentimentality.
     scale_fill_gradient2(low = "#ff9000",
-                       mid = "aliceblue",
+                       mid = "#FAFAFA",
                        high = "#66c0f4") +
     theme_minimal() 
 # Customized hovered text. Features the specific count of the instance and its
@@ -300,7 +305,7 @@ elder_sentiments <- grouped_games_sentiments |>
 p <- ggplot(unique(elder_sentiments), aes(x = word, y = value)) + 
   geom_bar(stat = "identity", aes(fill = value), color = "darkgrey") +
   scale_fill_gradient2(low = "#ff9000",
-                       mid = "aliceblue",
+                       mid = "#FAFAFA",
                        high = "#66c0f4") +
   
   theme_minimal() +
@@ -351,7 +356,7 @@ grand_theft_sentiments <- grouped_games_sentiments |>
 q <- ggplot(unique(grand_theft_sentiments), aes(x = word, y = value)) + 
   geom_bar(stat = "identity", aes(fill = value), color = "darkgrey") +
   scale_fill_gradient2(low = "#ff9000",
-                       mid = "aliceblue",
+                       mid = "#FAFAFA",
                        high = "#66c0f4") +
   labs(
     title = "Grand Theft Auto V",
