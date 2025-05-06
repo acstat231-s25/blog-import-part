@@ -83,6 +83,8 @@ This word cloud represents words in all Steam games' descriptions excluding thos
 
 ```{r}
 #| label: Word Cloud
+#| fig-cap: "Figure 1"
+#| fig-cap-location: bottom
 
 # Set a fixed visual
 set.seed(2025)
@@ -102,6 +104,9 @@ Explore the top 10 most common sentimental words found in all recorded STEAM gam
 
 ### 2025
 ```{r} 
+#| label: 2025 Top 10
+#| fig-cap: "Figure 2: 2025's Top Ten"
+#| fig-cap-location: bottom
 
 # A horizontal bar chart that shows the sentimental magnitude of the top 10
 # common words found in STEAM's games' descriptions.
@@ -129,6 +134,9 @@ ggplotly(graph_2025, tooltip = c("y", "value"))
 
 ### 2020
 ```{R}
+#| label: 2020 Top 10
+#| fig-cap: "Figure 3: 2020's Top 10"
+#| fig-cap-location: bottom
 
 # A horizontal bar chart that shows the sentimental magnitude of the top 10
 # common words found in STEAM's games' descriptions.
@@ -158,6 +166,9 @@ ggplotly(graph_2020, tooltip = c("y", "value"))
 
 ### 2015
 ```{R}
+#| label: 2015 Top 10
+#| fig-cap: "Figure 4: 2015's Top 10"
+#| fig-cap-location: bottom
 # A horizontal bar chart that shows the sentimental magnitude of the top 10
 # common words found in STEAM's games' descriptions.
 graph_2015 <- ggplot(year_2015, aes(x = fct_reorder(word, n), y = n)) + 
@@ -184,6 +195,10 @@ ggplotly(graph_2015, tooltip = c("y", "value"))
 
 ### 2010
 ```{r}
+#| label: 2010 Top 10
+#| fig-cap: "Figure 5: 2010's Top 10"
+#| fig-cap-location: bottom
+
 # A horizontal bar chart that shows the sentimental magnitude of the top 10
 # common words found in STEAM's games' descriptions.
 graph_2010 <- ggplot(year_2010, aes(x = fct_reorder(word, n), y = n)) + 
@@ -210,6 +225,10 @@ ggplotly(graph_2010, tooltip = c("y", "value"))
 
 ### 2005
 ```{R}
+#| label: 2005 Top 10
+#| fig-cap: "Figure 6: 2005's Top 10"
+#| fig-cap-location: bottom
+
 # A horizontal bar chart that shows the sentimental magnitude of the top 10
 # common words found in STEAM's games' descriptions.
 graph_2005 <- ggplot(year_2005, aes(x = fct_reorder(word, n), y = n)) + 
@@ -251,6 +270,10 @@ If you explored Surya's General Top Ten Network, you'll notice that game series 
 #### Elder Scrolls IV Deluxe Word Cloud
 
 ```{r}
+#| label: Elder Scroll Word Cloud
+#| fig-cap: "Figure 7"
+#| fig-cap-location: bottom
+
 elder_scrolls <- 
   grouped_games_words |>
   filter(name == "The Elder Scrolls IV: Oblivion® Game of the Year Edition Deluxe") |>
@@ -266,6 +289,10 @@ elder_scrolls |>
 Hover to see the word associated with the value. 
 
 ```{R}
+#| label: Elder Scroll IV Sentimental Distribution
+#| fig-cap: "Figure 8"
+#| fig-cap-location: bottom
+
 elder_sentiments <- grouped_games_sentiments |>
   filter(name == "The Elder Scrolls IV: Oblivion® Game of the Year Edition Deluxe") |>
   ungroup() 
@@ -296,6 +323,10 @@ ggplotly(p, tooltip = c("x", "y"))
 #### Grand Theft Auto V Word Cloud
 
 ```{r}
+#| label: Grand Theft Auto V Word Cloud 
+#| fig-cap: "Figure 9"
+#| fig-cap-location: bottom
+
 grand_theft <- grouped_games_words |>
   filter(name == "Grand Theft Auto V") |>
   ungroup() 
@@ -309,6 +340,10 @@ grand_theft |>
 #### Grand Theft Auto V Sentiment Analysis
 Hover to see the word associated with the value. 
 ```{R}
+#| label: Grand Theft Auto V Sentimental Distribution
+#| fig-cap: "Figure 10"
+#| fig-cap-location: bottom
+
 grand_theft_sentiments <- grouped_games_sentiments |>
   filter(name == "Grand Theft Auto V") |>
   ungroup() 
