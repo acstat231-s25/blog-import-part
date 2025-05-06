@@ -28,15 +28,15 @@ library(parsedate)
 ```{r}
 #| label: read-files
 
-# read clean game data 
+# Read clean game data. 
 games_data <- readRDS("../data/processed/clean_games.rds")
 
-
+# Parsed date to obtain year. 
 games_data <- games_data |>
 mutate(release_date = parse_date(release_date),
        year = year(release_date))
 
-# Removed numeric values 
+# Removed numeric values. 
 games_description <- games_data |>
   select(name, about_the_game, year) |>
   mutate(
@@ -49,7 +49,7 @@ games_description <- games_data |>
 #| label: word-analysis-prep
 
 
-#Retrieve AFINN dataset
+#Retrieved AFINN dataset
 afinn_lexicon <- get_sentiments("afinn")
 
 # Creating a word dataset that allows analysis as a whole
@@ -74,31 +74,28 @@ grouped_games_words <- games_description |>
   group_by(name) |>
   count(word, sort = TRUE) 
 
-# Added to include sentiment values per word. This will cause exclusion of more words
+# Created another dataset to include sentiment values per word. 
+# This will cause exclusion of more words
 grouped_games_sentiments <- 
   mutate(
     left_join(grouped_games_words, afinn_lexicon)
   ) |>
   na.omit()
 
+# Creating a word dataset that allows analysis across time
+# Has variables: name, word, n (count), and year
 sentimentvstime <- games_description |>
   unnest_tokens(output = word, input = about_the_game) |>
   anti_join(stop_words, by = "word") |>
   group_by(year) |>
   count(word, sort = TRUE)
 
+# Added to include sentiment values per word
 sentimentvstime <- 
    mutate(
     left_join(sentimentvstime, afinn_lexicon)
   ) |>
   na.omit()
-
-# See if they work
-grouped_games_words |>
-  slice(1:10)
-
-total_games_words |>
-  slice(1:10)
 
 ```
 
