@@ -62,7 +62,7 @@ Since the variables on different scales (e.g. 0 to 100, -1 to 1, and 0 to 1,000,
 
 Since we are working with 9 quantitative variables, to determine the optimal number of clusters, I first consulted an elbow plot. We want to look at when the within-cluster variance is relatively small, without creating too many clusters. However, with too many clusters, it may become too difficult to interpret the results or for the results to hold any significant meaning. Therefore, based on the elbow plot (see @fig-elbow-plot), 5 clusters appear to be reasonably optimal as it is where the graph "bends" without containing too many clusters.
 
-![Elbow Plot Indicates A Bend at 5 Clusters](images/elbow_plot.png){#fig-elbow-plot}
+![Elbow Plot Indicates A Bend at 5 Clusters](images/elbow_plot.png "Elbow Plot"){#fig-elbow-plot}
 
 ## Clusters
 

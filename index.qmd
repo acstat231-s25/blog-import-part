@@ -21,7 +21,7 @@ library(knitr)
 library(kableExtra)
 ```
 
-![Image courtesy of steampowered.com](images/steam_image.jpg "Title: Steam Logo")
+![Image courtesy of steampowered.com](images/steam_image.jpg "Steam Logo")
 
 # Introduction
 
