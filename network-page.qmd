@@ -10,7 +10,6 @@ library(ggiraph)
 
 ```
 
-
 For this component, I have displayed the network of the top 10 games with the highest ratings on Metacritic in general and in each cluster from the cluster analysis. Metacritic is a platform that averages critic scores for video games, a lot like Rotten Tomatoes.
 
 ## Variables
