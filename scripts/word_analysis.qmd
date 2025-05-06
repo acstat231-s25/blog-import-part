@@ -46,8 +46,7 @@ games_description <- games_data |>
 ```
 
 ```{r}
-#| label: word-analysis-prep
-
+#| label: Dataset for whole STEAM text analysis
 
 #Retrieved AFINN dataset
 afinn_lexicon <- get_sentiments("afinn")
@@ -66,6 +65,10 @@ total_games_words <-
   ) |>
   na.omit()
 
+```
+
+```{R}
+#| Datasets for per-game text analysis and sentiment analysis
 # Creating a word dataset that allows analysis per game
 # Has variables: name, word, n (count)
 grouped_games_words <- games_description |>
@@ -81,6 +84,10 @@ grouped_games_sentiments <-
     left_join(grouped_games_words, afinn_lexicon)
   ) |>
   na.omit()
+```
+
+```{R}
+#| Label: Time Analysis Datasets 
 
 # Creating a word dataset that allows analysis across time
 # Has variables: name, word, n (count), and year
@@ -97,8 +104,27 @@ sentimentvstime <-
   ) |>
   na.omit()
 
-```
+# Create a numerical vector with no duplicates. 
+years <- unique(sentimentvstime$year)
 
+# Creates a function to filter out a specific component of the dataset
+topten <- function(y) {
+  sentimentvstime |>
+    filter(year == y) |>
+    arrange(desc(n)) 
+}
+
+# Goes through the numerical vector of years, if the year is later than 2000
+# and is divisible by 5, a dynamic variable is created, using the function
+# to create a top ten most common word dataset.
+for (i in 1:length(years)) {
+  if (years[[i]] %% 5 == 0 & 
+      years[[i]] > 2000) {
+  assign(paste0("year_", years[[i]]), topten((years[[i]])) |>
+    slice(1:10) )}
+}
+
+```
 
 
 ```{r}
@@ -106,7 +132,11 @@ sentimentvstime <-
 
 # data used for word analysis
 saveRDS(total_games_words, file = "../data/processed/total_games_words.RDS")
-saveRDS(sentimentvstime, file = "../data/processed/sentiment_vs_time.RDS")
+saveRDS(year_2025, file = "../data/processed/year_2025.RDS")
+saveRDS(year_2020, file = "../data/processed/year_2020.RDS")
+saveRDS(year_2015, file = "../data/processed/year_2015.RDS")
+saveRDS(year_2010, file = "../data/processed/year_2010.RDS")
+saveRDS(year_2005, file = "../data/processed/year_2005.RDS")
 saveRDS(grouped_games_words, file = "../data/processed/grouped_games_words.RDS")
 saveRDS(grouped_games_sentiments, file = "../data/processed/grouped_games_sentiments.RDS")
 ```
