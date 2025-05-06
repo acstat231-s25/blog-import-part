@@ -6,23 +6,24 @@ author: "Surya Rao"
 ```{r include = FALSE, echo = FALSE}
 library(ggraph)
 library(dplyr)
+library(ggiraph)
+
 ```
 
 
-For this component I have displayed the network of the top 10 highest rated games on Metacritic in general and in each cluster from the cluster analysis. Metacritic is a platform that averages critic score for video games, it is a lot like Rotten Tomatoes. 
+For this component, I have displayed the network of the top 10 games with the highest ratings on Metacritic in general and in each cluster from the cluster analysis. Metacritic is a platform that averages critic scores for video games, a lot like Rotten Tomatoes.
 
 ## Variables
 
-* For the edges the variable I used were **tags**, specifically the number of shared tags between each game. Tags are user suggested words or short phrases that describe each game. The **color** and **width** of each edge is determined by the number of shared tags.
+* For the edges, the variable I used was **tags**, specifically the number of shared tags between each game. Tags are user-suggested words or short phrases that describe each game. The number of shared tags determines the color and width of each edge.
 
-* The other variable displayed on the network is a boolean node variable which records if a game's steam reviews are **overwhelmingly positive**. On Steam a user can rate a game with either a thumbs up or down, if 95% or more of the reviews are a thumbs up the game marked as having overwhelming positive reviews. The data set gives the number of **positive user reviews** and **negative user reviews**, I divided positive reviews by the sum of positive user reviews and negative user reviews to get the percentage. The node is colored red if the percentage is below 95% but blue if it is.
-
+* The other variable displayed on the network is a boolean node variable which records if a game's Steam reviews are **overwhelmingly positive**. On Steam, a user can rate a game with either a thumbs-up or down. If 95% or more of the reviews are a thumbs up, the game is marked as having overwhelmingly positive reviews. The dataset gives the number of **positive user reviews** and **negative user reviews**. I divided positive reviews by the sum of positive user reviews and negative user reviews to get the percentage. The node is colored red if the percentage is below 95%, but blue if it is.
 
 ![](/docs/images/portal2.png){width=25%}
 
-This image shows the steam page of my favorite game and one visualized in some of these networks, Portal 2. This shows how you would see the variables used in these networks when browsing the steam store, and what they look like.
+This image shows the Steam page of my favorite game, and one visualized in some of these networks, Portal 2. This shows how you would see the variables used in these networks when browsing the Steam store.
 
-Disclaimer: The network for Cluster 1 is not shown due to inapproprate results
+Disclaimer: The network for Cluster 1 is not shown due to inappropriate results. I used the StackOverflow post [@use_ggiraph] to help me create these networks.
 
 ## General Top 10 Network
 
@@ -32,7 +33,7 @@ set.seed(108)
 
 top_games <- readRDS("data/processed/Top10Network.RDS")
 
-ggraph(top_games, 'drl') +
+graph <- ggraph(top_games, 'drl') +
   scale_size(range = c(1,10)) +
   geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
   scale_fill_gradient(low = "white", high = "darkgreen") +
@@ -46,10 +47,11 @@ ggraph(top_games, 'drl') +
     edge_width = "Total number of Shared Tags",
     fill = "Weighted Degree", 
     repel = TRUE)
+
+girafe(ggobj = graph,width_svg = 7, height_svg = 6)
 ```
 
-The network shows a few interesting things about the top Metacritic rated games. One thing I noticed was action games in famous high budget series like Grand Theft Auto and The Elder Scrolls had higher degree centrality while games in other genres like the Portal 2 and Persona 5 had much lower degree centrality. This shows the tendency of these large budget action games to get high Metacritic scores. The average weighted degree is `r mean(pull(top_games,weighted_degree))` which is higher then many any of the cluster's average weighted degree, this shows that the top rated games on Metacritic are similar in their own ways.
-
+The network shows a few interesting things about the top Metacritic-rated games. One thing I noticed was that action games in famous high-budget series like Grand Theft Auto and The Elder Scrolls had a higher degree of centrality, while games in other genres like Portal 2 and Persona 5 had a much lower degree of centrality. This shows the tendency of these large-budget action games to get high Metacritic scores. The average weighted degree is `r mean(pull(top_games,weighted_degree))`, which is higher than many of the cluster's average weighted degrees. This shows that the top-rated games on Metacritic are similar in their many ways.
 
 
 ## Cluster 2
@@ -60,7 +62,7 @@ Cluster2 <- readRDS("data/processed/Cluster2.RDS")
 
 set.seed(108)
 
-ggraph(Cluster2, 'drl') +
+graph <- ggraph(Cluster2, 'drl') +
   scale_size(range = c(1,10)) +
   geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
   scale_fill_gradient(low = "white", high = "darkgreen") +
@@ -74,10 +76,12 @@ ggraph(Cluster2, 'drl') +
     edge_width = "Total number of Shared Tags",
     fill = "Weighted Degree", 
     repel = TRUE)
+
+girafe(ggobj = graph,width_svg = 7, height_svg = 6)
+
 ```
 
-Thus network has a average weighted degree of `r mean(pull(Cluster2,weighted_degree))` which is much reasonably high when compared to other clusters. Only one of these games is overwhelmingly positive on steam - Bloons TD 5, this game also has a notably high weighted degree. The game Konung 2 has the lowest weighted degree in this network and is tied for the lowest degree on any network. It seems that most of the top rated games in the cluster are generally similar as seen by the average weighted degree to each other except Konung 2 and are not considered to be excellent games except for Bloons TD5.
-
+Thus network has an average weighted degree of `r mean(pull(Cluster2,weighted_degree))`, which is reasonably high when compared to other clusters. Only one of these games is overwhelmingly positive on Steam - Bloons TD 5, this game also has a notably high weighted degree. The game Konung 2 has the lowest weighted degree in this network and is tied for the lowest degree on any network. It seems that most of the top-rated games in the cluster are generally similar, as seen by the average weighted degree, except Konung 2, and are not considered to be excellent games, except for Bloons TD5.
 
 ## Cluster 3
 
@@ -87,7 +91,7 @@ Cluster3 <- readRDS("data/processed/Cluster3.RDS")
 
 set.seed(108)
 
-ggraph(Cluster3, 'drl') +
+graph <- ggraph(Cluster3, 'drl') +
   scale_size(range = c(1,10)) +
   geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
   scale_fill_gradient(low = "white", high = "darkgreen") +
@@ -101,9 +105,11 @@ ggraph(Cluster3, 'drl') +
     edge_width = "Total number of Shared Tags",
     fill = "Weighted Degree", 
     repel = TRUE)
+girafe(ggobj = graph,width_svg = 7, height_svg = 6)
+
 ```
 
-This network has a higher range of weighted degree then any other cluster, with a weighted degree of `r mean(pull(Cluster3,weighted_degree))`. Many of these games are reviewed as being overwhelmingly positive. The games in this network are over represented in the top 10 games showing that this type of game (one that has high age requirements, price, and recommendations) is predisposed to succeed critically. The high average weighted degree suggests there is a sort of formula in terms of the types of games that make it into this cluster and get high metacritic ratings.
+This network has a higher range of weighted degree than any other cluster, with a weighted degree of `r mean(pull(Cluster3,weighted_degree))`. Many of these games are reviewed as being overwhelmingly positive. The games in this network are overrepresented in the top 10 games, showing that this type of game (one that has high age requirements, price, and recommendations) is predisposed to succeed critically. The high average weighted degree suggests there is a sort of formula in terms of the types of games that make it into this cluster and get high metacritic ratings.
 
 ## Cluster 4
 ```{r}
@@ -112,7 +118,7 @@ Cluster4 <- readRDS("data/processed/Cluster4.RDS")
 
 set.seed(108)
 
-ggraph(Cluster4, 'drl') +
+graph <- ggraph(Cluster4, 'drl') +
   scale_size(range = c(1,10)) +
   geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) + 
   scale_fill_gradient(low = "white", high = "darkgreen") +
@@ -126,9 +132,12 @@ ggraph(Cluster4, 'drl') +
     edge_width = "Total number of Shared Tags",
     fill = "Weighted Degree", 
     repel = TRUE)
+
+girafe(ggobj = graph,width_svg = 7, height_svg = 6)
+
 ```
 
-This network has a very low weighted degree of `r mean(pull(Cluster4,weighted_degree))`, the lowest of any cluster. None of these games are reviewed as being overwhelmingly positive. The degree of these nodes vary wildly, with Perimeter 2 having only one edge and a very low weighted degree while Everreach has a much higher weighted degree then any other game in the network, showing considerable variation in terms of tags for this cluster. This shows that highly rated games from this cluster have not much to do with each other and are not very well liked by the steam community.
+This network has a very low weighted degree of `r mean(pull(Cluster4,weighted_degree))`, the lowest of any cluster. None of these games are reviewed as being overwhelmingly positive. The degree of these nodes varies wildly, with Perimeter 2 having only one edge and a very low weighted degree, while Everreach has a much higher weighted degree than any other game in the network, showing considerable variation in terms of tags for this cluster. This shows that highly rated games from this cluster have not much to do with each other and are not very well liked by the Steam community.
 
 
 ## Cluster 5
@@ -140,7 +149,7 @@ Cluster5 <- readRDS("data/processed/Cluster5.RDS")
 
 set.seed(108)
 
-ggraph(Cluster5, 'drl') +
+graph <- ggraph(Cluster5, 'drl') +
   scale_size(range = c(1,10)) +
   geom_edge_link(aes(width = n, edge_colour = n), alpha = 0.7) +
   scale_fill_gradient(low = "white", high = "darkgreen") +
@@ -154,5 +163,11 @@ ggraph(Cluster5, 'drl') +
     edge_width = "Total number of Shared Tags",
     fill = "Weighted Degree", 
     repel = TRUE)
+girafe(ggobj = graph,width_svg = 7, height_svg = 6)
+
 ```
-This network has a reasonably small weighted degree of `r mean(pull(Cluster5,weighted_degree))`. It has by far the most number of games rated Overwhelmingly Positive by the steam community. Most of these games have a high weighted degree except Team Fortress 2, suggesting it is a bit of an outlier in the top games of this cluster. This network shows that the of the highest rated games in cluster 5 are very well liked and have diverse play styles as seen by their comparatively small average weighted degree.
+This network has a reasonably small weighted degree of `r mean(pull(Cluster5,weighted_degree))`. It has by far the most number of games rated Overwhelmingly Positive by the Steam community. Most of these games have a high weighted degree except Team Fortress 2, suggesting it is a bit of an outlier in the top games of this cluster. This network shows that the highest rated games in cluster 5 are very well liked and have diverse play styles, as seen by their comparatively small average weighted degree.
+
+## Conclusion
+
+These networks show that games with high Metacritic scores often share many characteristics, demonstrated by shared tags. Some of the clusters in the previous analysis have more shared characteristics with highly reviewed games than others, and some clusters are overrepresented in the top games when compared to the rest. Finding the shared characteristics of these highly rated games, especially those in cluster 3, which are overrepresented in the general top ten network, might be useful for predicting if a game will be a critical success. In the future, I would like to create a network of all of the data and find the shared tags that correlate most to higher critic scores.
