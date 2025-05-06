@@ -13,12 +13,9 @@ options(scipen = 1, knitr.kable.NA = '')
 # load packages
 library(tidyverse)
 library(readr)
-library(purrr)
 library(wordcloud2)
 library(RColorBrewer)
-library(wordcloud)
 library(plotly)
-library(ggiraph)
 ```
 
 ```{r}
@@ -41,16 +38,44 @@ year_2005 <- readRDS("data/processed/year_2005.RDS")
 
 ```
 
+We can uncover meaningful insights and patterns about the tens of thousands of games people play on STEAM through text analysis. What are the prominent patterns in game descriptions? What words and sentimental patterns appear the most common in all game descriptions combined? Do text tell us the differences and similarities of released games through the passage time? In what ways can we apply these findings?
 
-## Overall Analysis
+## Analysis Process
+To address these inquiries, I analyzed text through predominantly word-clouds and bar-charts. Games with only english text are included. Words excluded definitively are stop words. In some visualizations, words without AFINN values are excluded to place emphasis on analyzing sentiment across text. 
 
-There are so many games on Steam, so it is fascinating to explore the patterns, especially through text analysis. What are some of the most prevalent terms overall? Are there more positive or negative descriptive terms? What patterns do these prevalent terms tell? 
+#### Variables Explored:
+There are four main variables that are explored in various visualizations:
 
-The visualizations below seek to address such questions. 
+- `word` - Singular words extracted from game's descriptions. 
+
+- `year` - A categorical variable of time. 
+
+- `n` - Count of instances, which in this context refer to words. 
+
+- `value` - AFINN Sentimental Value
+
+#### Packages Utilized:
+- `tidyverse`  
+
+- `readr` 
+
+- `wordcloud2`
+
+- `RColorBrewer`
+
+- `plotly`
+
+#### AFINN:
+AFINN, developed by Finn Arup Nielson, is a lexicon (list) of words rated for their emotional valence. Each word can be assigned to a value from -5 to +5, with negative values indicative of negative sentiments and positive values indicative of positive sentiments. For instance, words such as "happy", "adventurous", and "magic" would have positive values, while words like "disgust' and "evil" would have negative values. 
+
+#### Stop Words:
+Stop words are essentially your everyday words that don't really contribute to meanings or ideas. They include articles such as "the" and "is". 
 
 ::: {.callout-note}
 Disclaimer: Visualizations exclude most games which descriptions are in other languages. 
 :::
+
+## Overall Analysis
 
 ### Word Cloud
 This word cloud represents words in all Steam games' descriptions excluding those of other languages AND are associated with their corresponding sentimental values. Hover to see the prevalence of each word.
@@ -212,7 +237,7 @@ ggplotly(graph_2005, tooltip = c("y", "value"))
 :::
 
 #### Trends across Time
-The top ten words in STEAM's Games Descriptions in all five years tend to be action-themed. There were also a several words that were on the top 10 across different years, which are: `enemies`, `battle`, and `adventure`. In most years, more than half the terms evoke a negative sentiment whereas in 2015, there was a balanced mixture of both positive and negative AFINN words. 
+The top ten words in STEAM's Games Descriptions in all five years tend to be action-themed. There were also a several words that were on the top 10 across different years, which are: "enemies", "battle", and "adventure". In most years, more than half the terms evoke a negative sentiment whereas in 2015, there was a balanced mixture of both positive and negative AFINN words. 
 
 
 ## Game-Specific Analysis 
@@ -307,8 +332,9 @@ ggplotly(q, tooltip = c("x", "y"))
 ```
 :::
 
-It's interesting to see that while both games differ in terms of settings and their overall themes, they share several terms, one especially is `world`. Other terms such as `characters` and `explore` hint their similarity as games that empower players to roam in their respective realms and engage in roleplaying. Perhaps this similarity also contribute to their statuses as top rated games, as these games that enable high immersive interaction and exploration may appeal to most of STEAM's audience. 
+It's interesting to see that while both games differ in terms of settings and their overall themes, they share several terms, one especially is "world". Other terms such as "characters" and "explore" hint their similarity as games that empower players to roam in their respective realms and engage in roleplaying. Perhaps this similarity also contribute to their statuses as top rated games, as these games that enable high immersive interaction and exploration may appeal to most of STEAM's audience. While there are many similarities, a noticeable difference between the two games lies in their average sentimental values. Elder Scrolls IV has a balanced mixture of both positive and negative words while Grand Theft Auto V has more positive words. 
 
-
+## Take-Aways
+A recurring theme found in most words is *action*. Whether it be analyzing game descriptions from big, small, or chronological scale, I tend to see most words related to action. Additionally, prevalent words that have a negative AFINN values are typically about challenges such as combat or war while those with positive AFINN values are typically descriptive- "fun", "glory", "powerful", etc. What piqued my curiosity was the fact that prevalent words remain similar across time, and there were several that even stayed in the top 10. Perhaps this is due to the fact that action games tend to be more popular, as reinforced by my partners' analyses. Action games entice players with prospects of fun challenges and immersive exploration. Hence, more games that are released are in the genre of action than others genres. Overall, textual analysis can be used to reveal trends and insights such as those uncovered in this project, which can contribute to market research in the field of entertainment such as video-games production. 
 
 
