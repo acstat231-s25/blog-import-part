@@ -22,7 +22,7 @@ For this component, I have displayed the network of the top 10 games with the hi
 
 This image shows the Steam page of my favorite game, and one visualized in some of these networks, Portal 2. This shows how you would see the variables used in these networks when browsing the Steam store.
 
-Disclaimer: The network for Cluster 1 is not shown due to inappropriate results. I used the StackOverflow post [@use_ggiraph] to help me create these networks.
+Disclaimer: The network for Cluster 1 is not shown due to inappropriate results. I used the StackOverflow post [@use_ggiraph] to help me create these networks. I used the packages [@ggraph_cite], [@ggiraph_cite], [@dplyr_cite].
 
 ## General Top 10 Network
 
